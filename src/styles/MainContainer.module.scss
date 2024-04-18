@@ -1,0 +1,23 @@
+@import "./modules/variables";
+
+.main_container {
+  max-width: 2500px;
+  width: 100%;
+  margin: 0 auto;
+  background: white;
+  min-height: 100vh;
+  :global(.ant-layout-header) {
+    color: $dark-purple;
+    background-color: #fff;
+    padding: 0 1rem;
+    box-shadow: #95929240 0px 3px 12px 20px;
+    margin-bottom: 0.2rem;
+  }
+  :global(.ant-layout-sider) {
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-bottom: 0;
+  }
+}
