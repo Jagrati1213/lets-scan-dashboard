@@ -3,6 +3,7 @@ import { Content, Footer, Header } from "antd/es/layout/layout";
 import Style from "../styles/MainContainer.module.scss";
 import { Navigation } from "./Navigation";
 import { SiderContainer } from "./SiderContainer";
+import { Outlet } from "react-router-dom";
 
 export const MainContainer = () => {
   return (
@@ -12,7 +13,9 @@ export const MainContainer = () => {
       </Header>
       <Layout>
         <SiderContainer />
-        <Content>Content</Content>
+        <Content>
+          <Outlet />
+        </Content>
       </Layout>
       <Footer>Footer</Footer>
     </Layout>
