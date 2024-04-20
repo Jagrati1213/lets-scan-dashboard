@@ -6,28 +6,31 @@ import { IoHome } from "react-icons/io5";
 import { MdRestaurantMenu } from "react-icons/md";
 import { FaBoxOpen } from "react-icons/fa6";
 import { RiLogoutCircleFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
-type MenuItem = Required<MenuProps>["items"][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[]
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
-const items: MenuItem[] = [
-  getItem("Dashboard", "1", <IoHome />),
-  getItem("Menus", "2", <MdRestaurantMenu />),
-  getItem("Order List", "3", <FaBoxOpen />),
-  getItem("Logout", "4", <RiLogoutCircleFill />),
+const items: MenuProps["items"] = [
+  {
+    label: <Link to="/">Dashboard</Link>,
+    key: "home",
+    icon: <IoHome />,
+  },
+  {
+    label: <Link to="/menu">Menu</Link>,
+    key: "menu",
+    icon: <MdRestaurantMenu />,
+  },
+  {
+    label: <Link to="/orders">Order List</Link>,
+    key: "order",
+    icon: <FaBoxOpen />,
+  },
+  {
+    label: <Link to="/logout">Log Out</Link>,
+    key: "logout",
+    icon: <RiLogoutCircleFill />,
+  },
 ];
+
 export const SiderContainer = () => {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -38,7 +41,7 @@ export const SiderContainer = () => {
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
     >
-      <Menu defaultSelectedKeys={["1"]} mode="inline" items={items} />
+      <Menu defaultSelectedKeys={["home"]} mode="inline" items={items} />
     </Sider>
   );
 };
