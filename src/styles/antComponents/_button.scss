@@ -1,0 +1,9 @@
+@import "../modules/variables";
+
+.ant-btn-primary {
+  background: $purple;
+  font-weight: 500;
+  &:hover {
+    background: $dark-purple !important;
+  }
+}
