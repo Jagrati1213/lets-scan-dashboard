@@ -1,4 +1,4 @@
-import Style from "../styles/Navigation.module.scss";
+import Style from "../styles/_Navigation.module.scss";
 
 export const Navigation = () => {
   return (

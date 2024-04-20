@@ -1,12 +1,12 @@
 import { Menu, MenuProps } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
-import Style from "../styles/SiderContainer.module.scss";
 import { IoHome } from "react-icons/io5";
 import { MdRestaurantMenu } from "react-icons/md";
 import { FaBoxOpen } from "react-icons/fa6";
 import { RiLogoutCircleFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import Style from "../styles/_SiderContainer.module.scss";
 
 const items: MenuProps["items"] = [
   {

@@ -1,6 +1,6 @@
 import { MainContainer } from "./components/MainContainer";
 import "./styles/global.scss";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
