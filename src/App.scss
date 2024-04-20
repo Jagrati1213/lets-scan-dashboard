@@ -1,0 +1,20 @@
+@import "./styles/modules/_variables.scss";
+
+body {
+  margin: 0;
+  padding: 0;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px $shell;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: $dark-purple;
+  }
+}
