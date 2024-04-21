@@ -1,0 +1,24 @@
+@import "../modules/variables";
+
+.ant-drawer {
+  .ant-drawer-header-title {
+    flex-direction: row-reverse;
+    .ant-drawer-title,
+    .ant-drawer-close {
+      color: #fff;
+    }
+  }
+  .ant-drawer-body {
+    padding: 18px;
+  }
+  .ant-drawer-header {
+    background: $dark-purple;
+  }
+  .ant-image {
+    width: 200px;
+    border-radius: 2px;
+    img {
+      border-radius: 2px;
+    }
+  }
+}
