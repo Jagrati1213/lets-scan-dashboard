@@ -1,0 +1,10 @@
+@import "../styles/modules/variables";
+
+.menu_view_drawer {
+  background-color: red;
+  :global(.price) {
+    color: $dark-purple;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+}
