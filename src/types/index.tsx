@@ -12,3 +12,9 @@ export type MenuFormProps = {
   desc?: string;
   image?: string;
 };
+
+export interface drawerOptions {
+  isAddMenuOpen: boolean;
+  isMenuViewOpen: boolean;
+  isMenuEditorOpen: boolean;
+}
