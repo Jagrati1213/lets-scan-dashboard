@@ -3,13 +3,17 @@ import Title from "antd/es/typography/Title";
 import { useState } from "react";
 import MenuViewDrawer from "./MenuViewDrawer";
 import AddMenuDrawer from "./AddMenuDrawer";
-import { MenuListType } from "../../types";
+import { MenuListType, drawerOptions } from "../../types";
 import Style from "../../styles/_Menu.module.scss";
+import EditMenuDrawer from "./EditMenuDrawer";
 
 export default function Menu() {
   // states
-  const [isAddMenuOpen, setIsAddMenuOpen] = useState<boolean>(false);
-  const [isMenuViewOpen, setIsMenuViewOpen] = useState<boolean>(false);
+  const [drawerOptions, setDrawerOptions] = useState<drawerOptions>({
+    isAddMenuOpen: false,
+    isMenuViewOpen: false,
+    isMenuEditorOpen: false,
+  });
   const [menuList, setMenuList] = useState<MenuListType[]>([
     {
       id: 1,
@@ -31,12 +35,8 @@ export default function Menu() {
   const [menuDetails, setMenuDetails] = useState<MenuListType>(menuList[0]);
 
   // methods
-  const showAddMenu = () => {
-    setIsAddMenuOpen(true);
-  };
-
-  const showMenuDetails = () => {
-    setIsMenuViewOpen(true);
+  const showDrawer = (option: string) => {
+    setDrawerOptions((prev) => ({ ...prev, [option]: true }));
   };
 
   return (
@@ -44,7 +44,11 @@ export default function Menu() {
       <Flex gap="40px" vertical>
         <Flex justify={"space-between"} align="center">
           <Title level={5}>Menus </Title>
-          <Button type="primary" shape="round" onClick={showAddMenu}>
+          <Button
+            type="primary"
+            shape="round"
+            onClick={showDrawer.bind(null, "isAddMenuOpen")}
+          >
             Add Menu
           </Button>
         </Flex>
@@ -61,12 +65,18 @@ export default function Menu() {
                   type="link"
                   onClick={() => {
                     setMenuDetails(menuList[index]);
-                    showMenuDetails();
+                    showDrawer("isMenuViewOpen");
                   }}
                 >
                   View
                 </Button>,
-                <Button type="link" onClick={showMenuDetails}>
+                <Button
+                  type="link"
+                  onClick={() => {
+                    setMenuDetails(menuList[index]);
+                    showDrawer("isMenuEditorOpen");
+                  }}
+                >
                   Edit
                 </Button>,
               ]}
@@ -79,12 +89,22 @@ export default function Menu() {
             </List.Item>
           )}
         />
+
         <MenuViewDrawer
-          open={isMenuViewOpen}
-          setOpen={setIsMenuViewOpen}
+          open={drawerOptions.isMenuViewOpen}
+          setOpen={setDrawerOptions}
           menuData={menuDetails}
         />
-        <AddMenuDrawer open={isAddMenuOpen} setOpen={setIsAddMenuOpen} />
+        <AddMenuDrawer
+          open={drawerOptions.isAddMenuOpen}
+          setOpen={setDrawerOptions}
+        />
+
+        <EditMenuDrawer
+          open={drawerOptions.isMenuEditorOpen}
+          setOpen={setDrawerOptions}
+          menuData={menuDetails}
+        />
       </Flex>
     </div>
   );
