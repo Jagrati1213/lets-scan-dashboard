@@ -5,3 +5,10 @@ export interface MenuListType {
   price: number;
   desc?: string;
 }
+
+export type MenuFormProps = {
+  name: string;
+  price: number;
+  desc?: string;
+  image?: string;
+};
