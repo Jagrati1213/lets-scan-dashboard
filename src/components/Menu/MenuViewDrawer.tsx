@@ -1,17 +1,17 @@
 import { Drawer, Flex, Image, Rate } from "antd";
 import React from "react";
-import { MenuListType } from "../../types";
+import { MenuListType, drawerOptions } from "../../types";
 import Title from "antd/es/typography/Title";
 import Style from "../../styles/_MenuViewDrawer.module.scss";
 
 interface MenuProps {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<drawerOptions>>;
   menuData: MenuListType;
 }
 export default function MenuViewDrawer({ open, setOpen, menuData }: MenuProps) {
   const onClose = () => {
-    setOpen(false);
+    setOpen((prev) => ({ ...prev, isMenuViewOpen: false }));
   };
   return (
     <div className={Style.menu_view_drawer}>

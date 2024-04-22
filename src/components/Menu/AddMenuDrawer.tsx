@@ -1,17 +1,15 @@
 import { Button, Drawer, Form, FormProps, Input, InputNumber } from "antd";
 import React from "react";
+import { MenuFormProps, drawerOptions } from "../../types";
 import Style from "../../styles/_AddMenuDrawer.module.scss";
-import { MenuFormProps } from "../../types";
-import TextArea from "antd/es/input/TextArea";
-
-interface MenuProps {
+interface AddMenuProps {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<drawerOptions>>;
 }
 
-export default function AddMenuDrawer({ open, setOpen }: MenuProps) {
+export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
   const onClose = () => {
-    setOpen(false);
+    setOpen((prev) => ({ ...prev, isAddMenuOpen: false }));
   };
   const onFinish: FormProps<MenuFormProps>["onFinish"] = (values) => {
     console.log("Success:", values);
@@ -57,12 +55,12 @@ export default function AddMenuDrawer({ open, setOpen }: MenuProps) {
           </Form.Item>
 
           <Form.Item<MenuFormProps> label="Description" name="desc">
-            <Input.TextArea placeholder="delicious food" />
+            <Input.TextArea placeholder="delicious food" rows={13} />
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Submit
+              Add Menu
             </Button>
           </Form.Item>
         </Form>
