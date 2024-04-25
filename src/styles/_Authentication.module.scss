@@ -1,0 +1,33 @@
+@import "../styles/modules/variables";
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+.auth_form {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+
+  :global(.ant-typography) {
+    font-size: 1.5rem;
+    color: $purple;
+    font-weight: 700;
+  }
+  :global(.ant-form) {
+    width: 450px;
+    border-radius: 5px;
+    border: 1px solid lavender;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    :global(.ant-form-item-label) label {
+      font-size: 1rem;
+    }
+    :global(.ant-btn-primary) {
+      margin-top: 2rem;
+    }
+  }
+}
