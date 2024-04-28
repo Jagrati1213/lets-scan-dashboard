@@ -18,3 +18,9 @@ export interface drawerOptions {
   isMenuViewOpen: boolean;
   isMenuEditorOpen: boolean;
 }
+
+export interface AuthFieldTypes {
+  username: string;
+  password: string;
+  email: string;
+}
