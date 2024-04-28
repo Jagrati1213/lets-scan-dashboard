@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Menu from "./components/Menu";
 import Orders from "./components/Orders";
@@ -39,4 +38,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-reportWebVitals();
