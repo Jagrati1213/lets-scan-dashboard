@@ -2,8 +2,16 @@
 
 .ant-btn-primary {
   background: $purple;
+  text-decoration: underline;
   font-weight: 500;
   &:hover {
     background: $dark-purple !important;
+  }
+}
+.ant-btn-link {
+  color: $purple;
+  font-weight: 500;
+  &:hover {
+    color: $dark-purple !important;
   }
 }
