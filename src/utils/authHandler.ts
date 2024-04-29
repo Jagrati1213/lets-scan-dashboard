@@ -11,8 +11,13 @@ export const signUpHandler = async ({
     email: email,
     password: password,
   });
-  const data = await response.data;
-  return data;
+  try {
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
 };
 
 export const signInHandler = async ({ username, password }: AuthFieldTypes) => {
@@ -20,6 +25,11 @@ export const signInHandler = async ({ username, password }: AuthFieldTypes) => {
     username: username,
     password: password,
   });
-  const data = await response.data;
-  return data;
+  try {
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
 };
