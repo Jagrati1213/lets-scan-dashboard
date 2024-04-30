@@ -3,21 +3,32 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 interface userState {
-  userName: string | null;
-  password: string | null;
+  user: {
+    userName: string | null;
+    email: string | null;
+    id: string | null;
+  };
 }
 
 // Define the initial state using that type
 const initialState: userState = {
-  userName: null,
-  password: null,
+  user: {
+    id: null,
+    userName: null,
+    email: null,
+  },
 };
 
 export const userSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setUserDetails: (state, action) => {
+      const newUser = action?.payload.user;
+      state.user = { ...newUser };
+    },
+  },
 });
 
-export const {} = userSlice.actions;
+export const { setUserDetails } = userSlice.actions;
 export default userSlice.reducer;
