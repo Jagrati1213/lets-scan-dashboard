@@ -4,24 +4,27 @@ import Title from "antd/es/typography/Title";
 import { useState } from "react";
 import { AuthFieldTypes } from "../../types";
 import "../../styles/global.scss";
-import { signUpHandler } from "../../utils/authHandler";
+import { signInHandler, signUpHandler } from "../../utils/authHandler";
+import { getUserHandler } from "../../utils/getUserHandler";
+import { setUserDetails } from "../../store/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 export default function Authentication() {
+  const dispatch = useDispatch();
   const [isSignUp, setIsSignUp] = useState(false);
-
   const [form] = Form.useForm();
+
   const handleAuthentication: FormProps<AuthFieldTypes>["onFinish"] = async (
     values
   ) => {
+    const { username, email, password } = values;
+
     if (isSignUp) {
-      const { username, email, password } = values;
-      const data = await signUpHandler({ username, email, password });
-      console.log(data);
-      if (data.status === 400 || data.status === 500) {
-        message.error(data.message);
-      } else {
-        message.success(data.message);
-      }
+      await signUpHandler({ username, email, password });
+    } else {
+      await signInHandler({ username, password });
+      const data = await getUserHandler();
+      dispatch(setUserDetails(data));
     }
   };
   return (
