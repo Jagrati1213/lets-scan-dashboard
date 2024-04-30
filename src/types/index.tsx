@@ -22,5 +22,5 @@ export interface drawerOptions {
 export interface AuthFieldTypes {
   username: string;
   password: string;
-  email: string;
+  email?: string;
 }
