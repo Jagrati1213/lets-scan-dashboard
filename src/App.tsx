@@ -4,34 +4,23 @@ import "./App.scss";
 import Authentication from "./components/Authentication";
 import { useAppSelector } from "./store/store";
 import { useEffect } from "react";
-import { getUserHandler, refreshTokenHandler } from "./utils/getUserHandler";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "./store/slices/userSlice";
+import { apiClient } from "./global";
+import { getUserDetails } from "./utils/getUserHandler";
 
 function App() {
-  const dispatch = useDispatch();
   const { user } = useAppSelector((store) => store.auth);
-  let firstRender = true;
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (firstRender) {
-      firstRender = false;
-      getUserHandler()
-        .then((data) => dispatch(setUserDetails(data)))
-        .catch((error) => console.log(error));
-    }
-
-    let interval = setTimeout(() => {
-      refreshTokenHandler()
-        .then((data) => dispatch(setUserDetails(data)))
-        .catch((error) => console.log(error));
-    }, 1000 * 30);
-
-    return () => clearInterval(interval);
+    getUserDetails()
+      .then((data) => dispatch(setUserDetails(data)))
+      .catch((error) => console.log("ERROR IN GET USER DETAILS, ", error));
   }, []);
   return (
     <div className="App">
-      {user.email && user.email ? <MainContainer /> : <Authentication />}
+      {user.email || user.userName ? <MainContainer /> : <Authentication />}
     </div>
   );
 }
