@@ -5,7 +5,7 @@ interface userState {
     userName: string | null;
     email: string | null;
     id: string | null;
-    menuItems: string[];
+    menuItems?: string[];
   };
 }
 
@@ -27,8 +27,16 @@ export const userSlice = createSlice({
       const newUser = action?.payload;
       state.user = { ...newUser };
     },
+    removeUser: (state) => {
+      state.user = {
+        userName: null,
+        email: null,
+        id: null,
+        menuItems: [],
+      };
+    },
   },
 });
 
-export const { setUserDetails } = userSlice.actions;
+export const { setUserDetails, removeUser } = userSlice.actions;
 export default userSlice.reducer;
