@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
 
 interface userState {
   user: {
     userName: string | null;
     email: string | null;
     id: string | null;
+    menuItems: string[];
   };
 }
 
@@ -16,6 +15,7 @@ const initialState: userState = {
     id: null,
     userName: null,
     email: null,
+    menuItems: [],
   },
 };
 
@@ -24,7 +24,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUserDetails: (state, action) => {
-      const newUser = action?.payload.user;
+      const newUser = action?.payload;
       state.user = { ...newUser };
     },
   },
