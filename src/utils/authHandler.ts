@@ -7,18 +7,18 @@ export const signUpHandler = async ({
   email,
   password,
 }: AuthFieldTypes) => {
-  const response = await apiClient.post("signup", {
-    username: username,
+  const response = await apiClient.post("register", {
+    username: username.toLowerCase(),
     email: email,
     password: password,
   });
+  const { success, statusText } = await response.data;
+
   try {
-    const data = await response.data;
-    if (data.status === 201) {
-      message.success(data.message);
-      await signInHandler({ username, password });
+    if (success) {
+      message.success(statusText);
     } else {
-      message.error(data.message);
+      message.error(statusText);
     }
   } catch (error) {
     console.log(error);
@@ -26,15 +26,19 @@ export const signUpHandler = async ({
 };
 
 export const signInHandler = async ({ username, password }: AuthFieldTypes) => {
-  const response = await apiClient.post("signin", {
-    username: username,
+  const response = await apiClient.post("login", {
+    username: username.toLowerCase(),
     password: password,
   });
+
   try {
-    const data = await response.data;
-    if (data.status === 200) {
-      message.success(data.message);
-    } else message.error(data.message);
+    const { success, statusText, data } = await response.data;
+    if (success) {
+      message.success(statusText);
+    } else {
+      message.error(statusText);
+    }
+    return data;
   } catch (error) {
     console.log(error);
     return;
