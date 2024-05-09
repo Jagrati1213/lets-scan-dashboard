@@ -5,7 +5,6 @@ import { useState } from "react";
 import { AuthFieldTypes } from "../../types";
 import "../../styles/global.scss";
 import { signInHandler, signUpHandler } from "../../utils/authHandler";
-import { getUserHandler } from "../../utils/getUserHandler";
 import { setUserDetails } from "../../store/slices/userSlice";
 import { useDispatch } from "react-redux";
 
@@ -22,9 +21,9 @@ export default function Authentication() {
     if (isSignUp) {
       await signUpHandler({ username, email, password });
     } else {
-      await signInHandler({ username, password });
-      const data = await getUserHandler();
-      dispatch(setUserDetails(data));
+      const data = await signInHandler({ username, password });
+      if (!data?.user) return;
+      dispatch(setUserDetails(data.user));
     }
   };
   return (
