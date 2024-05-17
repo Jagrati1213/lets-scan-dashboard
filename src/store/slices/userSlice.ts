@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface userState {
   user: {
-    userName: string | null;
+    username: string | null;
     email: string | null;
     id: string | null;
     menuItems?: string[];
@@ -13,7 +13,7 @@ interface userState {
 const initialState: userState = {
   user: {
     id: null,
-    userName: null,
+    username: null,
     email: null,
     menuItems: [],
   },
@@ -29,7 +29,7 @@ export const userSlice = createSlice({
     },
     removeUser: (state) => {
       state.user = {
-        userName: null,
+        username: null,
         email: null,
         id: null,
         menuItems: [],
