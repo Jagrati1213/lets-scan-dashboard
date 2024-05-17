@@ -1,8 +1,8 @@
-import { apiClient } from "../global";
+import { Axios } from "../global";
 
 export const getUserDetails = async () => {
   try {
-    const response = await apiClient.post("user-details");
+    const response = await Axios.post("user-details");
     const { data } = await response.data;
     return data;
   } catch (error) {

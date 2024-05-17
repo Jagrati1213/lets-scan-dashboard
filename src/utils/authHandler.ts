@@ -1,5 +1,5 @@
 import { message } from "antd";
-import { apiClient } from "../global";
+import { Axios } from "../global";
 import { AuthFieldTypes } from "../types";
 
 export const signUpHandler = async ({
@@ -7,7 +7,7 @@ export const signUpHandler = async ({
   email,
   password,
 }: AuthFieldTypes) => {
-  const response = await apiClient.post("register", {
+  const response = await Axios.post("register", {
     username: username.toLowerCase(),
     email: email,
     password: password,
@@ -26,7 +26,7 @@ export const signUpHandler = async ({
 };
 
 export const signInHandler = async ({ username, password }: AuthFieldTypes) => {
-  const response = await apiClient.post("login", {
+  const response = await Axios.post("login", {
     username: username.toLowerCase(),
     password: password,
   });
