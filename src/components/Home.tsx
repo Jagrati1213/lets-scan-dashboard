@@ -17,7 +17,6 @@ export default function Home() {
           <Outlet />
         </Content>
       </Layout>
-      <Footer>Footer</Footer>
     </Layout>
   );
 }
