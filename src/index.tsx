@@ -6,6 +6,7 @@ import Menu from "./components/Menu";
 import Orders from "./components/Orders";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import Dashboard from "./components/Dashboard";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "/",
+        element: <Dashboard />,
+      },
       {
         path: "/menu",
         element: <Menu />,
