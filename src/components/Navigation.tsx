@@ -4,7 +4,6 @@ import Style from "../styles/_Navigation.module.scss";
 
 export const Navigation = () => {
   const { user } = useAppSelector((store) => store.auth);
-  console.log(user.username);
   return (
     <div className={Style.nav}>
       <Flex align="center" justify="space-between">
