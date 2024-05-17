@@ -21,7 +21,7 @@ export const signUpHandler = async ({
       message.error(statusText);
     }
   } catch (error) {
-    console.log(error);
+    console.log("ERROR IN REGISTER USER, ", error);
   }
 };
 
@@ -40,7 +40,7 @@ export const signInHandler = async ({ username, password }: AuthFieldTypes) => {
     }
     return data;
   } catch (error) {
-    console.log(error);
+    console.log("ERROR IN LOGIN USER,", error);
     return;
   }
 };
