@@ -37,9 +37,13 @@
   }
   :global(.ant-btn) {
     font-size: 1.4rem;
-    color: $dark-purple;
+    color: $purple;
   }
   @include tablet {
     display: flex;
   }
+}
+.active_btn {
+  background-color: $dark-purple;
+  color: #fff !important;
 }
