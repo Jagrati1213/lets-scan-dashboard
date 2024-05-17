@@ -2,7 +2,6 @@ import { Button, Drawer, Form, FormProps, Input, InputNumber } from "antd";
 import React, { useEffect } from "react";
 import { MenuFormProps, MenuListType, drawerOptions } from "../../types";
 import Style from "../../styles/_AddMenuDrawer.module.scss";
-import { useForm } from "antd/es/form/Form";
 
 interface EditMenuProps {
   open: boolean;
@@ -14,7 +13,7 @@ export default function EditMenuDrawer({
   setOpen,
   menuData,
 }: EditMenuProps) {
-  const [form] = useForm<MenuFormProps>();
+  const [form] = Form.useForm();
 
   const onClose = () => {
     setOpen((prev) => ({ ...prev, isMenuEditorOpen: false }));
