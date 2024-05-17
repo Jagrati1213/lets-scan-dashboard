@@ -25,4 +25,13 @@
     text-transform: uppercase;
     font-weight: 600;
   }
+
+  @include mobile {
+    h1 {
+      font-size: 1rem;
+    }
+    p {
+      display: none;
+    }
+  }
 }
