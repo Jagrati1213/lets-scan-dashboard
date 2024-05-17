@@ -4,6 +4,7 @@ import { Navigation } from "./Navigation";
 import { SiderContainer } from "./SiderContainer";
 import { Outlet } from "react-router-dom";
 import Style from "../styles/_MainContainer.module.scss";
+import { MobileNav } from "./MobileNav";
 
 export default function Home() {
   return (
@@ -17,6 +18,9 @@ export default function Home() {
           <Outlet />
         </Content>
       </Layout>
+      <Footer>
+        <MobileNav />
+      </Footer>
     </Layout>
   );
 }
