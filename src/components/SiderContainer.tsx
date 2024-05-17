@@ -5,7 +5,7 @@ import { IoHome } from "react-icons/io5";
 import { MdRestaurantMenu } from "react-icons/md";
 import { FaBoxOpen } from "react-icons/fa6";
 import { RiLogoutCircleFill } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Style from "../styles/_SiderContainer.module.scss";
 import { Axios } from "../global";
 import { useDispatch } from "react-redux";
@@ -15,7 +15,7 @@ export const SiderContainer = () => {
   // COLLAPSE MENU SIDEBAR
   const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const location = useLocation();
 
   // HANDLE FOR LOG OUT
   const handleLogout = async () => {
@@ -24,7 +24,6 @@ export const SiderContainer = () => {
     if (success) {
       message.success(statusText);
       dispatch(removeUser());
-      navigate("/");
     } else message.error(statusText);
   };
 
@@ -42,7 +41,7 @@ export const SiderContainer = () => {
     },
     {
       label: <Link to="/orders">Order List</Link>,
-      key: "order",
+      key: "orders",
       icon: <FaBoxOpen />,
     },
     {
@@ -60,7 +59,13 @@ export const SiderContainer = () => {
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
     >
-      <Menu defaultSelectedKeys={["home"]} mode="inline" items={items} />
+      <Menu
+        defaultSelectedKeys={[
+          location.pathname === "/" ? "home" : location.pathname.slice(1),
+        ]}
+        mode="inline"
+        items={items}
+      />
     </Sider>
   );
 };
