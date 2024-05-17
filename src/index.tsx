@@ -6,7 +6,7 @@ import Menu from "./components/Menu";
 import Orders from "./components/Orders";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/DashBoard";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
