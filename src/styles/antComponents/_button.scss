@@ -1,4 +1,5 @@
 @import "../modules/variables";
+@import "../modules/mixin";
 
 .ant-btn-primary {
   background: $purple;
@@ -6,6 +7,9 @@
   font-weight: 500;
   &:hover {
     background: $dark-purple !important;
+  }
+  @include tablet {
+    font-size: 0.7rem;
   }
 }
 .ant-btn-link {
