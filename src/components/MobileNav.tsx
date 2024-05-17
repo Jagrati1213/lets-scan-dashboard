@@ -9,11 +9,14 @@ import { Axios } from "../global";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../store/slices/userSlice";
 import Style from "../styles/_SiderContainer.module.scss";
+import { useEffect, useState } from "react";
 
 export const MobileNav = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [active, setActive] = useState("/");
 
   // HANDLE FOR LOG OUT
   const handleLogout = async () => {
@@ -28,6 +31,9 @@ export const MobileNav = () => {
   const handleChangePage = async (name: string) => {
     navigate(`${name}`);
   };
+  useEffect(() => {
+    setActive(location.pathname);
+  }, [location.pathname, active]);
 
   return (
     <Flex align="center" justify="space-between" className={Style.mobile_nav}>
@@ -36,6 +42,7 @@ export const MobileNav = () => {
           icon={<IoHome />}
           type="link"
           onClick={handleChangePage.bind(null, "/")}
+          className={active === "/" ? Style.active_btn : ""}
         />
       </div>
       <div>
@@ -43,6 +50,7 @@ export const MobileNav = () => {
           icon={<MdRestaurantMenu />}
           type="link"
           onClick={handleChangePage.bind(null, "/menu")}
+          className={active.slice(1) === "menu" ? Style.active_btn : ""}
         />
       </div>
       <div>
@@ -50,6 +58,7 @@ export const MobileNav = () => {
           icon={<FaBoxOpen />}
           type="link"
           onClick={handleChangePage.bind(null, "/orders")}
+          className={active.slice(1) === "orders" ? Style.active_btn : ""}
         />
       </div>
       <div>
