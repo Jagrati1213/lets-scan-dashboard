@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "./store/slices/userSlice";
 import { getUserDetails } from "./utils/getUserHandler";
-import DashBoard from "./components/DashBoard";
+import Home from "./components/Home";
 import AuthBoard from "./components/AuthBoard";
 import "./styles/global.scss";
 import "./App.scss";
@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-      {user.email || user.userName ? <DashBoard /> : <AuthBoard />}
+      {user.email || user.username ? <Home /> : <AuthBoard />}
     </div>
   );
 }
