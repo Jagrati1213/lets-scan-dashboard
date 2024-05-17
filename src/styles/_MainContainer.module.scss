@@ -1,4 +1,5 @@
 @import "./modules/variables";
+@import "./modules/mixin";
 
 .main_container {
   max-width: 2500px;
@@ -10,7 +11,7 @@
     color: $dark-purple;
     background-color: #fff;
     padding: 0 1rem;
-    box-shadow: #95929240 0px 3px 12px 20px;
+    border-bottom: 1px solid $gray;
     margin-bottom: 0.2rem;
   }
   :global(.ant-layout-sider) {
@@ -19,12 +20,26 @@
     justify-content: space-between;
     flex-direction: column;
     padding-bottom: 0;
+    border-right: 0.2px solid $gray;
+    @include tablet {
+      display: none;
+    }
   }
   :global(.ant-layout-content) {
     max-height: 100vh;
     overflow-y: scroll;
+    background: #fff;
     &::-webkit-scrollbar {
       appearance: none;
+    }
+  }
+  :global(.ant-layout-footer) {
+    padding: 0;
+    background: #fff;
+    display: none;
+    @include tablet {
+      display: block;
+      border-top: 1px solid $gray;
     }
   }
 }

@@ -1,4 +1,5 @@
 @import "./modules/variables";
+@import "./modules/mixin";
 
 .siderbar {
   :global(.ant-layout-sider-children) {
@@ -26,5 +27,19 @@
     position: static;
     background: $sand;
     color: $dark-purple;
+  }
+}
+
+.mobile_nav {
+  display: none;
+  div {
+    padding: 12px;
+  }
+  :global(.ant-btn) {
+    font-size: 1.4rem;
+    color: $dark-purple;
+  }
+  @include tablet {
+    display: flex;
   }
 }
