@@ -1,7 +1,28 @@
+@import "./modules/variables";
+@import "./modules/mixin";
+
 .nav {
   h1 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: $heading-md;
     letter-spacing: 0.1rem;
+  }
+  @include min-tablet {
+    h1 {
+      font-size: $heading-sm;
+      text-align: center;
+    }
+  }
+  .user_avatar {
+    background-color: $purple;
+    color: #fff;
+    font-weight: bold;
+  }
+  p {
+    margin: 0;
+    line-height: 0;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 600;
   }
 }
