@@ -2,7 +2,7 @@ import axios from "axios";
 
 // AXIOS BASE URL
 export const Axios = axios.create({
-  baseURL: "http://localhost:3000/api/v1/user/",
+  baseURL: "http://localhost:4000/api/v1/user/",
   withCredentials: true,
 });
 
