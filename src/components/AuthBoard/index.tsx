@@ -17,13 +17,16 @@ export default function AuthBoard() {
     values
   ) => {
     const { username, email, password } = values;
-
-    if (isSignUp) {
-      await signUpHandler({ username, email, password });
-    } else {
-      const data = await signInHandler({ username, password });
-      if (!data?.user) return;
-      dispatch(setUserDetails(data.user));
+    try {
+      if (isSignUp) {
+        await signUpHandler({ username, email, password });
+      } else {
+        const data = await signInHandler({ username, password });
+        if (!data?.user) return;
+        dispatch(setUserDetails(data.user));
+      }
+    } catch (error) {
+      console.log("ERROR IN AUTH", error);
     }
   };
   return (
