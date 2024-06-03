@@ -7,7 +7,7 @@ export const signUpHandler = async ({
   email,
   password,
 }: AuthFieldTypes) => {
-  const response = await Axios.post("register", {
+  const response = await Axios.post("user/register", {
     username: username.toLowerCase(),
     email: email,
     password: password,
@@ -26,7 +26,7 @@ export const signUpHandler = async ({
 };
 
 export const signInHandler = async ({ username, password }: AuthFieldTypes) => {
-  const response = await Axios.post("login", {
+  const response = await Axios.post("user/login", {
     username: username.toLowerCase(),
     password: password,
   });
