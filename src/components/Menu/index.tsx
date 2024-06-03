@@ -43,7 +43,7 @@ export default function Menu() {
     <div className={Style.menu_container}>
       <Flex gap="40px" vertical>
         <Flex justify={"space-between"} align="center">
-          <Title level={5}>Menus </Title>
+          <Title level={5}>Menu List </Title>
           <Button
             type="primary"
             shape="round"
