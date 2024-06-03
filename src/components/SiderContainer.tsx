@@ -10,6 +10,7 @@ import Style from "../styles/_SiderContainer.module.scss";
 import { Axios } from "../global";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../store/slices/userSlice";
+import { RiQrCodeFill } from "react-icons/ri";
 
 export const SiderContainer = () => {
   // COLLAPSE MENU SIDEBAR
@@ -35,12 +36,17 @@ export const SiderContainer = () => {
       icon: <IoHome />,
     },
     {
-      label: <Link to="/menu">Menu</Link>,
+      label: <Link to="/menu">Menu List</Link>,
       key: "menu",
       icon: <MdRestaurantMenu />,
     },
     {
-      label: <Link to="/orders">Order List</Link>,
+      label: <Link to="/qr-generator">QR Generator</Link>,
+      key: "qrgenerator",
+      icon: <RiQrCodeFill />,
+    },
+    {
+      label: <Link to="/orders">Orders</Link>,
       key: "orders",
       icon: <FaBoxOpen />,
     },
