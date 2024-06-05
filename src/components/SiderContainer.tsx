@@ -20,7 +20,7 @@ export const SiderContainer = () => {
 
   // HANDLE FOR LOG OUT
   const handleLogout = async () => {
-    const response = await Axios.get("logout");
+    const response = await Axios.get("user/logout");
     const { statusText, success } = await response.data;
     if (success) {
       message.success(statusText);
