@@ -9,8 +9,8 @@ export interface MenuListType {
 export type MenuFormProps = {
   name: string;
   price: number;
-  desc?: string;
-  image?: string;
+  desc: string;
+  image?: File | null;
 };
 
 export interface drawerOptions {
