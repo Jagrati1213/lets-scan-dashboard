@@ -1,10 +1,12 @@
+// MENU LIST TYPES
 export interface MenuListType {
-  _id: React.Key;
-  image: string;
-  name: string;
-  price: number;
-  description?: string;
-  rating?: string;
+  _id: string | null;
+  image: string | undefined;
+  name: string | null;
+  price: number | null;
+  description?: string | null;
+  rating?: string | null;
+  userId?: string | null;
 }
 
 export type MenuFormProps = {
@@ -14,12 +16,21 @@ export type MenuFormProps = {
   image?: File | null;
 };
 
+export interface MenuListResponseType {
+  statusCode: number;
+  statusText: string;
+  success: boolean;
+  data: MenuListType[];
+}
+
+// DRAWER OPTION TYPES
 export interface DrawerOptionsType {
   isAddMenuOpen: boolean;
   isMenuViewOpen: boolean;
   isMenuEditorOpen: boolean;
 }
 
+// USER TYPES
 export interface AuthFieldTypes {
   username: string;
   password: string;
