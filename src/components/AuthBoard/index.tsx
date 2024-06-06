@@ -4,8 +4,8 @@ import Title from "antd/es/typography/Title";
 import { useState } from "react";
 import { AuthFieldTypes } from "../../types";
 import "../../styles/global.scss";
-import { signInHandler, signUpHandler } from "../../utils/authHandler";
-import { setUserDetails } from "../../store/slices/userSlice";
+import { signInHandler, signUpHandler } from "../../apis/authHandler";
+import { setUserDetailsAction } from "../../store/slices/userSlice";
 import { useDispatch } from "react-redux";
 
 export default function AuthBoard() {
@@ -20,15 +20,18 @@ export default function AuthBoard() {
     try {
       if (isSignUp) {
         await signUpHandler({ username, email, password });
+        setIsSignUp(false);
       } else {
         const data = await signInHandler({ username, password });
-        if (!data?.user) return;
-        dispatch(setUserDetails(data.user));
+        if (!data) return;
+        dispatch(setUserDetailsAction(data));
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log("ERROR IN AUTH", error);
+      return error;
     }
   };
+
   return (
     <div className={Style.auth_form}>
       <Flex align="center" vertical gap={"20px"}>

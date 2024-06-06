@@ -9,7 +9,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Style from "../styles/_SiderContainer.module.scss";
 import { Axios } from "../global";
 import { useDispatch } from "react-redux";
-import { removeUser } from "../store/slices/userSlice";
+import { logoutAction } from "../store/slices/userSlice";
 import { RiQrCodeFill } from "react-icons/ri";
 
 export const SiderContainer = () => {
@@ -24,7 +24,7 @@ export const SiderContainer = () => {
     const { statusText, success } = await response.data;
     if (success) {
       message.success(statusText);
-      dispatch(removeUser());
+      dispatch(logoutAction());
     } else message.error(statusText);
   };
 

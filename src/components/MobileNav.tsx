@@ -7,7 +7,7 @@ import { RiLogoutCircleFill } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Axios } from "../global";
 import { useDispatch } from "react-redux";
-import { removeUser } from "../store/slices/userSlice";
+import { logoutAction } from "../store/slices/userSlice";
 import Style from "../styles/_SiderContainer.module.scss";
 import { useEffect, useState } from "react";
 
@@ -24,7 +24,7 @@ export const MobileNav = () => {
     const { statusText, success } = await response.data;
     if (success) {
       message.success(statusText);
-      dispatch(removeUser());
+      dispatch(logoutAction());
     } else message.error(statusText);
   };
 
