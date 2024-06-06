@@ -1,12 +1,12 @@
 import { Drawer, Flex, Image, Rate } from "antd";
 import React from "react";
-import { MenuListType, drawerOptions } from "../../types";
+import { MenuListType, DrawerOptionsType } from "../../types";
 import Title from "antd/es/typography/Title";
 import Style from "../../styles/_MenuViewDrawer.module.scss";
 
 interface MenuProps {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<drawerOptions>>;
+  setOpen: React.Dispatch<React.SetStateAction<DrawerOptionsType>>;
   menuData: MenuListType;
 }
 export default function MenuViewDrawer({ open, setOpen, menuData }: MenuProps) {
@@ -27,7 +27,7 @@ export default function MenuViewDrawer({ open, setOpen, menuData }: MenuProps) {
           <Image src={menuData?.image} preview={false} />
           <Flex vertical align="start" style={{ width: "100%" }}>
             <Title level={5}>{menuData?.name}</Title>
-            <p>{menuData?.desc}</p>
+            <p>{menuData?.description}</p>
             <p className="price">{`Price : ${menuData?.price}`}</p>
             <Rate disabled allowHalf defaultValue={2.5} />
           </Flex>

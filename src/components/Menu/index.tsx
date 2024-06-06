@@ -1,43 +1,38 @@
 import { Avatar, Button, Flex, List } from "antd";
 import Title from "antd/es/typography/Title";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuViewDrawer from "./MenuViewDrawer";
 import AddMenuDrawer from "./AddMenuDrawer";
-import { MenuListType, drawerOptions } from "../../types";
+import { MenuListType, DrawerOptionsType } from "../../types";
 import Style from "../../styles/_Menu.module.scss";
 import EditMenuDrawer from "./EditMenuDrawer";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { fetchMenuListAction } from "../../store/slices/menuListSlice";
 
 export default function Menu() {
-  // states
-  const [drawerOptions, setDrawerOptions] = useState<drawerOptions>({
+  // State
+  const [DrawerOptionsType, setDrawerOptions] = useState<DrawerOptionsType>({
     isAddMenuOpen: false,
     isMenuViewOpen: false,
     isMenuEditorOpen: false,
   });
-  const [menuList, setMenuList] = useState<MenuListType[]>([
-    {
-      id: 1,
-      name: "Menu 1",
-      image:
-        "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png",
-      price: 200,
-      desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero quos sit modi aliquid aperiam aut at et rem tempora, voluptate porro, laudantium magnam quam? Doloribus autem, adipisci placeat reprehenderit est provident, repudiandae aliquam dicta atque illo nesciunt, corporis repellat fugit maxime? Eaque temporibus",
-    },
-    {
-      id: 2,
-      name: "Menu 2",
-      image:
-        "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png",
-      price: 200,
-      desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero quos sit modi aliquid aperiam aut at et rem tempora, voluptate porro, laudantium magnam quam? Doloribus autem, adipisci placeat reprehenderit est provident, repudiandae aliquam dicta atque illo nesciunt, corporis repellat fugit maxime? Eaque temporibus",
-    },
-  ]);
-  const [menuDetails, setMenuDetails] = useState<MenuListType>(menuList[0]);
+
+  // Action
+  const { menulist } = useAppSelector((store) => store.menuList);
+  const [loading, setLoading] = useState(true);
+  const dispatch = useAppDispatch();
+  // const [menuDetails, setMenuDetails] = useState<MenuListType>(menuList[0]);
 
   // methods
   const showDrawer = (option: string) => {
     setDrawerOptions((prev) => ({ ...prev, [option]: true }));
   };
+
+  // Fetch Menulist
+  useEffect(() => {
+    dispatch(fetchMenuListAction()).finally(() => setLoading(false));
+    console.log(menulist);
+  }, [dispatch]);
 
   return (
     <div className={Style.menu_container}>
@@ -54,17 +49,18 @@ export default function Menu() {
         </Flex>
 
         <List
-          dataSource={menuList}
+          dataSource={menulist}
           bordered
+          loading={loading}
           renderItem={(item, index) => (
             <List.Item
-              key={item.id}
+              key={item?._id}
               actions={[
                 <p>&#8377; {item?.price}</p>,
                 <Button
                   type="link"
                   onClick={() => {
-                    setMenuDetails(menuList[index]);
+                    // setMenuDetails(menuList[index]);
                     showDrawer("isMenuViewOpen");
                   }}
                 >
@@ -73,7 +69,7 @@ export default function Menu() {
                 <Button
                   type="link"
                   onClick={() => {
-                    setMenuDetails(menuList[index]);
+                    // setMenuDetails(menuList[index]);
                     showDrawer("isMenuEditorOpen");
                   }}
                 >
@@ -82,29 +78,31 @@ export default function Menu() {
               ]}
             >
               <List.Item.Meta
-                avatar={<Avatar shape="square" size="large" src={item.image} />}
-                title={<a href="https://ant.design/index-cn">{item.name}</a>}
-                description={`${item.desc?.slice(0, 60)}...`}
+                avatar={
+                  <Avatar shape="square" size="large" src={item?.image} />
+                }
+                title={<a href="https://ant.design/index-cn">{item?.name}</a>}
+                description={`${item?.description?.slice(0, 60)}...`}
               />
             </List.Item>
           )}
         />
 
-        <MenuViewDrawer
-          open={drawerOptions.isMenuViewOpen}
+        {/* <MenuViewDrawer
+          open={DrawerOptionsType.isMenuViewOpen}
           setOpen={setDrawerOptions}
           menuData={menuDetails}
-        />
+        /> */}
         <AddMenuDrawer
-          open={drawerOptions.isAddMenuOpen}
+          open={DrawerOptionsType.isAddMenuOpen}
           setOpen={setDrawerOptions}
         />
-
+        {/* 
         <EditMenuDrawer
-          open={drawerOptions.isMenuEditorOpen}
+          open={DrawerOptionsType.isMenuEditorOpen}
           setOpen={setDrawerOptions}
           menuData={menuDetails}
-        />
+        /> */}
       </Flex>
     </div>
   );
