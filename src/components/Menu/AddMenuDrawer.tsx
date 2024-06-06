@@ -8,15 +8,22 @@ import {
   Spin,
 } from "antd";
 import React, { FormEvent, useState } from "react";
-import { MenuFormProps, drawerOptions } from "../../types";
+import { MenuFormProps, DrawerOptionsType } from "../../types";
 import Style from "../../styles/_AddMenuDrawer.module.scss";
-import { createMenuItemHandler } from "../../utils/menuItemHandler";
+import { createMenuItemHandler } from "../../apis/menuItemHandler";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { addMenuItemAction } from "../../store/slices/menuListSlice";
+
 interface AddMenuProps {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<drawerOptions>>;
+  setOpen: React.Dispatch<React.SetStateAction<DrawerOptionsType>>;
 }
 
 export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
+  // State
+  const dispatch = useAppDispatch();
+
   const [file, setFile] = useState<File | undefined | any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [form] = Form.useForm();
@@ -47,7 +54,10 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
     }
     //INVOKE CREATE MENU API
     setIsLoading(true);
-    await createMenuItemHandler(values);
+    const createItem = await createMenuItemHandler(values);
+    dispatch(addMenuItemAction(createItem));
+
+    // RESET THE DRAWER
     setIsLoading(false);
     form.resetFields();
     onClose();
