@@ -1,23 +1,19 @@
-import { useAppSelector } from "./store/store";
+import { useAppDispatch, useAppSelector } from "./store/store";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setUserDetails } from "./store/slices/userSlice";
-import { getUserDetails } from "./utils/getUserHandler";
 import Home from "./components/Home";
 import AuthBoard from "./components/AuthBoard";
+import { fetchUserDetailsAction } from "./store/slices/userSlice";
 import "./styles/global.scss";
 import "./App.scss";
 
 function App() {
   const { user } = useAppSelector((store) => store.auth);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // GET USER DETAILS AT INITIALS
   useEffect(() => {
-    getUserDetails()
-      .then((data) => dispatch(setUserDetails(data)))
-      .catch((error) => console.log("ERROR IN GET USER DETAILS, ", error));
-  }, []);
+    dispatch(fetchUserDetailsAction());
+  }, [dispatch]);
 
   return (
     <div className="App">
