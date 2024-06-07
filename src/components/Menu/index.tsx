@@ -18,7 +18,7 @@ export default function Menu() {
   });
 
   // Action
-  const { menulist } = useAppSelector((store) => store.menuList);
+  const { menulist } = useAppSelector((store) => store.menuListSlice);
   const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
   // const [menuDetails, setMenuDetails] = useState<MenuListType>(menuList[0]);
@@ -31,7 +31,6 @@ export default function Menu() {
   // Fetch Menulist
   useEffect(() => {
     dispatch(fetchMenuListAction()).finally(() => setLoading(false));
-    console.log(menulist);
   }, [dispatch]);
 
   return (

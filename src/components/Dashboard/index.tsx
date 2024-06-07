@@ -3,7 +3,7 @@ import React from "react";
 import { useAppSelector } from "../../store/store";
 
 export default function Dashboard() {
-  const { user } = useAppSelector((store) => store.auth);
+  const { user } = useAppSelector((store) => store.authSlice);
 
   return (
     <div>

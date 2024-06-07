@@ -4,7 +4,7 @@ import Style from "../styles/_Navigation.module.scss";
 import { useEffect, useState } from "react";
 
 export const Navigation = () => {
-  const { user } = useAppSelector((store) => store.auth);
+  const { user } = useAppSelector((store) => store.authSlice);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {

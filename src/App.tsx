@@ -7,7 +7,7 @@ import "./styles/global.scss";
 import "./App.scss";
 
 function App() {
-  const { user } = useAppSelector((store) => store.auth);
+  const { user } = useAppSelector((store) => store.authSlice);
   const dispatch = useAppDispatch();
 
   // GET USER DETAILS AT INITIALS
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className="App">
-      {user.email || user.username ? <Home /> : <AuthBoard />}
+      {user?.email || user?.username ? <Home /> : <AuthBoard />}
     </div>
   );
 }

@@ -5,8 +5,8 @@ import menuListSlice from "./slices/menuListSlice";
 
 export const store = configureStore({
   reducer: {
-    auth: userSlice,
-    menuList: menuListSlice,
+    authSlice: userSlice,
+    menuListSlice: menuListSlice,
   },
 });
 
