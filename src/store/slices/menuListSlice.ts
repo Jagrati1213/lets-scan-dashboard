@@ -31,6 +31,13 @@ export const menuListSlice = createSlice({
     addMenuItemAction: (state, action) => {
       state.menulist.push(action?.payload);
     },
+    updateMenuItemAction: (state, action) => {
+      const newData = action?.payload;
+      const oldMenuItemIndex = state.menulist.findIndex(
+        (item) => item._id === newData._id
+      );
+      state.menulist.splice(oldMenuItemIndex, 1, newData);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchMenuListAction.fulfilled, (state, action) => {
@@ -39,5 +46,6 @@ export const menuListSlice = createSlice({
   },
 });
 
-export const { addMenuItemAction } = menuListSlice.actions;
+export const { addMenuItemAction, updateMenuItemAction } =
+  menuListSlice.actions;
 export default menuListSlice.reducer;
