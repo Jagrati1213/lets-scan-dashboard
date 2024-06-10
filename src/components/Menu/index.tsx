@@ -8,27 +8,36 @@ import Style from "../../styles/_Menu.module.scss";
 import EditMenuDrawer from "./EditMenuDrawer";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { fetchMenuListAction } from "../../store/slices/menuListSlice";
+import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 
 export default function Menu() {
-  // State
+  // SLICE STATE
   const [DrawerOptionsType, setDrawerOptions] = useState<DrawerOptionsType>({
     isAddMenuOpen: false,
     isMenuViewOpen: false,
     isMenuEditorOpen: false,
   });
 
-  // Action
+  // ACTIONS & STATE
   const { menulist } = useAppSelector((store) => store.menuListSlice);
   const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
-  // const [menuDetails, setMenuDetails] = useState<MenuListType>(menuList[0]);
+  const [menuDetails, setMenuDetails] = useState<MenuListType | undefined>();
+  const [menuItemId, setMenuItemId] = useState<string | undefined | null>();
 
-  // methods
+  // HANDLE DRAWER
   const showDrawer = (option: string) => {
     setDrawerOptions((prev) => ({ ...prev, [option]: true }));
   };
 
-  // Fetch Menulist
+  // GET MENUITEM DETAILS
+  const getMenuItemDetails = (id: string | null) => {
+    if (!id) return;
+    const menuItem = menulist.find((item) => item?._id === id);
+    setMenuDetails(menuItem);
+  };
+
+  // FETCH MENULIST
   useEffect(() => {
     dispatch(fetchMenuListAction()).finally(() => setLoading(false));
   }, [dispatch]);
@@ -55,25 +64,34 @@ export default function Menu() {
             <List.Item
               key={item?._id}
               actions={[
-                <p>&#8377; {item?.price}</p>,
+                <p style={{ fontWeight: "500" }}>&#8377; {item?.price}</p>,
                 <Button
                   type="link"
+                  shape="circle"
+                  icon={<FaEye />}
                   onClick={() => {
-                    // setMenuDetails(menuList[index]);
+                    setMenuItemId(item?._id);
                     showDrawer("isMenuViewOpen");
                   }}
-                >
-                  View
-                </Button>,
+                />,
                 <Button
                   type="link"
+                  shape="circle"
+                  icon={<FaEdit />}
                   onClick={() => {
-                    // setMenuDetails(menuList[index]);
+                    setMenuItemId(item?._id);
                     showDrawer("isMenuEditorOpen");
                   }}
-                >
-                  Edit
-                </Button>,
+                />,
+                <Button
+                  type="link"
+                  danger
+                  shape="circle"
+                  icon={<FaTrash />}
+                  onClick={() => {
+                    getMenuItemDetails(item?._id);
+                  }}
+                />,
               ]}
             >
               <List.Item.Meta
@@ -87,21 +105,21 @@ export default function Menu() {
           )}
         />
 
-        {/* <MenuViewDrawer
+        <MenuViewDrawer
           open={DrawerOptionsType.isMenuViewOpen}
           setOpen={setDrawerOptions}
-          menuData={menuDetails}
-        /> */}
+          menuItemId={menuItemId}
+        />
         <AddMenuDrawer
           open={DrawerOptionsType.isAddMenuOpen}
           setOpen={setDrawerOptions}
         />
-        {/* 
+
         <EditMenuDrawer
           open={DrawerOptionsType.isMenuEditorOpen}
           setOpen={setDrawerOptions}
-          menuData={menuDetails}
-        /> */}
+          menuItemId={menuItemId}
+        />
       </Flex>
     </div>
   );
