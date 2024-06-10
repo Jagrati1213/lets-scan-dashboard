@@ -13,14 +13,31 @@ export type MenuFormProps = {
   name: string;
   price: number;
   desc: string;
-  image?: File | null;
+  image: string;
 };
+
+export interface MenuUpdateBodyProps {
+  name: string;
+  price: number;
+  desc: string;
+  image: string;
+  menuId: string;
+}
 
 export interface MenuListResponseType {
   statusCode: number;
   statusText: string;
   success: boolean;
   data: MenuListType[];
+}
+
+export interface MenuImageUploadedTypes {
+  statusCode: number;
+  statusText: string;
+  success: boolean;
+  data: {
+    url: string;
+  };
 }
 
 // DRAWER OPTION TYPES
