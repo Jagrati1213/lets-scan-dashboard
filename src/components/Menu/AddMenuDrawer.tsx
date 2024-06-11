@@ -121,7 +121,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
             <Form.Item<MenuFormProps>
               label="Item Name"
               name="name"
-              rules={[{ required: true, message: "add item name!" }]}
+              rules={[{ required: true, message: "Name require!" }]}
             >
               <Input placeholder="dosh" />
             </Form.Item>
@@ -129,7 +129,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
             <Form.Item<MenuFormProps>
               label="Item Price"
               name="price"
-              rules={[{ required: true, message: "add price" }]}
+              rules={[{ required: true, message: "Price require!" }]}
             >
               <InputNumber
                 style={{ width: "100%" }}
@@ -138,7 +138,11 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
               />
             </Form.Item>
 
-            <Form.Item<MenuFormProps>>
+            <Form.Item<MenuFormProps>
+              label="Item Image"
+              name="image"
+              rules={[{ required: true, message: "Image require!" }]}
+            >
               <Upload
                 name="image"
                 maxCount={1}
