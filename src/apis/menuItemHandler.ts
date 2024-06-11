@@ -1,6 +1,7 @@
 import { message } from "antd";
 import { Axios } from "../global";
 import {
+  MenuFormProps,
   MenuListResponseType,
   MenuUpdateBodyProps,
   deleteMenuItemProps,
@@ -9,11 +10,11 @@ import {
 
 // CREATE MENU ITEM
 export const createMenuItemHandler = async (
-  values: FormData
+  values: MenuFormProps
 ): Promise<MenuListResponseType["data"]> => {
   try {
     const response = await Axios.post("menu/create-menu", values, {
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": "application/json" },
     });
 
     const { success, statusText, data } = response.data;
