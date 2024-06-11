@@ -64,16 +64,14 @@ export const updateMenuItemHandler = async (values: MenuUpdateBodyProps) => {
 
 // DELETE MENU ITEM
 export const deleteMenuItemHandler = async ({
-  userId,
   menuId,
 }: {
-  userId: string | null;
   menuId: string | null;
 }): Promise<deleteMenuItemProps["success"]> => {
   try {
     const response = await Axios.post(
       "menu/delete-menu",
-      { userId, menuId },
+      { menuId },
       { headers: { "Content-Type": "application/json" } }
     );
 

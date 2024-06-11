@@ -18,7 +18,6 @@ export default function Menu() {
   // SLICE STATE
   const dispatch = useAppDispatch();
   const { menulist } = useAppSelector((store) => store.menuListSlice);
-  const { user } = useAppSelector((store) => store.authSlice);
 
   // STATE
   const [DrawerOptionsType, setDrawerOptions] = useState<DrawerOptionsType>({
@@ -38,7 +37,6 @@ export default function Menu() {
   const deleteMenuItem = async (id: string | null) => {
     if (!id) return;
     const deleted = await deleteMenuItemHandler({
-      userId: user._id,
       menuId: id,
     });
     if (deleted) {
