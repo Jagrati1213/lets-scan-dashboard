@@ -9,4 +9,18 @@
     border: none !important;
     background-color: transparent !important;
   }
+
+  :global(
+      .ant-upload-wrapper.ant-upload-picture-card-wrapper
+        .ant-upload-list.ant-upload-list-picture-card
+        .ant-upload-list-item-container
+    ) {
+    height: auto;
+  }
+  :global(.ant-upload-list-item .anticon-delete) {
+    display: none;
+  }
+  :global(.ant-upload-list-item .ant-upload-list-item-done) {
+    padding: 0;
+  }
 }
