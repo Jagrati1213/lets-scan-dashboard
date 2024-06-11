@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import MenuViewDrawer from "./MenuViewDrawer";
 import AddMenuDrawer from "./AddMenuDrawer";
 import { DrawerOptionsType } from "../../types";
-import Style from "../../styles/_Menu.module.scss";
 import EditMenuDrawer from "./EditMenuDrawer";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import {
@@ -13,6 +12,7 @@ import {
 } from "../../store/slices/menuListSlice";
 import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import { deleteMenuItemHandler } from "../../apis/menuItemHandler";
+import Style from "../../styles/_Menu.module.scss";
 
 export default function Menu() {
   // SLICE STATE
