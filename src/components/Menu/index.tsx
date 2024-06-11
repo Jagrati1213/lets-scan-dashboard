@@ -7,22 +7,26 @@ import { MenuListType, DrawerOptionsType } from "../../types";
 import Style from "../../styles/_Menu.module.scss";
 import EditMenuDrawer from "./EditMenuDrawer";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { fetchMenuListAction } from "../../store/slices/menuListSlice";
+import {
+  deleteMenuItemAction,
+  fetchMenuListAction,
+} from "../../store/slices/menuListSlice";
 import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
+import { deleteMenuItemHandler } from "../../apis/menuItemHandler";
 
 export default function Menu() {
   // SLICE STATE
+  const dispatch = useAppDispatch();
+  const { menulist } = useAppSelector((store) => store.menuListSlice);
+  const { user } = useAppSelector((store) => store.authSlice);
+
+  // STATE
   const [DrawerOptionsType, setDrawerOptions] = useState<DrawerOptionsType>({
     isAddMenuOpen: false,
     isMenuViewOpen: false,
     isMenuEditorOpen: false,
   });
-
-  // ACTIONS & STATE
-  const { menulist } = useAppSelector((store) => store.menuListSlice);
   const [loading, setLoading] = useState(true);
-  const dispatch = useAppDispatch();
-  const [menuDetails, setMenuDetails] = useState<MenuListType | undefined>();
   const [menuItemId, setMenuItemId] = useState<string | undefined | null>();
 
   // HANDLE DRAWER
@@ -30,11 +34,16 @@ export default function Menu() {
     setDrawerOptions((prev) => ({ ...prev, [option]: true }));
   };
 
-  // GET MENUITEM DETAILS
-  const getMenuItemDetails = (id: string | null) => {
+  // DELETE
+  const deleteMenuItem = async (id: string | null) => {
     if (!id) return;
-    const menuItem = menulist.find((item) => item?._id === id);
-    setMenuDetails(menuItem);
+    const deleted = await deleteMenuItemHandler({
+      userId: user._id,
+      menuId: id,
+    });
+    if (deleted) {
+      dispatch(deleteMenuItemAction(id));
+    }
   };
 
   // FETCH MENULIST
@@ -89,7 +98,7 @@ export default function Menu() {
                   shape="circle"
                   icon={<FaTrash />}
                   onClick={() => {
-                    getMenuItemDetails(item?._id);
+                    deleteMenuItem(item?._id);
                   }}
                 />,
               ]}
