@@ -23,4 +23,7 @@
   :global(.ant-upload-list-item .ant-upload-list-item-done) {
     padding: 0;
   }
+  :global(.ant-drawer .ant-image) {
+    background-color: lightgray;
+  }
 }
