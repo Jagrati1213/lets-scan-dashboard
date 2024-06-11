@@ -31,13 +31,19 @@ export interface MenuListResponseType {
   data: MenuListType[];
 }
 
-export interface MenuImageUploadedTypes {
+export interface imageUploadedTypes {
   statusCode: number;
   statusText: string;
   success: boolean;
   data: {
     url: string;
   };
+}
+export interface deleteMenuItemProps {
+  statusCode: number;
+  statusText: string;
+  data: null;
+  success: boolean;
 }
 
 // DRAWER OPTION TYPES
