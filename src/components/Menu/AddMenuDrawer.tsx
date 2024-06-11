@@ -161,7 +161,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
             <Form.Item<MenuFormProps>
               label="Description"
               name="desc"
-              rules={[{ required: true, message: "Add item details" }]}
+              rules={[{ required: true, message: "Description require!" }]}
             >
               <Input.TextArea placeholder="delicious food" rows={13} />
             </Form.Item>
