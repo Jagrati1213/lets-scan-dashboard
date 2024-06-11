@@ -1,9 +1,10 @@
 import { message } from "antd";
 import { Axios } from "../global";
 import {
-  MenuImageUploadedTypes,
   MenuListResponseType,
   MenuUpdateBodyProps,
+  deleteMenuItemProps,
+  imageUploadedTypes,
 } from "../types";
 
 // CREATE MENU ITEM
@@ -60,10 +61,38 @@ export const updateMenuItemHandler = async (values: MenuUpdateBodyProps) => {
   }
 };
 
+// DELETE MENU ITEM
+export const deleteMenuItemHandler = async ({
+  userId,
+  menuId,
+}: {
+  userId: string | null;
+  menuId: string | null;
+}): Promise<deleteMenuItemProps["success"]> => {
+  try {
+    const response = await Axios.post(
+      "menu/delete-menu",
+      { userId, menuId },
+      { headers: { "Content-Type": "application/json" } }
+    );
+
+    const { success, statusText } = response.data;
+    if (success) {
+      message.success(statusText);
+    } else {
+      message.error(statusText);
+    }
+    return success;
+  } catch (error: any) {
+    console.log("ERROR IN MENU ITEM DELETE!");
+    return error;
+  }
+};
+
 // UPLOADED MENU IMAGE
 export const uploadMenuItemImage = async (
   image: FormData
-): Promise<MenuImageUploadedTypes["data"]> => {
+): Promise<imageUploadedTypes["data"]> => {
   try {
     const response = await Axios.post("menu/upload-image", image, {
       headers: { "Content-Type": "multipart/form-data" },
