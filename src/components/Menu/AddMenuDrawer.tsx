@@ -38,6 +38,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
   const onClose = () => {
     setOpen((prev) => ({ ...prev, isAddMenuOpen: false }));
     setFileList([]);
+    form.resetFields();
   };
 
   // UPLOAD FILE
