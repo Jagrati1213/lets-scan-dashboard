@@ -2,6 +2,11 @@
 
 .add_menu_drawer {
   :global(.ant-form) {
-    margin-top: 2rem;
+    margin-top: 1.2rem;
+  }
+  :global(.ant-upload) {
+    height: auto !important;
+    border: none !important;
+    background-color: transparent !important;
   }
 }
