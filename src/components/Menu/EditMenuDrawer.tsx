@@ -6,6 +6,7 @@ import {
   Image,
   Input,
   InputNumber,
+  Skeleton,
   Space,
   message,
 } from "antd";
@@ -18,6 +19,8 @@ import {
   uploadMenuItemImage,
 } from "../../apis/menuItemHandler";
 import { updateMenuItemAction } from "../../store/slices/menuListSlice";
+import { UploadOutlined } from "@ant-design/icons";
+import Upload, { RcFile, UploadFile } from "antd/es/upload";
 
 interface EditMenuProps {
   open: boolean;
@@ -33,7 +36,7 @@ export default function EditMenuDrawer({
   const dispatch = useAppDispatch();
   const { menulist } = useAppSelector((store) => store.menuListSlice);
 
-  const [imageUrl, setImageUrl] = useState<string | any>();
+  const [file, setFile] = useState<File | undefined | any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isImageLoading, setIsImageLoading] = useState<boolean | any>(false);
   const [form] = Form.useForm();
@@ -44,23 +47,28 @@ export default function EditMenuDrawer({
   };
 
   // UPLOAD FILE
-  const handleUploadImage = async (event: FormEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement & {
-      files: FileList;
-    };
+  const handleUploadImage = async (file: RcFile): Promise<void> => {
+    // CREATE FORM
     const data = new FormData();
-    data.append("image", target?.files[0]);
+    data.append("image", file);
+
+    // INVOKE API & SET STATE
     setIsImageLoading(true);
-    const url = await uploadMenuItemImage(data);
-    setImageUrl(url);
-    setIsImageLoading(false);
+    try {
+      const URL = await uploadMenuItemImage(data);
+      setFile(URL);
+    } catch (error) {
+      console.error("ERROR IMAGE UPLOAD FAILED:", error);
+    } finally {
+      setIsImageLoading(false);
+    }
   };
 
   // SEND ITEM"S DATA TO API
   const handleMenuItemUpdate = async (values: any) => {
     setIsLoading(true);
     try {
-      values.image = imageUrl;
+      values.image = file;
       values.menuId = menuItemId;
 
       // INVOKE CREATE MENU API & SET IN SLICE
@@ -92,7 +100,7 @@ export default function EditMenuDrawer({
         price: menuItem?.price,
         desc: menuItem?.description,
       });
-      setImageUrl(menuItem?.image);
+      setFile(menuItem?.image);
     }
   }, [menuItemId]);
 
@@ -101,11 +109,11 @@ export default function EditMenuDrawer({
       <Drawer
         title="Edit Menu"
         placement="right"
-        closable={!isLoading || !isImageLoading}
+        closable={!(isLoading || isImageLoading)}
         onClose={onClose}
         open={open}
         getContainer={false}
-        maskClosable={!isLoading || !isImageLoading}
+        maskClosable={!(isLoading || isImageLoading)}
       >
         <Form
           form={form}
@@ -133,25 +141,26 @@ export default function EditMenuDrawer({
             <InputNumber style={{ width: "100%" }} min={10} placeholder="100" />
           </Form.Item>
 
-          <Form.Item<MenuFormProps> name={"image"}>
-            <Space direction="horizontal">
-              <Image
-                width={60}
-                height={60}
-                src={imageUrl}
-                loading={isImageLoading}
-              />
+          <Form.Item<MenuFormProps> label="Image">
+            <Space>
+              {file ? (
+                <Image width={60} height={60} src={file} />
+              ) : (
+                <Skeleton.Avatar active={true} />
+              )}
 
-              <div>
-                <label htmlFor="update">Update Image</label>
-                <input
-                  type="file"
-                  name="image"
-                  onChange={handleUploadImage}
-                  accept="image/*"
-                  id="update"
-                />
-              </div>
+              <Upload
+                name="image"
+                maxCount={1}
+                multiple={false}
+                accept="image/*"
+                beforeUpload={handleUploadImage}
+                showUploadList={false}
+              >
+                <Button icon={<UploadOutlined />} loading={isImageLoading}>
+                  Upload
+                </Button>
+              </Upload>
             </Space>
           </Form.Item>
 
@@ -168,7 +177,7 @@ export default function EditMenuDrawer({
               type="primary"
               htmlType="submit"
               loading={isLoading}
-              disabled={isImageLoading}
+              disabled={isLoading || isImageLoading}
             >
               Update Menu
             </Button>
