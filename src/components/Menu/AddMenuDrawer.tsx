@@ -171,7 +171,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
                 type="primary"
                 htmlType="submit"
                 loading={isLoading}
-                disabled={isImageLoading}
+                disabled={isLoading || isImageLoading}
               >
                 Add Menu
               </Button>
