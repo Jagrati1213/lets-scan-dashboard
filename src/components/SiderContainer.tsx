@@ -10,19 +10,21 @@ import Style from "../styles/_SiderContainer.module.scss";
 import { Axios } from "../global";
 import { useDispatch } from "react-redux";
 import { logoutAction } from "../store/slices/userSlice";
-import { RiQrCodeFill } from "react-icons/ri";
+// import { RiQrCodeFill } from "react-icons/ri";
 
 export const SiderContainer = () => {
   // COLLAPSE MENU SIDEBAR
   const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
 
   // HANDLE FOR LOG OUT
   const handleLogout = async () => {
     const response = await Axios.get("user/logout");
     const { statusText, success } = await response.data;
     if (success) {
+      navigate("/");
       message.success(statusText);
       dispatch(logoutAction());
     } else message.error(statusText);
