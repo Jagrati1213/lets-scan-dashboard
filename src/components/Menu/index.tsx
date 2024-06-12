@@ -1,4 +1,4 @@
-import { Avatar, Button, Flex, List } from "antd";
+import { Avatar, Button, Flex, List, Tooltip } from "antd";
 import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
 import MenuViewDrawer from "./MenuViewDrawer";
@@ -13,6 +13,7 @@ import {
 import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import { deleteMenuItemHandler } from "../../apis/menuItemHandler";
 import Style from "../../styles/_Menu.module.scss";
+import { RiQrCodeFill } from "react-icons/ri";
 
 export default function Menu() {
   // SLICE STATE
@@ -54,13 +55,19 @@ export default function Menu() {
       <Flex gap="40px" vertical>
         <Flex justify={"space-between"} align="center">
           <Title level={5}>Menu List </Title>
-          <Button
-            type="primary"
-            shape="round"
-            onClick={showDrawer.bind(null, "isAddMenuOpen")}
-          >
-            Add Menu
-          </Button>
+
+          <Flex gap="middle">
+            <Tooltip title="Generate QR">
+              <Button type="primary" shape="round" icon={<RiQrCodeFill />} />
+            </Tooltip>
+            <Button
+              type="primary"
+              shape="round"
+              onClick={showDrawer.bind(null, "isAddMenuOpen")}
+            >
+              Add Menu
+            </Button>
+          </Flex>
         </Flex>
 
         <List
@@ -105,7 +112,9 @@ export default function Menu() {
                 avatar={
                   <Avatar shape="square" size="large" src={item?.image} />
                 }
-                title={<a href="https://ant.design/index-cn">{item?.name}</a>}
+                title={`${item?.name
+                  ?.charAt(0)
+                  .toUpperCase()}${item?.name?.slice(1)}`}
                 description={`${item?.description?.slice(0, 60)}...`}
               />
             </List.Item>

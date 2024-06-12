@@ -42,7 +42,9 @@ export default function MenuViewDrawer({
         <Flex gap={"15px"} vertical align="center">
           <Image src={menuItem?.image} preview={false} />
           <Flex vertical align="start" style={{ width: "100%" }}>
-            <Title level={5}>{menuItem?.name}</Title>
+            <Title level={5}>{`${menuItem?.name
+              ?.charAt(0)
+              .toUpperCase()}${menuItem?.name?.slice(1)}`}</Title>
             <p>{menuItem?.description}</p>
             <p className="price">{`Price : ${menuItem?.price}`}</p>
             <Rate disabled allowHalf defaultValue={2.5} />
