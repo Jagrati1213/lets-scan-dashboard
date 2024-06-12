@@ -40,11 +40,11 @@ export const SiderContainer = () => {
       key: "menu",
       icon: <MdRestaurantMenu />,
     },
-    {
-      label: <Link to="/qr-generator">QR Generator</Link>,
-      key: "qrgenerator",
-      icon: <RiQrCodeFill />,
-    },
+    // {
+    //   label: <Link to="/qr-generator">QR Generator</Link>,
+    //   key: "qrgenerator",
+    //   icon: <RiQrCodeFill />,
+    // },
     {
       label: <Link to="/orders">Orders</Link>,
       key: "orders",
