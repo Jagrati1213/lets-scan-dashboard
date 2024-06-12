@@ -4,8 +4,6 @@ import { MenuListType, DrawerOptionsType } from "../../types";
 import Title from "antd/es/typography/Title";
 import Style from "../../styles/_MenuViewDrawer.module.scss";
 import { useAppSelector } from "../../store/store";
-import MenuItem from "antd/es/menu/MenuItem";
-
 interface MenuProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<DrawerOptionsType>>;
@@ -29,7 +27,7 @@ export default function MenuViewDrawer({
   useEffect(() => {
     const menuItem = menulist.find((item) => item._id === menuItemId);
     setMenuItem(menuItem);
-  }, [menuItemId]);
+  }, [menuItemId, menulist]);
 
   return (
     <div className={Style.menu_view_drawer}>
