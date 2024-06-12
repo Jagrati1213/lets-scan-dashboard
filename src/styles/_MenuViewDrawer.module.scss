@@ -1,10 +1,22 @@
 @import "../styles/modules/variables";
 
 .menu_view_drawer {
-  background-color: red;
   :global(.price) {
     color: $dark-purple;
     font-size: 1.1rem;
     font-weight: 500;
+  }
+  :global(.ant-image) {
+    width: 200px;
+    height: 200px;
+    max-height: 400px;
+    border-radius: 2px;
+    background: $dark-purple;
+    img {
+      overflow: hidden;
+      height: 200px;
+      object-fit: contain;
+      background: #f5f5f5;
+    }
   }
 }
