@@ -14,6 +14,7 @@ import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import { deleteMenuItemHandler } from "../../apis/menuItemHandler";
 import Style from "../../styles/_Menu.module.scss";
 import { RiQrCodeFill } from "react-icons/ri";
+import { generateQRCodeHandler } from "../../apis/generateQRHandler";
 
 export default function Menu() {
   // SLICE STATE
@@ -58,7 +59,12 @@ export default function Menu() {
 
           <Flex gap="middle">
             <Tooltip title="Generate QR">
-              <Button type="primary" shape="round" icon={<RiQrCodeFill />} />
+              <Button
+                type="primary"
+                shape="round"
+                icon={<RiQrCodeFill />}
+                onClick={generateQRCodeHandler}
+              />
             </Tooltip>
             <Button
               type="primary"
