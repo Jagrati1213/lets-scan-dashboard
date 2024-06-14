@@ -7,26 +7,60 @@
   width: 100%;
   margin: 0 auto;
 
+  .is_veg_tag {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+  }
+
+  :global(.ant-list-item-action) {
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    & > li {
+      padding: 0;
+      & > p {
+        margin: 0;
+      }
+    }
+  }
+
+  :global(.ant-avatar-lg.ant-avatar-square) {
+    background-color: lightgray;
+  }
+
   @include tablet {
     padding: 2rem 0.8rem;
   }
+
   @include min-tablet {
     :global(.ant-list-item) {
-      flex-direction: column;
       align-items: start;
-      padding: 12px 8px;
+      padding: 10px !important;
+
+      :global(.ant-list-item-meta-description) {
+        text-wrap: balance;
+      }
       :global(.ant-list-item-meta) {
         width: 100%;
       }
       :global(.ant-list-item-action) {
-        margin-top: 1rem;
+        margin: 0;
+        gap: 10px;
+
+        & > li {
+          padding: 0;
+        }
+      }
+      :global(.ant-list-item-extra) {
+        margin: auto auto 10px;
       }
       p {
         margin: 0.2rem 0;
       }
     }
-  }
-  :global(.ant-avatar-lg.ant-avatar-square) {
-    background-color: lightgray;
   }
 }
