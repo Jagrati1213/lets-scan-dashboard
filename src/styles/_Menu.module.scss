@@ -27,7 +27,16 @@
       }
     }
   }
-
+  :global(.ant-list-item-meta) {
+    margin-block-end: 0 !important;
+  }
+  :global(.ant-list-item-extra) {
+    & img {
+      border-radius: 5px;
+      width: 150px;
+      height: 100px;
+    }
+  }
   :global(.ant-avatar-lg.ant-avatar-square) {
     background-color: lightgray;
   }
@@ -40,12 +49,14 @@
     :global(.ant-list-item) {
       align-items: start;
       padding: 10px !important;
+      flex-direction: column;
 
       :global(.ant-list-item-meta-description) {
         text-wrap: balance;
       }
       :global(.ant-list-item-meta) {
         width: 100%;
+        align-items: baseline;
       }
       :global(.ant-list-item-action) {
         margin: 0;
