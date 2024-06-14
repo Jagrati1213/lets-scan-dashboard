@@ -1,10 +1,12 @@
-import { Drawer, Flex, Image, Rate } from "antd";
-import React, { useEffect, useState } from "react";
-import { MenuItemType, DrawerOptionsType, MenuDrawerProps } from "../../types";
+import { Drawer, Flex, Image, Rate, Tag, Typography } from "antd";
+import { useEffect, useState } from "react";
+import { MenuItemType, MenuDrawerProps } from "../../types";
 import Title from "antd/es/typography/Title";
 import Style from "../../styles/_MenuViewDrawer.module.scss";
 import { useAppSelector } from "../../store/store";
+import { TbPointFilled } from "react-icons/tb";
 
+const { Paragraph, Text } = Typography;
 export default function MenuViewDrawer({
   open,
   setOpen,
@@ -38,11 +40,20 @@ export default function MenuViewDrawer({
         <Flex gap={"15px"} vertical align="center">
           <Image src={menuItem?.image} preview={false} />
           <Flex vertical align="start" style={{ width: "100%" }}>
-            <Title level={5}>{`${menuItem?.name
-              ?.charAt(0)
-              .toUpperCase()}${menuItem?.name?.slice(1)}`}</Title>
-            <p>{menuItem?.description}</p>
-            <p className="price">{`Price : ${menuItem?.price}`}</p>
+            <Flex align="center" gap={"10px"}>
+              <Title level={5}>{`${menuItem?.name
+                ?.charAt(0)
+                .toUpperCase()}${menuItem?.name?.slice(1)}`}</Title>
+              <Tag
+                color={menuItem?.isVeg ? "green" : "red"}
+                className={Style.is_veg_tag}
+              >
+                <TbPointFilled size={18} />
+              </Tag>
+            </Flex>
+
+            <Paragraph>{menuItem?.description}</Paragraph>
+            <Text className="price">&#8377; {`${menuItem?.price}`}</Text>
             <Rate disabled allowHalf defaultValue={2.5} />
           </Flex>
         </Flex>
