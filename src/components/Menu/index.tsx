@@ -1,9 +1,9 @@
-import { Avatar, Button, Flex, List, Tooltip } from "antd";
+import { Avatar, Button, Flex, List, Tooltip, message } from "antd";
 import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
 import MenuViewDrawer from "./MenuViewDrawer";
 import AddMenuDrawer from "./AddMenuDrawer";
-import { DrawerOptionsType } from "../../types";
+import { DrawerOptionsType, QRDetailsTypes } from "../../types";
 import EditMenuDrawer from "./EditMenuDrawer";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import {
@@ -15,11 +15,13 @@ import { deleteMenuItemHandler } from "../../apis/menuItemHandler";
 import Style from "../../styles/_Menu.module.scss";
 import { RiQrCodeFill } from "react-icons/ri";
 import { generateQRCodeHandler } from "../../apis/generateQRHandler";
+import QRModal from "../QR/QRModal";
 
 export default function Menu() {
   // SLICE STATE
   const dispatch = useAppDispatch();
   const { menulist } = useAppSelector((store) => store.menuListSlice);
+  const { user } = useAppSelector((store) => store.authSlice);
 
   // STATE
   const [DrawerOptionsType, setDrawerOptions] = useState<DrawerOptionsType>({
@@ -29,6 +31,11 @@ export default function Menu() {
   });
   const [loading, setLoading] = useState(true);
   const [menuItemId, setMenuItemId] = useState<string | undefined | null>();
+  const [isQrModalOpen, setIsQrModalOpen] = useState(false);
+  const [qrDetails, setQrDetails] = useState<QRDetailsTypes>({
+    image: null,
+    url: null,
+  });
 
   // HANDLE DRAWER
   const showDrawer = (option: string) => {
@@ -51,6 +58,17 @@ export default function Menu() {
     dispatch(fetchMenuListAction()).finally(() => setLoading(false));
   }, [dispatch]);
 
+  // CHECK MENUITEMS IS NOT NULL
+  const checkMenuItems = async () => {
+    if (menulist.length === 0)
+      return message.error("ADD MENU ITEMS, FOR GENERATE QR");
+    if (!user._id) return message.error("USER NOT FOUNDED!");
+    const { QRimageSrc, url } = await generateQRCodeHandler(user?._id);
+    if (QRimageSrc) {
+      setIsQrModalOpen(true);
+      setQrDetails({ image: QRimageSrc, url: url });
+    }
+  };
   return (
     <div className={Style.menu_container}>
       <Flex gap="40px" vertical>
@@ -58,14 +76,12 @@ export default function Menu() {
           <Title level={5}>Menu List </Title>
 
           <Flex gap="middle">
-            <Tooltip title="Generate QR">
-              <Button
-                type="primary"
-                shape="round"
-                icon={<RiQrCodeFill />}
-                onClick={generateQRCodeHandler}
-              />
-            </Tooltip>
+            <Button
+              type="primary"
+              shape="round"
+              icon={<RiQrCodeFill />}
+              onClick={checkMenuItems}
+            />
             <Button
               type="primary"
               shape="round"
@@ -141,6 +157,12 @@ export default function Menu() {
           open={DrawerOptionsType.isMenuEditorOpen}
           setOpen={setDrawerOptions}
           menuItemId={menuItemId}
+        />
+
+        <QRModal
+          qrDetails={qrDetails}
+          openQrModal={isQrModalOpen}
+          setOpenQrModal={setIsQrModalOpen}
         />
       </Flex>
     </div>
