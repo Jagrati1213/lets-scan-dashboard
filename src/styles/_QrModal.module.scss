@@ -1,0 +1,63 @@
+@import "./modules/mixin";
+@import "./modules/variables";
+
+.qr_modal {
+  width: fit-content !important;
+  :global(.ant-modal-close) {
+    top: 0;
+  }
+  :global(.ant-space) {
+    width: 100%;
+    justify-content: center;
+  }
+  .qr_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    p,
+    h3 {
+      margin: 0;
+      text-align: center;
+    }
+    h3 {
+      font-size: 1.2rem;
+    }
+  }
+  .qr_card_image {
+    border: 1px solid $gray;
+    border-radius: 12px;
+    width: fit-content;
+    padding: 0.5rem;
+    margin-top: 1rem;
+  }
+  :global(.ant-image) {
+    width: 150px;
+    height: 150px;
+    background-color: $gray;
+    :global(.ant-image-img) {
+      object-fit: contain;
+    }
+    @include mobile {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  .qr_link_box {
+    margin: 0 0 2rem 0;
+  }
+  .qr_link {
+    color: $dark-purple;
+    font-weight: 600;
+    background-color: rgb(0 0 0 / 3%);
+    border-color: #e0e0e0;
+  }
+  :global(.ant-divider-inner-text) {
+    font-size: 12px;
+  }
+  .print_btn {
+    width: 100%;
+  }
+}
