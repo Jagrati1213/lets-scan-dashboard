@@ -75,11 +75,7 @@ export default function Menu() {
     if (menulist.length === 0)
       return message.error("ADD MENU ITEMS, FOR GENERATE QR");
     if (!user._id) return message.error("USER NOT FOUNDED!");
-    const { QRimageSrc, url } = await generateQRCodeHandler(user?._id);
-    if (QRimageSrc) {
-      setIsQrModalOpen(true);
-      setQrDetails({ image: QRimageSrc, url: url });
-    }
+    setIsQrModalOpen(true);
   };
 
   // RESIZE LAYOUT
