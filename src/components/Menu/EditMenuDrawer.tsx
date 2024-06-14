@@ -11,7 +11,7 @@ import {
   message,
 } from "antd";
 import React, { FormEvent, useEffect, useState } from "react";
-import { MenuFormProps, DrawerOptionsType } from "../../types";
+import { MenuFormProps, DrawerOptionsType, MenuDrawerProps } from "../../types";
 import Style from "../../styles/_AddMenuDrawer.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import {
@@ -22,16 +22,11 @@ import { updateMenuItemAction } from "../../store/slices/menuListSlice";
 import { UploadOutlined } from "@ant-design/icons";
 import Upload, { RcFile, UploadFile } from "antd/es/upload";
 
-interface EditMenuProps {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<DrawerOptionsType>>;
-  menuItemId: string | undefined | null;
-}
 export default function EditMenuDrawer({
   open,
   setOpen,
   menuItemId,
-}: EditMenuProps) {
+}: MenuDrawerProps) {
   // STATE
   const dispatch = useAppDispatch();
   const { menulist } = useAppSelector((store) => store.menuListSlice);

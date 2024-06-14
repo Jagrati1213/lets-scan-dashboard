@@ -1,22 +1,18 @@
 import { Drawer, Flex, Image, Rate } from "antd";
 import React, { useEffect, useState } from "react";
-import { MenuListType, DrawerOptionsType } from "../../types";
+import { MenuItemType, DrawerOptionsType, MenuDrawerProps } from "../../types";
 import Title from "antd/es/typography/Title";
 import Style from "../../styles/_MenuViewDrawer.module.scss";
 import { useAppSelector } from "../../store/store";
-interface MenuProps {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<DrawerOptionsType>>;
-  menuItemId: string | undefined | null;
-}
+
 export default function MenuViewDrawer({
   open,
   setOpen,
   menuItemId,
-}: MenuProps) {
+}: MenuDrawerProps) {
   // STATE
   const { menulist } = useAppSelector((store) => store.menuListSlice);
-  const [menuItem, setMenuItem] = useState<MenuListType>();
+  const [menuItem, setMenuItem] = useState<MenuItemType>();
 
   // CLOSE DRAWER
   const onClose = () => {
