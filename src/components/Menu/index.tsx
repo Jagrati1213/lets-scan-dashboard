@@ -23,7 +23,6 @@ import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import { deleteMenuItemHandler } from "../../apis/menuItemHandler";
 import Style from "../../styles/_Menu.module.scss";
 import { RiQrCodeFill } from "react-icons/ri";
-import { generateQRCodeHandler } from "../../apis/generateQRHandler";
 import QRModal from "../QR/QRModal";
 import { TbPointFilled } from "react-icons/tb";
 
