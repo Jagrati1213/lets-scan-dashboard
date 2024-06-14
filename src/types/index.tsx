@@ -1,5 +1,5 @@
 // MENU LIST TYPES
-export interface MenuListType {
+export interface MenuItemType {
   _id: string | null;
   image: string | undefined;
   name: string | null;
@@ -28,7 +28,7 @@ export interface MenuListResponseType {
   statusCode: number;
   statusText: string;
   success: boolean;
-  data: MenuListType[];
+  data: MenuItemType[];
 }
 
 export interface imageUploadedTypes {
@@ -46,6 +46,11 @@ export interface deleteMenuItemProps {
   success: boolean;
 }
 
+export interface MenuDrawerProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<DrawerOptionsType>>;
+  menuItemId: string | undefined | null;
+}
 // DRAWER OPTION TYPES
 export interface DrawerOptionsType {
   isAddMenuOpen: boolean;
@@ -77,4 +82,10 @@ export interface UserStateType {
     email: string | null;
     _id: string | null;
   };
+}
+
+// QR CODE TYPES
+export interface QRDetailsTypes {
+  image: string | null;
+  url: string | null;
 }
