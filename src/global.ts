@@ -32,3 +32,5 @@ Axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export const menuMuseWebsitePath = "https://menu-muse.vercel.app";
