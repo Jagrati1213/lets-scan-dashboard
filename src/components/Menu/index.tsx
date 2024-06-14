@@ -85,7 +85,6 @@ export default function Menu() {
   // RESIZE LAYOUT
   useEffect(() => {
     const handleResize = () => {
-      console.log(window.innerWidth);
       setWindowWidth(window.innerWidth);
     };
     window.addEventListener("resize", handleResize);
