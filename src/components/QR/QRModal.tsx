@@ -7,6 +7,7 @@ import {
   Image,
   Input,
   Modal,
+  QRCode,
   Row,
   Skeleton,
   Space,
@@ -16,6 +17,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import Style from "../../styles/_QrModal.module.scss";
 import { LuCopy } from "react-icons/lu";
 import { QRDetailsTypes } from "../../types";
+import { useAppSelector } from "../../store/store";
+import { menuMuseWebsitePath } from "../../global";
 
 interface modalProps {
   qrDetails: QRDetailsTypes | any;
@@ -28,7 +31,9 @@ export default function QRModal({
   qrDetails,
 }: modalProps) {
   const [copyUrl, setCopyUrl] = useState<boolean>(false);
+  const { user } = useAppSelector((store) => store.authSlice);
 
+  // METHODS
   const copyQrLinkHandler = (url: string) => {
     navigator.clipboard.writeText(url);
     setCopyUrl(true);
@@ -37,7 +42,7 @@ export default function QRModal({
       setCopyUrl(false);
     }, 3000);
   };
-  console.log(qrDetails.url);
+
   return (
     <div>
       <Modal
@@ -59,18 +64,21 @@ export default function QRModal({
               </Col>
             </Row>
           </Col>
-          <Col className={Style.qr_card_image}>
-            {qrDetails.image ? (
-              <Image preview={false} src={qrDetails.image} />
-            ) : (
-              <Skeleton.Image active={true} />
-            )}
+          <Col>
+            <QRCode
+              type="svg"
+              value={`${menuMuseWebsitePath}/menu/${user?._id}`}
+            />
           </Col>
         </Row>
         <Divider>Or copy the link manually</Divider>
 
         <Flex gap={"12px"} className={Style.qr_link_box}>
-          <Input disabled value={qrDetails.url} className={Style.qr_link} />
+          <Input
+            disabled
+            value={`${menuMuseWebsitePath}/menu/${user?._id}`}
+            className={Style.qr_link}
+          />
 
           <Tooltip title={copyUrl ? "Copied" : "Copy"}>
             <Button
