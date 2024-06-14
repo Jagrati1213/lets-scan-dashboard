@@ -1,6 +1,16 @@
-import { Avatar, Button, Flex, List, Tooltip, message } from "antd";
+import {
+  Avatar,
+  Badge,
+  Button,
+  Flex,
+  List,
+  Space,
+  Tag,
+  Tooltip,
+  message,
+} from "antd";
 import Title from "antd/es/typography/Title";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import MenuViewDrawer from "./MenuViewDrawer";
 import AddMenuDrawer from "./AddMenuDrawer";
 import { DrawerOptionsType, QRDetailsTypes } from "../../types";
@@ -16,6 +26,7 @@ import Style from "../../styles/_Menu.module.scss";
 import { RiQrCodeFill } from "react-icons/ri";
 import { generateQRCodeHandler } from "../../apis/generateQRHandler";
 import QRModal from "../QR/QRModal";
+import { TbPointFilled } from "react-icons/tb";
 
 export default function Menu() {
   // SLICE STATE
@@ -96,15 +107,18 @@ export default function Menu() {
           dataSource={menulist}
           bordered
           loading={loading}
+          itemLayout="vertical"
+          size="large"
           renderItem={(item, index) => (
             <List.Item
               key={item?._id}
+              extra={<img width={172} src={item?.image} />}
               actions={[
                 <p style={{ fontWeight: "500" }}>&#8377; {item?.price}</p>,
                 <Button
                   type="link"
                   shape="circle"
-                  icon={<FaEye />}
+                  icon={<FaEye size={16} />}
                   onClick={() => {
                     setMenuItemId(item?._id);
                     showDrawer("isMenuViewOpen");
@@ -113,7 +127,7 @@ export default function Menu() {
                 <Button
                   type="link"
                   shape="circle"
-                  icon={<FaEdit />}
+                  icon={<FaEdit size={16} />}
                   onClick={() => {
                     setMenuItemId(item?._id);
                     showDrawer("isMenuEditorOpen");
@@ -123,7 +137,7 @@ export default function Menu() {
                   type="link"
                   danger
                   shape="circle"
-                  icon={<FaTrash />}
+                  icon={<FaTrash size={16} />}
                   onClick={() => {
                     deleteMenuItem(item?._id);
                   }}
@@ -131,12 +145,20 @@ export default function Menu() {
               ]}
             >
               <List.Item.Meta
-                avatar={
-                  <Avatar shape="square" size="large" src={item?.image} />
+                title={
+                  <Space>
+                    <div>
+                      {item?.name?.charAt(0).toUpperCase()}
+                      {item?.name?.slice(1)}
+                    </div>
+                    <Tag
+                      color={item?.isVeg ? "green" : "red"}
+                      className={Style.is_veg_tag}
+                    >
+                      <TbPointFilled size={18} />
+                    </Tag>
+                  </Space>
                 }
-                title={`${item?.name
-                  ?.charAt(0)
-                  .toUpperCase()}${item?.name?.slice(1)}`}
                 description={`${item?.description?.slice(0, 60)}...`}
               />
             </List.Item>
