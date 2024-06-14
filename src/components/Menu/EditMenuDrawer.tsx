@@ -6,12 +6,14 @@ import {
   Image,
   Input,
   InputNumber,
+  Radio,
+  RadioChangeEvent,
   Skeleton,
   Space,
   message,
 } from "antd";
-import React, { FormEvent, useEffect, useState } from "react";
-import { MenuFormProps, DrawerOptionsType, MenuDrawerProps } from "../../types";
+import { useEffect, useState } from "react";
+import { MenuFormProps, MenuDrawerProps } from "../../types";
 import Style from "../../styles/_AddMenuDrawer.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import {
@@ -20,7 +22,7 @@ import {
 } from "../../apis/menuItemHandler";
 import { updateMenuItemAction } from "../../store/slices/menuListSlice";
 import { UploadOutlined } from "@ant-design/icons";
-import Upload, { RcFile, UploadFile } from "antd/es/upload";
+import Upload, { RcFile } from "antd/es/upload";
 
 export default function EditMenuDrawer({
   open,
@@ -32,6 +34,7 @@ export default function EditMenuDrawer({
   const { menulist } = useAppSelector((store) => store.menuListSlice);
 
   const [file, setFile] = useState<File | undefined | any>(null);
+  const [isVeg, setIsVeg] = useState(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isImageLoading, setIsImageLoading] = useState<boolean | any>(false);
   const [form] = Form.useForm();
@@ -39,6 +42,11 @@ export default function EditMenuDrawer({
   // CLOSE DRAWER
   const onClose = () => {
     setOpen((prev) => ({ ...prev, isMenuEditorOpen: false }));
+  };
+
+  // CHANGE FOOD TYPE
+  const foodType = (e: RadioChangeEvent) => {
+    setIsVeg(e.target.value);
   };
 
   // UPLOAD FILE
@@ -94,6 +102,7 @@ export default function EditMenuDrawer({
         name: menuItem?.name,
         price: menuItem?.price,
         desc: menuItem?.description,
+        type: menuItem?.isVeg,
       });
       setFile(menuItem?.image);
     }
@@ -160,11 +169,30 @@ export default function EditMenuDrawer({
           </Form.Item>
 
           <Form.Item<MenuFormProps>
+            name={"type"}
+            label="Choose Food Type"
+            required
+          >
+            <Radio.Group
+              defaultValue={true}
+              name="food"
+              value={isVeg}
+              onChange={foodType}
+            >
+              <Radio value={true}>Veg</Radio>
+              <Radio value={false}>Non Veg</Radio>
+            </Radio.Group>
+          </Form.Item>
+
+          <Form.Item<MenuFormProps>
             label="Description"
             name="desc"
-            rules={[{ required: true, message: "Description required!" }]}
+            rules={[
+              { required: true, message: "Description required!" },
+              { max: 150, message: "Reduces word" },
+            ]}
           >
-            <Input.TextArea placeholder="delicious food" rows={15} />
+            <Input.TextArea placeholder="delicious food" rows={5} />
           </Form.Item>
 
           <Form.Item>
