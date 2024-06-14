@@ -14,6 +14,7 @@ export type MenuFormProps = {
   price: number;
   desc: string;
   image: string;
+  type: boolean;
 };
 
 export interface MenuUpdateBodyProps {
