@@ -1,0 +1,10 @@
+@import "../modules/variables";
+
+.ant-radio-wrapper {
+  .ant-radio-checked {
+    .ant-radio-inner {
+      border-color: $dark-purple;
+      background-color: $dark-purple;
+    }
+  }
+}
