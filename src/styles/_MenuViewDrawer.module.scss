@@ -11,12 +11,13 @@
     height: 200px;
     max-height: 400px;
     border-radius: 2px;
-    background: $dark-purple;
     img {
       overflow: hidden;
       height: 200px;
-      object-fit: contain;
-      background: #f5f5f5;
+      object-fit: cover;
+      background: whitesmoke;
+      padding: 1rem;
+      border-radius: 12px;
     }
   }
 }
