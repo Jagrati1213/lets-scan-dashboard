@@ -19,3 +19,12 @@
     color: $dark-purple !important;
   }
 }
+.ant-btn.ant-btn-icon-only {
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+}
+.ant-btn-default:hover,
+.ant-btn-default:active {
+  color: $dark-purple !important;
+  border-color: $dark-purple !important;
+}
