@@ -5,6 +5,8 @@ import {
   FormProps,
   Input,
   InputNumber,
+  Radio,
+  RadioChangeEvent,
   Spin,
   Upload,
 } from "antd";
@@ -31,6 +33,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
 
   const [file, setFile] = useState<File | undefined | any>(null);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [isVeg, setIsVeg] = useState(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isImageLoading, setIsImageLoading] = useState<boolean | any>(false);
   const [form] = Form.useForm();
@@ -39,6 +42,11 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
     setOpen((prev) => ({ ...prev, isAddMenuOpen: false }));
     setFileList([]);
     form.resetFields();
+  };
+
+  // CHANGE FOOD TYPE
+  const foodType = (e: RadioChangeEvent) => {
+    setIsVeg(e.target.value);
   };
 
   // UPLOAD FILE
@@ -74,7 +82,6 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
   const handleMenuItemCreate = async (values: any) => {
     values.image = file;
     setIsLoading(true);
-
     //INVOKE CREATE MENU API
     try {
       const createItem = await createMenuItemHandler(values);
@@ -159,11 +166,30 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
             </Form.Item>
 
             <Form.Item<MenuFormProps>
+              name={"type"}
+              label="Choose Food Type"
+              required
+            >
+              <Radio.Group
+                defaultValue={true}
+                name="food"
+                value={isVeg}
+                onChange={foodType}
+              >
+                <Radio value={true}>Veg</Radio>
+                <Radio value={false}>Non Veg</Radio>
+              </Radio.Group>
+            </Form.Item>
+
+            <Form.Item<MenuFormProps>
               label="Description"
               name="desc"
-              rules={[{ required: true, message: "Description require!" }]}
+              rules={[
+                { required: true, message: "Description require!" },
+                { max: 150, message: "Reduce words." },
+              ]}
             >
-              <Input.TextArea placeholder="delicious food" rows={13} />
+              <Input.TextArea placeholder="delicious food" rows={5} />
             </Form.Item>
 
             <Form.Item>
