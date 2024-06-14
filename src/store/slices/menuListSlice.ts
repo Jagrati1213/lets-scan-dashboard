@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { MenuListResponseType, MenuListType } from "../../types";
+import { MenuListResponseType, MenuItemType } from "../../types";
 import { getMenuList } from "../../apis/menuItemHandler";
 
 interface MenuListProp {
-  menulist: MenuListType[];
+  menulist: MenuItemType[];
 }
 
 const initialState: MenuListProp = {
