@@ -16,10 +16,10 @@ export default function AuthBoard() {
   const handleAuthentication: FormProps<AuthFieldTypes>["onFinish"] = async (
     values
   ) => {
-    const { username, email, password } = values;
+    const { username, email, password, resName } = values;
     try {
       if (isSignUp) {
-        await signUpHandler({ username, email, password });
+        await signUpHandler({ username, email, password, resName });
         setIsSignUp(false);
       } else {
         const data = await signInHandler({ username, password });
@@ -44,33 +44,64 @@ export default function AuthBoard() {
         >
           <Form.Item
             name={"username"}
-            rules={[{ required: true }]}
+            rules={[
+              { required: true, message: "username required!" },
+              { max: 20, message: "too long name" },
+              {
+                pattern: new RegExp("^[a-z][a-z0-9]*$"),
+                message: "name start with small letter & includes numeric",
+              },
+            ]}
             label={"User Name"}
           >
-            <Input placeholder="@username" />
+            <Input placeholder="username123" />
           </Form.Item>
+
           {isSignUp && (
-            <Form.Item
-              name={"email"}
-              rules={[{ required: true }]}
-              label={"Email"}
-            >
-              <Input placeholder="xyz@gmail.com" />
-            </Form.Item>
+            <>
+              <Form.Item
+                name={"resName"}
+                rules={[
+                  { required: true, message: "restaurant name required!" },
+                ]}
+                label={"Restaurant Name"}
+              >
+                <Input placeholder="food corner" />
+              </Form.Item>
+
+              <Form.Item
+                name={"email"}
+                rules={[
+                  {
+                    type: "email",
+                    message: "enter valid mail!",
+                  },
+                  {
+                    required: true,
+                    message: "email required",
+                  },
+                ]}
+                label={"Email"}
+              >
+                <Input placeholder="xyz@gmail.com" />
+              </Form.Item>
+            </>
           )}
 
           <Form.Item
             name={"password"}
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: "password required" }]}
             label={"Password"}
           >
             <Input.Password placeholder="....." />
           </Form.Item>
+
           <Form.Item>
             <Button type="primary" block htmlType="submit">
               {isSignUp ? "Sign up" : "Sign In"}
             </Button>
           </Form.Item>
+
           <Flex vertical align="center">
             {isSignUp ? (
               <div>

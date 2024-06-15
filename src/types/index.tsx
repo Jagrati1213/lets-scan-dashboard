@@ -65,6 +65,7 @@ export interface AuthFieldTypes {
   username: string;
   password: string;
   email?: string;
+  resName?: string;
 }
 
 export type UserResponseType = {
