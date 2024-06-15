@@ -7,6 +7,8 @@ import {
   message,
   Typography,
   Avatar,
+  Switch,
+  Badge,
 } from "antd";
 import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
@@ -25,6 +27,7 @@ import Style from "../../styles/_Menu.module.scss";
 import { RiQrCodeFill } from "react-icons/ri";
 import QRModal from "../QR/QRModal";
 import { TbPointFilled } from "react-icons/tb";
+import SwitchFoodAvailability from "./SwitchFoodAvaibility";
 
 const { Paragraph, Text } = Typography;
 export default function Menu() {
@@ -110,150 +113,92 @@ export default function Menu() {
           </Flex>
         </Flex>
 
-        {windowWidth > 991 ? (
-          <List
-            dataSource={menulist}
-            bordered
-            loading={loading}
-            itemLayout={"vertical"}
-            size="large"
-            renderItem={(item, _) => (
-              <List.Item
-                key={item?._id}
-                extra={<img src={item?.image} />}
-                actions={[
-                  <p style={{ fontWeight: "500" }}>&#8377; {item?.price}</p>,
-                  <Button
-                    type="link"
-                    shape="circle"
-                    icon={<FaEye size={16} />}
-                    onClick={() => {
-                      setMenuItemId(item?._id);
-                      showDrawer("isMenuViewOpen");
-                    }}
-                  />,
-                  <Button
-                    type="link"
-                    shape="circle"
-                    icon={<FaEdit size={16} />}
-                    onClick={() => {
-                      setMenuItemId(item?._id);
-                      showDrawer("isMenuEditorOpen");
-                    }}
-                  />,
-                  <Button
-                    type="link"
-                    danger
-                    shape="circle"
-                    icon={<FaTrash size={16} />}
-                    onClick={() => {
-                      deleteMenuItem(item?._id);
-                    }}
-                  />,
-                ]}
-              >
-                <List.Item.Meta
-                  title={
-                    <Space>
-                      <Tag
-                        color={item?.isVeg ? "green" : "red"}
-                        className={Style.is_veg_tag}
-                      >
-                        <TbPointFilled size={18} />
-                      </Tag>
-                      <Text>
-                        {item?.name?.charAt(0).toUpperCase()}
-                        {item?.name?.slice(1)}
-                      </Text>
-                    </Space>
-                  }
-                  description={
-                    <Paragraph
-                      ellipsis={{
-                        rows: 2,
-                        expanded: false,
-                      }}
-                    >
-                      {item?.description}
-                    </Paragraph>
-                  }
-                />
-              </List.Item>
-            )}
-          />
-        ) : (
-          <List
-            dataSource={menulist}
-            bordered
-            loading={loading}
-            itemLayout={"horizontal"}
-            renderItem={(item, _) => (
-              <List.Item
-                key={item?._id}
-                actions={[
-                  <p style={{ fontWeight: "500" }}>&#8377; {item?.price}</p>,
-                  <Button
-                    type="link"
-                    shape="circle"
-                    icon={<FaEye size={16} />}
-                    onClick={() => {
-                      setMenuItemId(item?._id);
-                      showDrawer("isMenuViewOpen");
-                    }}
-                  />,
-                  <Button
-                    type="link"
-                    shape="circle"
-                    icon={<FaEdit size={16} />}
-                    onClick={() => {
-                      setMenuItemId(item?._id);
-                      showDrawer("isMenuEditorOpen");
-                    }}
-                  />,
-                  <Button
-                    type="link"
-                    danger
-                    shape="circle"
-                    icon={<FaTrash size={16} />}
-                    onClick={() => {
-                      deleteMenuItem(item?._id);
-                    }}
-                  />,
-                ]}
-              >
-                <List.Item.Meta
-                  avatar={
+        <List
+          dataSource={menulist}
+          bordered
+          loading={loading}
+          itemLayout={windowWidth > 991 ? "vertical" : "horizontal"}
+          size="large"
+          renderItem={(item, _) => (
+            <List.Item
+              key={item?._id}
+              extra={windowWidth > 991 ? <img src={item?.image} /> : null}
+              actions={[
+                <p style={{ fontWeight: "500" }}>&#8377; {item?.price}</p>,
+                <Button
+                  type="link"
+                  shape="circle"
+                  icon={<FaEye size={16} />}
+                  onClick={() => {
+                    setMenuItemId(item?._id);
+                    showDrawer("isMenuViewOpen");
+                  }}
+                />,
+                <Button
+                  type="link"
+                  shape="circle"
+                  icon={<FaEdit size={16} />}
+                  onClick={() => {
+                    setMenuItemId(item?._id);
+                    showDrawer("isMenuEditorOpen");
+                  }}
+                />,
+                <Button
+                  type="link"
+                  danger
+                  shape="circle"
+                  icon={<FaTrash size={16} />}
+                  onClick={() => {
+                    deleteMenuItem(item?._id);
+                  }}
+                />,
+                <SwitchFoodAvailability menuItemId={item._id} />,
+              ]}
+            >
+              <List.Item.Meta
+                avatar={
+                  windowWidth <= 991 && (
                     <Avatar src={item?.image} shape="square" size={"large"} />
-                  }
-                  title={
-                    <Space>
-                      <Tag
-                        color={item?.isVeg ? "green" : "red"}
-                        className={Style.is_veg_tag}
-                      >
-                        <TbPointFilled size={18} />
-                      </Tag>
-                      <Text>
-                        {item?.name?.charAt(0).toUpperCase()}
-                        {item?.name?.slice(1)}
-                      </Text>
-                    </Space>
-                  }
-                  description={
-                    <Paragraph
-                      ellipsis={{
-                        rows: 2,
-                        expanded: false,
+                  )
+                }
+                title={
+                  <Space>
+                    <Tag
+                      color={item?.isVeg ? "green" : "red"}
+                      className={Style.is_veg_tag}
+                      style={{
+                        borderColor: `${item?.isVeg ? "#0f8a65" : "#e43b4f"}`,
                       }}
                     >
-                      {item?.description}
-                    </Paragraph>
-                  }
-                />
-              </List.Item>
-            )}
-          />
-        )}
+                      <div
+                        style={{
+                          width: "12px",
+                          height: "12px",
+                          background: `${item?.isVeg ? "#0f8a65" : "#e43b4f"}`,
+                          borderRadius: "50%",
+                        }}
+                      ></div>
+                    </Tag>
+                    <Text>
+                      {item?.name?.charAt(0).toUpperCase()}
+                      {item?.name?.slice(1)}
+                    </Text>
+                  </Space>
+                }
+                description={
+                  <Paragraph
+                    ellipsis={{
+                      rows: 2,
+                      expanded: false,
+                    }}
+                  >
+                    {item?.description}
+                  </Paragraph>
+                }
+              />
+            </List.Item>
+          )}
+        />
 
         <MenuViewDrawer
           open={DrawerOptionsType.isMenuViewOpen}
