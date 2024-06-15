@@ -6,11 +6,13 @@ export const signUpHandler = async ({
   username,
   email,
   password,
+  resName,
 }: AuthFieldTypes) => {
   const response = await Axios.post("user/register", {
     username: username.toLowerCase(),
     email: email,
     password: password,
+    restaurant: resName,
   });
   const { success, statusText } = await response.data;
 
