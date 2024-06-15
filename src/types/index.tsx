@@ -8,6 +8,7 @@ export interface MenuItemType {
   rating?: string | null;
   userId?: string | null;
   isVeg: boolean;
+  isActive: boolean;
 }
 
 export type MenuFormProps = {
