@@ -43,7 +43,9 @@ export const getMenuList = async (): Promise<MenuListResponseType["data"]> => {
 };
 
 // UPDATE MENU ITEM
-export const updateMenuItemHandler = async (values: MenuUpdateBodyProps) => {
+export const updateMenuItemHandler = async (
+  values: MenuUpdateBodyProps
+): Promise<MenuListResponseType["data"]> => {
   try {
     const response = await Axios.post("menu/update-menu", values, {
       headers: { "Content-Type": "application/json" },
