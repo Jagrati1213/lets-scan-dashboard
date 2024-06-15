@@ -47,8 +47,18 @@ export default function MenuViewDrawer({
               <Tag
                 color={menuItem?.isVeg ? "green" : "red"}
                 className={Style.is_veg_tag}
+                style={{
+                  borderColor: `${menuItem?.isVeg ? "#0f8a65" : "#e43b4f"}`,
+                }}
               >
-                <TbPointFilled size={18} />
+                <div
+                  style={{
+                    width: "12px",
+                    height: "12px",
+                    background: `${menuItem?.isVeg ? "#0f8a65" : "#e43b4f"}`,
+                    borderRadius: "50%",
+                  }}
+                ></div>
               </Tag>
             </Flex>
 
