@@ -1,0 +1,8 @@
+@import "../modules/variables";
+
+.ant-switch.ant-switch-checked {
+  background: #0f8a65;
+  &:hover {
+    background: #31bf94 !important;
+  }
+}
