@@ -71,11 +71,7 @@ export const deleteMenuItemHandler = async ({
   menuId: string | null;
 }): Promise<deleteMenuItemProps["success"]> => {
   try {
-    const response = await Axios.post(
-      "menu/delete-menu",
-      { menuId },
-      { headers: { "Content-Type": "application/json" } }
-    );
+    const response = await Axios.get(`menu/delete-menu/${menuId}`);
 
     const { success, statusText } = response.data;
     if (success) {
