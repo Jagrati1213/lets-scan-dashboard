@@ -9,7 +9,7 @@
     background: $dark-purple !important;
   }
   @include tablet {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 }
 .ant-btn-link {
@@ -20,8 +20,8 @@
   }
 }
 .ant-btn.ant-btn-icon-only {
-  padding-inline-start: 10px;
-  padding-inline-end: 10px;
+  padding-inline-start: 0.625rem;
+  padding-inline-end: 0.625rem;
 }
 .ant-btn-default:hover,
 .ant-btn-default:active {

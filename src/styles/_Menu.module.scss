@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2px;
+    padding: 0.125rem;
   }
 
   :global(.ant-list-item-action) {
@@ -48,7 +48,7 @@
   @include min-tablet {
     :global(.ant-list-item) {
       align-items: start;
-      padding: 10px !important;
+      padding: 0.625rem !important;
       flex-direction: column;
 
       :global(.ant-list-item-meta-description) {
@@ -67,7 +67,7 @@
         }
       }
       :global(.ant-list-item-extra) {
-        margin: auto auto 10px;
+        margin: auto auto 0.625rem;
       }
       p {
         margin: 0.2rem 0;
