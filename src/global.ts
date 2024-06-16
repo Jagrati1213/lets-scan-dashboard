@@ -2,7 +2,7 @@ import axios from "axios";
 
 // AXIOS BASE URL
 export const Axios = axios.create({
-  baseURL: "http://localhost:4000/api/v1/",
+  baseURL: "http://localhost:4000",
   withCredentials: true,
 });
 
@@ -21,7 +21,7 @@ Axios.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const { data } = await Axios.post("refresh-token");
+        const { data } = await Axios.get("api/v1/user/refresh-token");
 
         // RETRY THE ORIGINAL REQUEST
         return Axios(originalRequest);
