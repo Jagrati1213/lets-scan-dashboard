@@ -1,17 +1,17 @@
 import { message } from "antd";
-import { Axios } from "../global";
+import { Axios } from "../../global";
 
-interface changeFoodTypeProps {
+interface changeFoodActiveProps {
   activeVal: boolean;
   menuId: string | null;
 }
 export const changeFoodType = async ({
   activeVal,
   menuId,
-}: changeFoodTypeProps) => {
+}: changeFoodActiveProps) => {
   try {
-    const response = await Axios.post(
-      "/menu/active",
+    const response = await Axios.put(
+      "api/v1/menu/active",
       { activeVal, menuId },
       { headers: { "Content-Type": "application/json" } }
     );

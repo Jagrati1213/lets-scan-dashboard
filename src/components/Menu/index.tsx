@@ -7,8 +7,6 @@ import {
   message,
   Typography,
   Avatar,
-  Switch,
-  Badge,
 } from "antd";
 import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
@@ -22,12 +20,11 @@ import {
   fetchMenuListAction,
 } from "../../store/slices/menuListSlice";
 import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
-import { deleteMenuItemHandler } from "../../apis/menuItemHandler";
 import Style from "../../styles/_Menu.module.scss";
 import { RiQrCodeFill } from "react-icons/ri";
 import QRModal from "../QR/QRModal";
-import { TbPointFilled } from "react-icons/tb";
 import SwitchFoodAvailability from "./SwitchFoodAvaibility";
+import { deleteMenuItemHandler } from "../../apis/menu/deleteMenuItem";
 
 const { Paragraph, Text } = Typography;
 export default function Menu() {

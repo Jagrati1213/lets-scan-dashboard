@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserResponseType, UserStateType } from "../../types";
 import { message } from "antd";
-import { getUserDetails } from "../../apis/getUserHandler";
+import { getUserDetails } from "../../apis/user/userDetails";
 
 // INITIAL STATE
 const initialState: UserStateType = {

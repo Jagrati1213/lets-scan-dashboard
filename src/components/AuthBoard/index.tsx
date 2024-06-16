@@ -4,9 +4,10 @@ import Title from "antd/es/typography/Title";
 import { useState } from "react";
 import { AuthFieldTypes } from "../../types";
 import "../../styles/global.scss";
-import { signInHandler, signUpHandler } from "../../apis/authHandler";
 import { setUserDetailsAction } from "../../store/slices/userSlice";
 import { useDispatch } from "react-redux";
+import { signUp } from "../../apis/auth/signup";
+import { signIn } from "../../apis/auth/signin";
 
 export default function AuthBoard() {
   const dispatch = useDispatch();
@@ -19,10 +20,10 @@ export default function AuthBoard() {
     const { username, email, password, resName } = values;
     try {
       if (isSignUp) {
-        await signUpHandler({ username, email, password, resName });
+        await signUp({ username, email, password, resName });
         setIsSignUp(false);
       } else {
-        const data = await signInHandler({ username, password });
+        const data = await signIn({ username, password });
         if (!data) return;
         dispatch(setUserDetailsAction(data));
       }

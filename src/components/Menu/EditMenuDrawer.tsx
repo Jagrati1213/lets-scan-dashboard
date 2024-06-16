@@ -16,13 +16,11 @@ import { useEffect, useState } from "react";
 import { MenuFormProps, MenuDrawerProps } from "../../types";
 import Style from "../../styles/_AddMenuDrawer.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import {
-  updateMenuItemHandler,
-  uploadMenuItemImage,
-} from "../../apis/menuItemHandler";
 import { updateMenuItemAction } from "../../store/slices/menuListSlice";
 import { UploadOutlined } from "@ant-design/icons";
 import Upload, { RcFile } from "antd/es/upload";
+import { updateMenuItemHandler } from "../../apis/menu/updateMenuItem";
+import { uploadMenuItemImage } from "../../apis/uploadImage/uploadMenuItemImage";
 
 export default function EditMenuDrawer({
   open,

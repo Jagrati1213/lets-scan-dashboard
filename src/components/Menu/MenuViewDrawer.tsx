@@ -4,7 +4,6 @@ import { MenuItemType, MenuDrawerProps } from "../../types";
 import Title from "antd/es/typography/Title";
 import Style from "../../styles/_MenuViewDrawer.module.scss";
 import { useAppSelector } from "../../store/store";
-import { TbPointFilled } from "react-icons/tb";
 
 const { Paragraph, Text } = Typography;
 export default function MenuViewDrawer({

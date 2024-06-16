@@ -2,8 +2,8 @@ import { Popconfirm, PopconfirmProps, Switch, message } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { changeFoodType } from "../../apis/changeFoodTypeHandler";
 import { updateMenuItemAction } from "../../store/slices/menuListSlice";
+import { changeFoodType } from "../../apis/menu/updateItemActive";
 
 export default function SwitchFoodAvailability({
   menuItemId,

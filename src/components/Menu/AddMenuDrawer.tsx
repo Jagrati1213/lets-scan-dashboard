@@ -13,14 +13,12 @@ import {
 import React, { useState } from "react";
 import { MenuFormProps, DrawerOptionsType } from "../../types";
 import Style from "../../styles/_AddMenuDrawer.module.scss";
-import {
-  createMenuItemHandler,
-  uploadMenuItemImage,
-} from "../../apis/menuItemHandler";
 import { useAppDispatch } from "../../store/store";
 import { addMenuItemAction } from "../../store/slices/menuListSlice";
 import { UploadOutlined } from "@ant-design/icons";
 import { RcFile, UploadFile } from "antd/es/upload";
+import { uploadMenuItemImage } from "../../apis/uploadImage/uploadMenuItemImage";
+import { createMenuItemHandler } from "../../apis/menu/createMenuItem";
 
 interface AddMenuProps {
   open: boolean;
