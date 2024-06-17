@@ -12,6 +12,11 @@
     font-size: 0.75rem;
   }
 }
+.ant-btn-primary:disabled {
+  &:hover {
+    background: $gray !important;
+  }
+}
 .ant-btn-link {
   color: $purple;
   font-weight: 500;
