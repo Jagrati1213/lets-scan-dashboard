@@ -12,7 +12,7 @@ import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
 import MenuViewDrawer from "./MenuViewDrawer";
 import AddMenuDrawer from "./AddMenuDrawer";
-import { DrawerOptionsType, QRDetailsTypes } from "../../types";
+import { DrawerOptionsType } from "../../types";
 import EditMenuDrawer from "./EditMenuDrawer";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import {
