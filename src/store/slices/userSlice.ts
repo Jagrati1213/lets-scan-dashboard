@@ -5,7 +5,7 @@ import { getUserDetails } from "../../apis/user/userDetails";
 
 // INITIAL STATE
 const initialState: UserStateType = {
-  user: { _id: null, username: null, email: null },
+  user: { _id: null, username: null, email: null, isOpen: false },
 };
 
 // CREATE ASYNC THUNK FOR USER
@@ -35,6 +35,7 @@ export const userSlice = createSlice({
         _id: null,
         username: null,
         email: null,
+        isOpen: false,
       };
     },
   },
