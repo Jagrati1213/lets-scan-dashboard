@@ -8,14 +8,15 @@ import { RiLogoutCircleFill } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Style from "../styles/_SiderContainer.module.scss";
 import { Axios } from "../global";
-import { useDispatch } from "react-redux";
 import { logoutAction } from "../store/slices/userSlice";
+import { useAppDispatch } from "../store/store";
 // import { RiQrCodeFill } from "react-icons/ri";
 
 export const SiderContainer = () => {
   // COLLAPSE MENU SIDEBAR
   const [collapsed, setCollapsed] = useState(false);
-  const dispatch = useDispatch();
+
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
