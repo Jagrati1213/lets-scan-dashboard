@@ -43,10 +43,6 @@ export default function Menu() {
   const [loading, setLoading] = useState(true);
   const [menuItemId, setMenuItemId] = useState<string | undefined | null>();
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
-  const [qrDetails, setQrDetails] = useState<QRDetailsTypes>({
-    image: null,
-    url: null,
-  });
 
   // HANDLE DRAWER
   const showDrawer = (option: string) => {
@@ -103,6 +99,7 @@ export default function Menu() {
             <Button
               type="primary"
               shape="round"
+              disabled={user?.isOpen}
               onClick={showDrawer.bind(null, "isAddMenuOpen")}
             >
               Add Menu
@@ -126,6 +123,7 @@ export default function Menu() {
                   type="link"
                   shape="circle"
                   icon={<FaEye size={16} />}
+                  disabled={user?.isOpen}
                   onClick={() => {
                     setMenuItemId(item?._id);
                     showDrawer("isMenuViewOpen");
@@ -135,6 +133,7 @@ export default function Menu() {
                   type="link"
                   shape="circle"
                   icon={<FaEdit size={16} />}
+                  disabled={user?.isOpen}
                   onClick={() => {
                     setMenuItemId(item?._id);
                     showDrawer("isMenuEditorOpen");
@@ -145,6 +144,7 @@ export default function Menu() {
                   danger
                   shape="circle"
                   icon={<FaTrash size={16} />}
+                  disabled={user?.isOpen}
                   onClick={() => {
                     deleteMenuItem(item?._id);
                   }}
@@ -214,7 +214,6 @@ export default function Menu() {
         />
 
         <QRModal
-          qrDetails={qrDetails}
           openQrModal={isQrModalOpen}
           setOpenQrModal={setIsQrModalOpen}
         />

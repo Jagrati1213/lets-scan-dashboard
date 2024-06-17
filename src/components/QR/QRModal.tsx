@@ -16,20 +16,14 @@ import {
 import { Dispatch, SetStateAction, useState } from "react";
 import Style from "../../styles/_QrModal.module.scss";
 import { LuCopy } from "react-icons/lu";
-import { QRDetailsTypes } from "../../types";
 import { useAppSelector } from "../../store/store";
 import { menuMuseWebsitePath } from "../../global";
 
 interface modalProps {
-  qrDetails: QRDetailsTypes | any;
   openQrModal: boolean;
   setOpenQrModal: Dispatch<SetStateAction<boolean>>;
 }
-export default function QRModal({
-  openQrModal,
-  setOpenQrModal,
-  qrDetails,
-}: modalProps) {
+export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
   const [copyUrl, setCopyUrl] = useState<boolean>(false);
   const { user } = useAppSelector((store) => store.authSlice);
 
@@ -83,7 +77,10 @@ export default function QRModal({
           <Tooltip title={copyUrl ? "Copied" : "Copy"}>
             <Button
               icon={<LuCopy />}
-              onClick={copyQrLinkHandler.bind(null, qrDetails.url)}
+              onClick={copyQrLinkHandler.bind(
+                null,
+                `${menuMuseWebsitePath}/menu/${user?._id}`
+              )}
             />
           </Tooltip>
         </Flex>
