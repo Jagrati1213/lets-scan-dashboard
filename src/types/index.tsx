@@ -77,6 +77,7 @@ export type UserResponseType = {
     _id: string;
     username: string;
     email: string;
+    isOpen: boolean;
   };
 };
 
@@ -85,11 +86,6 @@ export interface UserStateType {
     username: string | null;
     email: string | null;
     _id: string | null;
+    isOpen: boolean;
   };
-}
-
-// QR CODE TYPES
-export interface QRDetailsTypes {
-  image: string | null;
-  url: string | null;
 }
