@@ -2,7 +2,8 @@ import axios from "axios";
 
 // AXIOS BASE URL
 export const Axios = axios.create({
-  baseURL: "http://localhost:4000",
+  // baseURL: "http://localhost:4000",
+  baseURL: "https://orderminder-server.onrender.com",
   withCredentials: true,
 });
 
