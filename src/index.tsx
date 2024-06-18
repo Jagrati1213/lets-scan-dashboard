@@ -6,7 +6,7 @@ import Menu from "./components/Menu";
 import Orders from "./components/Orders";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import DashBoard from "./components/DashBoard";
+import Dashboard from "./components/Dashboard";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <DashBoard />,
+        element: <Dashboard />,
       },
       {
         path: "/menu",

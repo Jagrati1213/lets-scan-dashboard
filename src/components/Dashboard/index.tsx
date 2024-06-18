@@ -7,7 +7,7 @@ import { setUserDetailsAction } from "../../store/slices/userSlice";
 
 const { Text } = Typography;
 
-export default function DashBoard() {
+export default function Dashboard() {
   const { user } = useAppSelector((store) => store.authSlice);
   const dispatch = useAppDispatch();
   const [shopIsOpen, setShopIsOpen] = useState(user?.isOpen || false);
