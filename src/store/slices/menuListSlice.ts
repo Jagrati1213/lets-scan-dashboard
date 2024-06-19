@@ -16,7 +16,7 @@ export const fetchMenuListAction = createAsyncThunk<MenuResponseT["data"]>(
   async () => {
     try {
       const data = await getMenuList();
-      if (!data) return null;
+      if (!data) return [];
       return data;
     } catch (error: any) {
       console.log("ERROR IN FETCH MENULIST", error);
