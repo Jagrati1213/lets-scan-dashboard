@@ -1,16 +1,16 @@
 import Title from "antd/es/typography/Title";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { Col, Flex, Row, Space, Switch, Typography } from "antd";
+import { Col, Row, Space, Switch, Typography } from "antd";
 import { useState } from "react";
 import { updateShopAvailability } from "../../apis/user/updateShopAvailability";
-import { setUserDetailsAction } from "../../store/slices/userSlice";
+import { setUserDetailsAction } from "../../store/slices/venderSlice";
 
 const { Text } = Typography;
 
 export default function Dashboard() {
-  const { user } = useAppSelector((store) => store.authSlice);
+  const { vender } = useAppSelector((store) => store.authSlice);
   const dispatch = useAppDispatch();
-  const [shopIsOpen, setShopIsOpen] = useState(user?.isOpen || false);
+  const [shopIsOpen, setShopIsOpen] = useState(vender?.isOpen || false);
 
   // CHANGE SHOP OPENING
   const handleShopAvailability = async (checked: boolean) => {
@@ -23,7 +23,7 @@ export default function Dashboard() {
   return (
     <Row justify={"space-between"} align={"middle"}>
       <Col>
-        <Title level={4}>Welcome, {user?.username} </Title>
+        {vender && <Title level={4}>Welcome, {vender?.username} </Title>}
       </Col>
       <Col>
         <Space direction="vertical" align="center">

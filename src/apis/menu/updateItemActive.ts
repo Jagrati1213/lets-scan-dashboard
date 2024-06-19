@@ -1,5 +1,6 @@
 import { message } from "antd";
 import { Axios } from "../../global";
+import { VenderResponseT } from "../../types";
 
 interface changeFoodActiveProps {
   activeVal: boolean;
@@ -8,7 +9,7 @@ interface changeFoodActiveProps {
 export const changeFoodType = async ({
   activeVal,
   menuId,
-}: changeFoodActiveProps) => {
+}: changeFoodActiveProps): Promise<VenderResponseT["data"] | boolean> => {
   try {
     const response = await Axios.put(
       "api/v1/menu/active",
@@ -25,7 +26,10 @@ export const changeFoodType = async ({
       message.error(statusText);
     }
     return data;
-  } catch (error) {
-    console.log("ERROR IN UPDATE MENU ITEMS", error);
+  } catch (error: any) {
+    console.log("ERROR IN ACTIVE MENU", error);
+    return message.error(
+      `ERROR IN ACTIVE MENU!,  ${error ? error?.message : error}`
+    );
   }
 };

@@ -1,16 +1,12 @@
 import {
   Button,
-  Card,
   Col,
   Divider,
   Flex,
-  Image,
   Input,
   Modal,
   QRCode,
   Row,
-  Skeleton,
-  Space,
   Tooltip,
 } from "antd";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -25,7 +21,7 @@ interface modalProps {
 }
 export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
   const [copyUrl, setCopyUrl] = useState<boolean>(false);
-  const { user } = useAppSelector((store) => store.authSlice);
+  const { vender } = useAppSelector((store) => store.authSlice);
 
   // METHODS
   const copyQrLinkHandler = (url: string) => {
@@ -61,7 +57,7 @@ export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
           <Col>
             <QRCode
               type="svg"
-              value={`${menuMuseWebsitePath}/menu/${user?._id}`}
+              value={`${menuMuseWebsitePath}/menu/${vender?._id}`}
             />
           </Col>
         </Row>
@@ -70,7 +66,7 @@ export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
         <Flex gap={"12px"} className={Style.qr_link_box}>
           <Input
             disabled
-            value={`${menuMuseWebsitePath}/menu/${user?._id}`}
+            value={`${menuMuseWebsitePath}/menu/${vender?._id}`}
             className={Style.qr_link}
           />
 
@@ -79,7 +75,7 @@ export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
               icon={<LuCopy />}
               onClick={copyQrLinkHandler.bind(
                 null,
-                `${menuMuseWebsitePath}/menu/${user?._id}`
+                `${menuMuseWebsitePath}/menu/${vender?._id}`
               )}
             />
           </Tooltip>

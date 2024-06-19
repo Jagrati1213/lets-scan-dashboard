@@ -1,11 +1,11 @@
 import { message } from "antd";
 import { Axios } from "../../global";
-import { MenuListResponseType, MenuUpdateBodyProps } from "../../types";
+import { MenuResponseT, MenuUpdateT } from "../../types";
 
 // UPDATE MENU ITEM
 export const updateMenuItemHandler = async (
-  values: MenuUpdateBodyProps
-): Promise<MenuListResponseType["data"]> => {
+  values: MenuUpdateT
+): Promise<MenuResponseT["data"] | boolean> => {
   try {
     const response = await Axios.put("api/v1/menu/update-menu", values, {
       headers: { "Content-Type": "application/json" },
@@ -19,7 +19,9 @@ export const updateMenuItemHandler = async (
     }
     return data;
   } catch (error: any) {
-    console.log("ERROR IN CREATE ITEM FOR MENU,", error);
-    return error;
+    console.log("ERROR IN UPDATE MENU,", error);
+    return message.error(
+      `ERROR IN UPDATE MENU, ${error ? error?.message : error}`
+    );
   }
 };

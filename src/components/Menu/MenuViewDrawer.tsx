@@ -1,6 +1,6 @@
 import { Drawer, Flex, Image, Rate, Tag, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { MenuItemType, MenuDrawerProps } from "../../types";
+import { MenuItemT, MenuDrawerT } from "../../types";
 import Title from "antd/es/typography/Title";
 import Style from "../../styles/_MenuViewDrawer.module.scss";
 import { useAppSelector } from "../../store/store";
@@ -10,10 +10,10 @@ export default function MenuViewDrawer({
   open,
   setOpen,
   menuItemId,
-}: MenuDrawerProps) {
+}: MenuDrawerT) {
   // STATE
   const { menulist } = useAppSelector((store) => store.menuListSlice);
-  const [menuItem, setMenuItem] = useState<MenuItemType>();
+  const [menuItem, setMenuItem] = useState<MenuItemT>();
 
   // CLOSE DRAWER
   const onClose = () => {
@@ -22,7 +22,7 @@ export default function MenuViewDrawer({
 
   // RENDER MENU ITEM
   useEffect(() => {
-    const menuItem = menulist.find((item) => item._id === menuItemId);
+    const menuItem = menulist?.find((item) => item._id === menuItemId);
     setMenuItem(menuItem);
   }, [menuItemId, menulist]);
 

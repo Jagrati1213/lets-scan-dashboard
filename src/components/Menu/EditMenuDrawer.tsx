@@ -13,7 +13,7 @@ import {
   message,
 } from "antd";
 import { useEffect, useState } from "react";
-import { MenuFormProps, MenuDrawerProps } from "../../types";
+import { MenuFormT, MenuDrawerT } from "../../types";
 import Style from "../../styles/_AddMenuDrawer.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { updateMenuItemAction } from "../../store/slices/menuListSlice";
@@ -26,13 +26,13 @@ export default function EditMenuDrawer({
   open,
   setOpen,
   menuItemId,
-}: MenuDrawerProps) {
+}: MenuDrawerT) {
   // STATE
   const dispatch = useAppDispatch();
   const { menulist } = useAppSelector((store) => store.menuListSlice);
 
   const [file, setFile] = useState<File | undefined | any>(null);
-  const [isVeg, setIsVeg] = useState(true);
+  const [isVeg, setIsVeg] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isImageLoading, setIsImageLoading] = useState<boolean | any>(false);
   const [form] = Form.useForm();
@@ -86,7 +86,7 @@ export default function EditMenuDrawer({
   };
 
   // IF FORM SUBMISSION FAILED
-  const onFinishFailed: FormProps<MenuFormProps>["onFinishFailed"] = (
+  const onFinishFailed: FormProps<MenuFormT>["onFinishFailed"] = (
     errorInfo: any
   ) => {
     message.error(errorInfo);
@@ -94,7 +94,7 @@ export default function EditMenuDrawer({
 
   // RENDER MENU ITEM
   useEffect(() => {
-    const menuItem = menulist.find((item) => item._id === menuItemId);
+    const menuItem = menulist?.find((item) => item._id === menuItemId);
     if (menuItem) {
       form.setFieldsValue({
         name: menuItem?.name,
@@ -127,7 +127,7 @@ export default function EditMenuDrawer({
           variant="outlined"
           encType="multipart/form-data"
         >
-          <Form.Item<MenuFormProps>
+          <Form.Item<MenuFormT>
             label="Name"
             name="name"
             rules={[{ required: true, message: "add item name!" }]}
@@ -135,7 +135,7 @@ export default function EditMenuDrawer({
             <Input placeholder="dosh" />
           </Form.Item>
 
-          <Form.Item<MenuFormProps>
+          <Form.Item<MenuFormT>
             label="Price"
             name="price"
             rules={[{ required: true, message: "add price" }]}
@@ -143,7 +143,7 @@ export default function EditMenuDrawer({
             <InputNumber style={{ width: "100%" }} min={10} placeholder="100" />
           </Form.Item>
 
-          <Form.Item<MenuFormProps> label="Image">
+          <Form.Item<MenuFormT> label="Image">
             <Space>
               {file ? (
                 <Image width={60} height={60} src={file} />
@@ -166,23 +166,14 @@ export default function EditMenuDrawer({
             </Space>
           </Form.Item>
 
-          <Form.Item<MenuFormProps>
-            name={"type"}
-            label="Choose Food Type"
-            required
-          >
-            <Radio.Group
-              defaultValue={true}
-              name="food"
-              value={isVeg}
-              onChange={foodType}
-            >
+          <Form.Item<MenuFormT> name={"type"} label="Choose Food Type" required>
+            <Radio.Group name="food" value={isVeg} onChange={foodType}>
               <Radio value={true}>Veg</Radio>
               <Radio value={false}>Non Veg</Radio>
             </Radio.Group>
           </Form.Item>
 
-          <Form.Item<MenuFormProps>
+          <Form.Item<MenuFormT>
             label="Description"
             name="desc"
             rules={[

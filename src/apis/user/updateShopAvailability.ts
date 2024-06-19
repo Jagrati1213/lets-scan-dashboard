@@ -1,13 +1,13 @@
 import { message } from "antd";
 import { Axios } from "../../global";
-import { UserResponseType } from "../../types";
+import { VenderResponseT } from "../../types";
 
 export const updateShopAvailability = async (
   val: boolean
-): Promise<UserResponseType["data"]> => {
+): Promise<VenderResponseT["data"] | boolean> => {
   try {
-    const response = await Axios.put(
-      "api/v1/user/open-shop",
+    const response = await Axios.put<VenderResponseT>(
+      "api/v1/vender/open-shop",
       { isOpen: val },
       {
         headers: { "Content-Type": "application/json" },
@@ -22,6 +22,8 @@ export const updateShopAvailability = async (
     return data;
   } catch (error: any) {
     console.log("ERROR IN UPDATE SHOP AVAILABILITY", error);
-    return error;
+    return message.error(
+      `ERROR IN UPDATE SHOP, ${error ? error?.message : error}`
+    );
   }
 };

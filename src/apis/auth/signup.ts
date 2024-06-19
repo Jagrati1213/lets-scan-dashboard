@@ -1,20 +1,20 @@
 import { message } from "antd";
 import { Axios } from "../../global";
-import { AuthFieldTypes } from "../../types";
+import { AuthFieldT, VenderResponseT } from "../../types";
 
 export const signUp = async ({
   username,
   email,
   password,
   resName,
-}: AuthFieldTypes) => {
-  const response = await Axios.post("api/v1/user/register", {
+}: AuthFieldT): Promise<VenderResponseT | boolean> => {
+  const response = await Axios.post("api/v1/vender/register", {
     username: username.toLowerCase(),
     email: email,
     password: password,
     restaurant: resName,
   });
-  const { success, statusText } = await response.data;
+  const { success, statusText, data } = await response.data;
 
   try {
     if (success) {
@@ -22,8 +22,11 @@ export const signUp = async ({
     } else {
       message.error(statusText);
     }
+    return data;
   } catch (error: any) {
     console.log("ERROR IN REGISTRATION!, ", error);
-    return error;
+    return message.error(
+      `ERROR IN REGISTRATION, ${error ? error?.message : error}`
+    );
   }
 };

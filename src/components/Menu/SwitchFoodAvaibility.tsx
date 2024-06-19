@@ -39,7 +39,7 @@ export default function SwitchFoodAvailability({
   };
 
   useEffect(() => {
-    const menuItem = menulist.find((item) => item?._id === menuItemId);
+    const menuItem = menulist?.find((item) => item?._id === menuItemId);
     if (menuItem) {
       setActive(menuItem.isActive);
     }

@@ -2,9 +2,9 @@ import { Button, Flex, Form, FormProps, Input, message } from "antd";
 import Style from "../../styles/_Authentication.module.scss";
 import Title from "antd/es/typography/Title";
 import { useState } from "react";
-import { AuthFieldTypes } from "../../types";
+import { AuthFieldT } from "../../types";
 import "../../styles/global.scss";
-import { setUserDetailsAction } from "../../store/slices/userSlice";
+import { setUserDetailsAction } from "../../store/slices/venderSlice";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../apis/auth/signup";
 import { signIn } from "../../apis/auth/signin";
@@ -12,50 +12,59 @@ import { signIn } from "../../apis/auth/signin";
 export default function AuthBoard() {
   const dispatch = useDispatch();
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
 
-  const handleAuthentication: FormProps<AuthFieldTypes>["onFinish"] = async (
+  const handleAuthentication: FormProps<AuthFieldT>["onFinish"] = async (
     values
-  ) => {
+  ): Promise<any> => {
     const { username, email, password, resName } = values;
+    setIsLoading(true);
     try {
       if (isSignUp) {
         await signUp({ username, email, password, resName });
         setIsSignUp(false);
       } else {
         const data = await signIn({ username, password });
-        if (!data) return;
+        if (!data) throw new Error();
         dispatch(setUserDetailsAction(data));
       }
     } catch (error: any) {
       console.log("ERROR IN AUTH", error);
-      return error;
+      return message.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className={Style.auth_form}>
       <Flex align="center" vertical gap={"20px"}>
-        <Title level={5}>ORDER MINDER</Title>
+        <Title level={5}>LET'S SCAN</Title>
         <Form
           form={form}
-          title="Login OrderMinder"
+          title="Login Let's Scan"
           layout="vertical"
           onFinish={handleAuthentication}
         >
           <Form.Item
             name={"username"}
             rules={[
-              { required: true, message: "username required!" },
-              { max: 20, message: "too long name" },
+              { required: true, message: "name required!" },
+              {
+                max: 20,
+                message:
+                  "your name is too long. maximum length is 20 character",
+              },
               {
                 pattern: new RegExp("^[a-z][a-z0-9]*$"),
-                message: "name start with small letter & includes numeric",
+                message:
+                  "start with a letter, use lowercase letters and digits.",
               },
             ]}
-            label={"User Name"}
+            label={"Vender UserName"}
           >
-            <Input placeholder="username123" />
+            <Input placeholder="vendername123" />
           </Form.Item>
 
           {isSignUp && (
@@ -98,7 +107,13 @@ export default function AuthBoard() {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" block htmlType="submit">
+            <Button
+              type="primary"
+              block
+              htmlType="submit"
+              loading={isLoading}
+              disabled={isLoading}
+            >
               {isSignUp ? "Sign up" : "Sign In"}
             </Button>
           </Form.Item>
@@ -108,14 +123,14 @@ export default function AuthBoard() {
               <div>
                 Already have account?
                 <Button type="link" onClick={() => setIsSignUp(false)}>
-                  Signin
+                  SignIn
                 </Button>
               </div>
             ) : (
               <div>
                 New to orderMinder?
                 <Button type="link" onClick={() => setIsSignUp(true)}>
-                  Signup
+                  SignUp
                 </Button>
               </div>
             )}

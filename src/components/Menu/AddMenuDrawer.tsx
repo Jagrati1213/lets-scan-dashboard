@@ -11,7 +11,7 @@ import {
   Upload,
 } from "antd";
 import React, { useState } from "react";
-import { MenuFormProps, DrawerOptionsType } from "../../types";
+import { MenuFormT, DrawerOptionsT } from "../../types";
 import Style from "../../styles/_AddMenuDrawer.module.scss";
 import { useAppDispatch } from "../../store/store";
 import { addMenuItemAction } from "../../store/slices/menuListSlice";
@@ -22,7 +22,7 @@ import { createMenuItemHandler } from "../../apis/menu/createMenuItem";
 
 interface AddMenuProps {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<DrawerOptionsType>>;
+  setOpen: React.Dispatch<React.SetStateAction<DrawerOptionsT>>;
 }
 
 export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
@@ -95,7 +95,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
   };
 
   // IF USER NOT ADDED FIELD
-  const onFinishFailed: FormProps<MenuFormProps>["onFinishFailed"] = (
+  const onFinishFailed: FormProps<MenuFormT>["onFinishFailed"] = (
     errorInfo
   ) => {
     console.log("Failed:", errorInfo);
@@ -123,7 +123,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
             variant="outlined"
             encType="multipart/form-data"
           >
-            <Form.Item<MenuFormProps>
+            <Form.Item<MenuFormT>
               label="Item Name"
               name="name"
               rules={[{ required: true, message: "Name require!" }]}
@@ -131,7 +131,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
               <Input placeholder="dosh" />
             </Form.Item>
 
-            <Form.Item<MenuFormProps>
+            <Form.Item<MenuFormT>
               label="Item Price"
               name="price"
               rules={[{ required: true, message: "Price require!" }]}
@@ -143,7 +143,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
               />
             </Form.Item>
 
-            <Form.Item<MenuFormProps>
+            <Form.Item<MenuFormT>
               label="Item Image"
               name="image"
               rules={[{ required: true, message: "Image require!" }]}
@@ -163,23 +163,18 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
               </Upload>
             </Form.Item>
 
-            <Form.Item<MenuFormProps>
+            <Form.Item<MenuFormT>
               name={"type"}
               label="Choose Food Type"
               required
             >
-              <Radio.Group
-                defaultValue={true}
-                name="food"
-                value={isVeg}
-                onChange={foodType}
-              >
+              <Radio.Group name="food" value={isVeg} onChange={foodType}>
                 <Radio value={true}>Veg</Radio>
                 <Radio value={false}>Non Veg</Radio>
               </Radio.Group>
             </Form.Item>
 
-            <Form.Item<MenuFormProps>
+            <Form.Item<MenuFormT>
               label="Description"
               name="desc"
               rules={[

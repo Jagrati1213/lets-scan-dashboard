@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import userSlice from "./slices/userSlice";
 import menuListSlice from "./slices/menuListSlice";
+import venderSlice from "./slices/venderSlice";
 
 export const store = configureStore({
   reducer: {
-    authSlice: userSlice,
+    authSlice: venderSlice,
     menuListSlice: menuListSlice,
   },
 });

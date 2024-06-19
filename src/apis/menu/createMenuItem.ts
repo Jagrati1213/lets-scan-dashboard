@@ -1,11 +1,11 @@
 import { message } from "antd";
 import { Axios } from "../../global";
-import { MenuFormProps, MenuListResponseType } from "../../types";
+import { MenuFormT, MenuResponseT } from "../../types";
 
 // CREATE MENU ITEM
 export const createMenuItemHandler = async (
-  values: MenuFormProps
-): Promise<MenuListResponseType["data"]> => {
+  values: MenuFormT
+): Promise<MenuResponseT["data"] | boolean> => {
   try {
     const response = await Axios.post("api/v1/menu/create-menu", values, {
       headers: { "Content-Type": "application/json" },
@@ -20,6 +20,8 @@ export const createMenuItemHandler = async (
     return data;
   } catch (error: any) {
     console.log("ERROR IN CREATE ITEM FOR MENU,", error);
-    return error;
+    return message.error(
+      `ERROR IN CREATE ITEM!,  ${error ? error?.message : error}`
+    );
   }
 };

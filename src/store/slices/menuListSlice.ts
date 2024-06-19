@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { MenuListResponseType, MenuItemType } from "../../types";
+import { MenuResponseT, MenuItemT } from "../../types";
 import { getMenuList } from "../../apis/menu/getMenuList";
 
 interface MenuListProp {
-  menulist: MenuItemType[];
+  menulist: MenuItemT[];
 }
 
 const initialState: MenuListProp = {
@@ -11,17 +11,19 @@ const initialState: MenuListProp = {
 };
 
 // CREATE THUNK FOR FETCH MENULIST
-export const fetchMenuListAction = createAsyncThunk<
-  MenuListResponseType["data"]
->("menuList/fetchMenuList", async () => {
-  try {
-    const data = await getMenuList();
-    if (data) return data;
-  } catch (error: any) {
-    console.log("ERROR IN FETCH MENULIST", error);
-    return error;
+export const fetchMenuListAction = createAsyncThunk<MenuResponseT["data"]>(
+  "menuList/fetchMenuList",
+  async () => {
+    try {
+      const data = await getMenuList();
+      if (!data) return null;
+      return data;
+    } catch (error: any) {
+      console.log("ERROR IN FETCH MENULIST", error);
+      return error;
+    }
   }
-});
+);
 
 // SLICE FOR MENULIST
 export const menuListSlice = createSlice({
@@ -47,6 +49,7 @@ export const menuListSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchMenuListAction.fulfilled, (state, action) => {
+      if (!action.payload) state.menulist = [];
       state.menulist = action?.payload;
     });
   },

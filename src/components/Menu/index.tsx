@@ -12,7 +12,7 @@ import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
 import MenuViewDrawer from "./MenuViewDrawer";
 import AddMenuDrawer from "./AddMenuDrawer";
-import { DrawerOptionsType } from "../../types";
+import { DrawerOptionsT } from "../../types";
 import EditMenuDrawer from "./EditMenuDrawer";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import {
@@ -31,18 +31,18 @@ export default function Menu() {
   // SLICE STATE
   const dispatch = useAppDispatch();
   const { menulist } = useAppSelector((store) => store.menuListSlice);
-  const { user } = useAppSelector((store) => store.authSlice);
+  const { vender } = useAppSelector((store) => store.authSlice);
 
   // STATE
-  const [DrawerOptionsType, setDrawerOptions] = useState<DrawerOptionsType>({
+  const [DrawerOptionsT, setDrawerOptions] = useState<DrawerOptionsT>({
     isAddMenuOpen: false,
     isMenuViewOpen: false,
     isMenuEditorOpen: false,
   });
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [menuItemId, setMenuItemId] = useState<string | undefined | null>();
-  const [isQrModalOpen, setIsQrModalOpen] = useState(false);
+  const [isQrModalOpen, setIsQrModalOpen] = useState<boolean>(false);
 
   // HANDLE DRAWER
   const showDrawer = (option: string) => {
@@ -69,7 +69,7 @@ export default function Menu() {
   const checkMenuItems = async () => {
     if (menulist.length === 0)
       return message.error("ADD MENU ITEMS, FOR GENERATE QR");
-    if (!user._id) return message.error("USER NOT FOUNDED!");
+    if (!vender?._id) return message.error("USER NOT FOUNDED!");
     setIsQrModalOpen(true);
   };
 
@@ -99,7 +99,7 @@ export default function Menu() {
             <Button
               type="primary"
               shape="round"
-              disabled={user?.isOpen}
+              disabled={vender?.isOpen}
               onClick={showDrawer.bind(null, "isAddMenuOpen")}
             >
               Add Menu
@@ -123,7 +123,7 @@ export default function Menu() {
                   type="link"
                   shape="circle"
                   icon={<FaEye size={16} />}
-                  disabled={user?.isOpen}
+                  disabled={vender?.isOpen}
                   onClick={() => {
                     setMenuItemId(item?._id);
                     showDrawer("isMenuViewOpen");
@@ -133,7 +133,7 @@ export default function Menu() {
                   type="link"
                   shape="circle"
                   icon={<FaEdit size={16} />}
-                  disabled={user?.isOpen}
+                  disabled={vender?.isOpen}
                   onClick={() => {
                     setMenuItemId(item?._id);
                     showDrawer("isMenuEditorOpen");
@@ -144,7 +144,7 @@ export default function Menu() {
                   danger
                   shape="circle"
                   icon={<FaTrash size={16} />}
-                  disabled={user?.isOpen}
+                  disabled={vender?.isOpen}
                   onClick={() => {
                     deleteMenuItem(item?._id);
                   }}
@@ -198,17 +198,17 @@ export default function Menu() {
         />
 
         <MenuViewDrawer
-          open={DrawerOptionsType.isMenuViewOpen}
+          open={DrawerOptionsT.isMenuViewOpen}
           setOpen={setDrawerOptions}
           menuItemId={menuItemId}
         />
         <AddMenuDrawer
-          open={DrawerOptionsType.isAddMenuOpen}
+          open={DrawerOptionsT.isAddMenuOpen}
           setOpen={setDrawerOptions}
         />
 
         <EditMenuDrawer
-          open={DrawerOptionsType.isMenuEditorOpen}
+          open={DrawerOptionsT.isMenuEditorOpen}
           setOpen={setDrawerOptions}
           menuItemId={menuItemId}
         />
