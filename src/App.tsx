@@ -2,22 +2,24 @@ import { useAppDispatch, useAppSelector } from "./store/store";
 import { useEffect } from "react";
 import Home from "./components/Home";
 import AuthBoard from "./components/AuthBoard";
-import { fetchUserDetailsAction } from "./store/slices/userSlice";
+import { fetchUserDetailsAction } from "./store/slices/venderSlice";
 import "./styles/global.scss";
 import "./App.scss";
 
 function App() {
-  const { user } = useAppSelector((store) => store.authSlice);
+  const { vender, isAuthenticated } = useAppSelector(
+    (store) => store.authSlice
+  );
   const dispatch = useAppDispatch();
 
   // GET USER DETAILS AT INITIALS
   useEffect(() => {
-    dispatch(fetchUserDetailsAction());
-  }, [dispatch]);
+    if (isAuthenticated) dispatch(fetchUserDetailsAction());
+  }, [dispatch, isAuthenticated]);
 
   return (
     <div className="App">
-      {user?.email || user?.username ? <Home /> : <AuthBoard />}
+      {vender && vender?.email && vender?.username ? <Home /> : <AuthBoard />}
     </div>
   );
 }
