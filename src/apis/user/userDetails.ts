@@ -6,7 +6,7 @@ export const getUserDetails = async (): Promise<
   VenderResponseT["data"] | boolean
 > => {
   try {
-    const response = await Axios.get<VenderResponseT>("api/v1/vender");
+    const response = await Axios.get<VenderResponseT>("api/v1/vendor");
     const { data } = response.data;
     return data;
   } catch (error: any) {

@@ -7,7 +7,7 @@ import { RiLogoutCircleFill } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Axios } from "../global";
 import { useDispatch } from "react-redux";
-import { logoutAction } from "../store/slices/venderSlice";
+import { logoutAction } from "../store/slices/vendorSlice";
 import Style from "../styles/_SiderContainer.module.scss";
 import { useEffect, useState } from "react";
 

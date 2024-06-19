@@ -8,7 +8,7 @@ import { RiLogoutCircleFill } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Style from "../styles/_SiderContainer.module.scss";
 import { Axios } from "../global";
-import { logoutAction } from "../store/slices/venderSlice";
+import { logoutAction } from "../store/slices/vendorSlice";
 import { useAppDispatch } from "../store/store";
 // import { RiQrCodeFill } from "react-icons/ri";
 
@@ -22,7 +22,7 @@ export const SiderContainer = () => {
 
   // HANDLE FOR LOG OUT
   const handleLogout = async () => {
-    const response = await Axios.get("api/v1/vender/logout");
+    const response = await Axios.get("api/v1/vendor/logout");
     const { statusText, success } = await response.data;
     if (success) {
       navigate("/");

@@ -7,7 +7,7 @@ export const updateShopAvailability = async (
 ): Promise<VenderResponseT["data"] | boolean> => {
   try {
     const response = await Axios.put<VenderResponseT>(
-      "api/v1/vender/open-shop",
+      "api/v1/vendor/open-shop",
       { isOpen: val },
       {
         headers: { "Content-Type": "application/json" },

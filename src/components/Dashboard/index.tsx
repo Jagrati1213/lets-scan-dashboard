@@ -3,14 +3,14 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import { Col, Row, Space, Switch, Typography } from "antd";
 import { useState } from "react";
 import { updateShopAvailability } from "../../apis/user/updateShopAvailability";
-import { setUserDetailsAction } from "../../store/slices/venderSlice";
+import { setUserDetailsAction } from "../../store/slices/vendorSlice";
 
 const { Text } = Typography;
 
 export default function Dashboard() {
-  const { vender } = useAppSelector((store) => store.authSlice);
+  const { vendor } = useAppSelector((store) => store.authSlice);
   const dispatch = useAppDispatch();
-  const [shopIsOpen, setShopIsOpen] = useState(vender?.isOpen || false);
+  const [shopIsOpen, setShopIsOpen] = useState(vendor?.isOpen || false);
 
   // CHANGE SHOP OPENING
   const handleShopAvailability = async (checked: boolean) => {
@@ -23,7 +23,7 @@ export default function Dashboard() {
   return (
     <Row justify={"space-between"} align={"middle"}>
       <Col>
-        {vender && <Title level={4}>Welcome, {vender?.username} </Title>}
+        {vendor && <Title level={4}>Welcome, {vendor?.username} </Title>}
       </Col>
       <Col>
         <Space direction="vertical" align="center">

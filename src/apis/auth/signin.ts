@@ -6,7 +6,7 @@ export const signIn = async ({
   username,
   password,
 }: AuthFieldT): Promise<VenderResponseT | boolean> => {
-  const response = await Axios.post("api/v1/vender/login", {
+  const response = await Axios.post("api/v1/vendor/login", {
     username: username.toLowerCase(),
     password: password,
   });

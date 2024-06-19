@@ -31,7 +31,7 @@ export default function Menu() {
   // SLICE STATE
   const dispatch = useAppDispatch();
   const { menulist } = useAppSelector((store) => store.menuListSlice);
-  const { vender } = useAppSelector((store) => store.authSlice);
+  const { vendor } = useAppSelector((store) => store.authSlice);
 
   // STATE
   const [DrawerOptionsT, setDrawerOptions] = useState<DrawerOptionsT>({
@@ -69,7 +69,7 @@ export default function Menu() {
   const checkMenuItems = async () => {
     if (menulist.length === 0)
       return message.error("ADD MENU ITEMS, FOR GENERATE QR");
-    if (!vender?._id) return message.error("USER NOT FOUNDED!");
+    if (!vendor?._id) return message.error("USER NOT FOUNDED!");
     setIsQrModalOpen(true);
   };
 
@@ -99,7 +99,7 @@ export default function Menu() {
             <Button
               type="primary"
               shape="round"
-              disabled={vender?.isOpen}
+              disabled={vendor?.isOpen}
               onClick={showDrawer.bind(null, "isAddMenuOpen")}
             >
               Add Menu
@@ -123,7 +123,7 @@ export default function Menu() {
                   type="link"
                   shape="circle"
                   icon={<FaEye size={16} />}
-                  disabled={vender?.isOpen}
+                  disabled={vendor?.isOpen}
                   onClick={() => {
                     setMenuItemId(item?._id);
                     showDrawer("isMenuViewOpen");
@@ -133,7 +133,7 @@ export default function Menu() {
                   type="link"
                   shape="circle"
                   icon={<FaEdit size={16} />}
-                  disabled={vender?.isOpen}
+                  disabled={vendor?.isOpen}
                   onClick={() => {
                     setMenuItemId(item?._id);
                     showDrawer("isMenuEditorOpen");
@@ -144,7 +144,7 @@ export default function Menu() {
                   danger
                   shape="circle"
                   icon={<FaTrash size={16} />}
-                  disabled={vender?.isOpen}
+                  disabled={vendor?.isOpen}
                   onClick={() => {
                     deleteMenuItem(item?._id);
                   }}

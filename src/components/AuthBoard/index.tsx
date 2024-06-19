@@ -4,7 +4,7 @@ import Title from "antd/es/typography/Title";
 import { useState } from "react";
 import { AuthFieldT } from "../../types";
 import "../../styles/global.scss";
-import { setUserDetailsAction } from "../../store/slices/venderSlice";
+import { setUserDetailsAction } from "../../store/slices/vendorSlice";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../apis/auth/signup";
 import { signIn } from "../../apis/auth/signin";
@@ -56,15 +56,10 @@ export default function AuthBoard() {
                 message:
                   "your name is too long. maximum length is 20 character",
               },
-              {
-                pattern: new RegExp("^[a-z][a-z0-9]*$"),
-                message:
-                  "start with a letter, use lowercase letters and digits.",
-              },
             ]}
             label={"Vender UserName"}
           >
-            <Input placeholder="vendername123" />
+            <Input placeholder="vendorname123" />
           </Form.Item>
 
           {isSignUp && (

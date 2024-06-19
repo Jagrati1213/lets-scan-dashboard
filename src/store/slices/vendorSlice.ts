@@ -9,7 +9,7 @@ const localStorageIsAuthenticated =
 
 // INITIAL STATE
 const initialState: VenderStateT = {
-  vender: null,
+  vendor: null,
   isAuthenticated: localStorageIsAuthenticated,
 };
 
@@ -34,12 +34,12 @@ export const userSlice = createSlice({
   reducers: {
     setUserDetailsAction: (state, action) => {
       const newUser = action?.payload;
-      state.vender = newUser;
+      state.vendor = newUser;
       state.isAuthenticated = true;
       localStorage.setItem("isAuthenticated", "true");
     },
     logoutAction: (state) => {
-      state.vender = null;
+      state.vendor = null;
       state.isAuthenticated = false;
       localStorage.setItem("isAuthenticated", "false");
     },
@@ -47,7 +47,7 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUserDetailsAction.fulfilled, (state, action) => {
       const newUser = action?.payload;
-      state.vender = newUser;
+      state.vendor = newUser;
       state.isAuthenticated = true;
       localStorage.setItem("isAuthenticated", "true");
     });

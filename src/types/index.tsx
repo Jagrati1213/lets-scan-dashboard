@@ -20,7 +20,7 @@ export interface MenuItemT {
   price: number | null;
   description?: string | null;
   rating?: string | null;
-  venderId?: string | null;
+  vendorId?: string | null;
   isVeg: boolean;
   isActive: boolean;
 }
@@ -76,7 +76,7 @@ export interface VenderResponseT extends ResponseT {
 }
 
 export interface VenderStateT {
-  vender: {
+  vendor: {
     _id: string | null;
     username: string | null;
     email: string | null;

@@ -4,7 +4,7 @@ import Style from "../styles/_Navigation.module.scss";
 import { useEffect, useState } from "react";
 
 export const Navigation = () => {
-  const { vender } = useAppSelector((store) => store.authSlice);
+  const { vendor } = useAppSelector((store) => store.authSlice);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -22,17 +22,17 @@ export const Navigation = () => {
       <Flex align="center" justify="space-between">
         <h1>LET'S SCAN</h1>
         <Image />
-        {vender && vender?.username && (
+        {vendor && vendor?.username && (
           <Flex align="center" justify="space-between" gap={"10px"}>
-            <p>{vender?.username}</p>
+            <p>{vendor?.username}</p>
             {windowWidth >= 575 ? (
               <Avatar className={Style.user_avatar}>
-                {vender?.username.slice(0, 1).toUpperCase()}
+                {vendor?.username.slice(0, 1).toUpperCase()}
               </Avatar>
             ) : (
-              <Tooltip title={vender?.username}>
+              <Tooltip title={vendor?.username}>
                 <Avatar className={Style.user_avatar}>
-                  {vender?.username.slice(0, 1).toUpperCase()}
+                  {vendor?.username.slice(0, 1).toUpperCase()}
                 </Avatar>
               </Tooltip>
             )}

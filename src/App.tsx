@@ -2,12 +2,12 @@ import { useAppDispatch, useAppSelector } from "./store/store";
 import { useEffect } from "react";
 import Home from "./components/Home";
 import AuthBoard from "./components/AuthBoard";
-import { fetchUserDetailsAction } from "./store/slices/venderSlice";
+import { fetchUserDetailsAction } from "./store/slices/vendorSlice";
 import "./styles/global.scss";
 import "./App.scss";
 
 function App() {
-  const { vender, isAuthenticated } = useAppSelector(
+  const { vendor, isAuthenticated } = useAppSelector(
     (store) => store.authSlice
   );
   const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="App">
-      {vender && vender?.email && vender?.username ? <Home /> : <AuthBoard />}
+      {vendor && vendor?.email && vendor?.username ? <Home /> : <AuthBoard />}
     </div>
   );
 }
