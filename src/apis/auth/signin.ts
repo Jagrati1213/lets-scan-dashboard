@@ -5,7 +5,7 @@ import { AuthFieldT, VenderResponseT } from "../../types";
 export const signIn = async ({
   username,
   password,
-}: AuthFieldT): Promise<VenderResponseT | boolean> => {
+}: AuthFieldT): Promise<VenderResponseT> => {
   const response = await Axios.post("api/v1/vendor/login", {
     username: username.toLowerCase(),
     password: password,
@@ -21,8 +21,6 @@ export const signIn = async ({
     return data;
   } catch (error: any) {
     console.log("ERROR IN LOGIN USER,", error);
-    return message.error(
-      `ERROR IN LOGIN USER,  ${error ? error?.message : error}`
-    );
+    return error;
   }
 };
