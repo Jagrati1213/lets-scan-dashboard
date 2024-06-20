@@ -2,8 +2,7 @@ import axios from "axios";
 
 // AXIOS BASE URL
 export const Axios = axios.create({
-  // baseURL: "http://localhost:4000",
-  baseURL: "https://orderminder-server.onrender.com",
+  baseURL: "https://lets-scan-server.onrender.com/",
   withCredentials: true,
 });
 
@@ -22,7 +21,7 @@ Axios.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const { data } = await Axios.get("api/v1/user/refresh-token");
+        const { data } = await Axios.get("api/v1/vendor/refresh-token");
 
         // RETRY THE ORIGINAL REQUEST
         return Axios(originalRequest);
@@ -34,4 +33,4 @@ Axios.interceptors.response.use(
   }
 );
 
-export const menuMuseWebsitePath = "https://menu-muse.vercel.app";
+export const menuMuseWebsitePath = "https://lets-scan.vercel.app";
