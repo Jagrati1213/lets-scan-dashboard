@@ -20,8 +20,6 @@ export const deleteMenuItemHandler = async ({
     return success;
   } catch (error: any) {
     console.log("ERROR IN MENU ITEM DELETE!");
-    return message.error(
-      `ERROR IN DELETE MENU!,  ${error ? error?.message : error}`
-    );
+    return error;
   }
 };

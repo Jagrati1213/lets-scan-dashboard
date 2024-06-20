@@ -7,7 +7,7 @@ export const signUp = async ({
   email,
   password,
   resName,
-}: AuthFieldT): Promise<VenderResponseT | boolean> => {
+}: AuthFieldT): Promise<VenderResponseT> => {
   const response = await Axios.post("api/v1/vendor/register", {
     username: username.toLowerCase(),
     email: email,
@@ -25,8 +25,6 @@ export const signUp = async ({
     return data;
   } catch (error: any) {
     console.log("ERROR IN REGISTRATION!, ", error);
-    return message.error(
-      `ERROR IN REGISTRATION, ${error ? error?.message : error}`
-    );
+    return error;
   }
 };

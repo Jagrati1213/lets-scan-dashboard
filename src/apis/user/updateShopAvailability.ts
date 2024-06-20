@@ -22,8 +22,6 @@ export const updateShopAvailability = async (
     return data;
   } catch (error: any) {
     console.log("ERROR IN UPDATE SHOP AVAILABILITY", error);
-    return message.error(
-      `ERROR IN UPDATE SHOP, ${error ? error?.message : error}`
-    );
+    return error;
   }
 };

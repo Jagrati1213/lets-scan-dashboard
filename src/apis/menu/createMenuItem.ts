@@ -5,7 +5,7 @@ import { MenuFormT, MenuResponseT } from "../../types";
 // CREATE MENU ITEM
 export const createMenuItemHandler = async (
   values: MenuFormT
-): Promise<MenuResponseT["data"] | boolean> => {
+): Promise<MenuResponseT["data"]> => {
   try {
     const response = await Axios.post("api/v1/menu/create-menu", values, {
       headers: { "Content-Type": "application/json" },
@@ -20,8 +20,6 @@ export const createMenuItemHandler = async (
     return data;
   } catch (error: any) {
     console.log("ERROR IN CREATE ITEM FOR MENU,", error);
-    return message.error(
-      `ERROR IN CREATE ITEM!,  ${error ? error?.message : error}`
-    );
+    return error;
   }
 };

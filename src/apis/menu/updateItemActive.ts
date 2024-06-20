@@ -9,7 +9,7 @@ interface changeFoodActiveProps {
 export const changeFoodType = async ({
   activeVal,
   menuId,
-}: changeFoodActiveProps): Promise<VenderResponseT["data"] | boolean> => {
+}: changeFoodActiveProps): Promise<VenderResponseT["data"]> => {
   try {
     const response = await Axios.put(
       "api/v1/menu/active",
@@ -28,8 +28,6 @@ export const changeFoodType = async ({
     return data;
   } catch (error: any) {
     console.log("ERROR IN ACTIVE MENU", error);
-    return message.error(
-      `ERROR IN ACTIVE MENU!,  ${error ? error?.message : error}`
-    );
+    return error;
   }
 };

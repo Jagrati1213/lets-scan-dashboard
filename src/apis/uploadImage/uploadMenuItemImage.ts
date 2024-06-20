@@ -5,7 +5,7 @@ import { UploadImageResponseT } from "../../types";
 // UPLOADED MENU IMAGE
 export const uploadMenuItemImage = async (
   image: FormData
-): Promise<UploadImageResponseT["data"] | boolean> => {
+): Promise<UploadImageResponseT["data"]> => {
   try {
     const response = await Axios.post("api/v1/menu/upload-image", image, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -20,6 +20,6 @@ export const uploadMenuItemImage = async (
     return data?.url;
   } catch (error: any) {
     console.log("ERROR IN UPLOAD IMAGE,", error);
-    return message.error(`ERROR IN UPLOAD, ${error ? error?.message : error}`);
+    return error;
   }
 };
