@@ -6,13 +6,13 @@ import { FaBoxOpen } from "react-icons/fa6";
 import { RiLogoutCircleFill } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Axios } from "../global";
-import { useDispatch } from "react-redux";
 import { logoutAction } from "../store/slices/vendorSlice";
 import Style from "../styles/_SiderContainer.module.scss";
 import { useEffect, useState } from "react";
+import { useAppDispatch } from "../store/store";
 
 export const MobileNav = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,9 +20,10 @@ export const MobileNav = () => {
 
   // HANDLE FOR LOG OUT
   const handleLogout = async () => {
-    const response = await Axios.get("logout");
+    const response = await Axios.get("api/v1/vendor/logout");
     const { statusText, success } = await response.data;
     if (success) {
+      navigate("/");
       message.success(statusText);
       dispatch(logoutAction());
     } else message.error(statusText);
