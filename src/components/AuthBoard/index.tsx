@@ -26,7 +26,7 @@ export default function AuthBoard() {
         setIsSignUp(false);
       } else {
         const data = await signIn({ username, password });
-        if (!data) throw new Error();
+        if (!data) return;
         dispatch(setUserDetailsAction(data));
       }
     } catch (error: any) {
