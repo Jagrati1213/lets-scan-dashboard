@@ -22,7 +22,7 @@ import {
 import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import Style from "../../styles/_Menu.module.scss";
 import { RiQrCodeFill } from "react-icons/ri";
-import QRModal from "../QR/QRModal";
+import QRModal from "../QRModal/index";
 import SwitchFoodAvailability from "./SwitchFoodAvaibility";
 import { deleteMenuItemHandler } from "../../apis/menu/deleteMenuItem";
 
