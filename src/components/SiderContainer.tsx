@@ -49,7 +49,7 @@ export const SiderContainer = () => {
     //   icon: <RiQrCodeFill />,
     // },
     {
-      label: <Link to="/orders">Orders</Link>,
+      label: <Link to="/orders?type=pending">Orders</Link>,
       key: "orders",
       icon: <FaBoxOpen />,
     },
