@@ -1,7 +1,6 @@
 import { Col, Row, Tabs, TabsProps, Typography } from "antd";
 import Style from "../../styles/_Order.module.scss";
-import { PaymentOrderTable } from "./PaymentOrderTable";
-import { getOrdersApi } from "../../apis/order/getOrders";
+import { OrderTable } from "./OrderTable";
 import { useSearchParams } from "react-router-dom";
 import { useCallback, useEffect } from "react";
 import { useAppDispatch } from "../../store/store";
@@ -19,7 +18,7 @@ export default function Orders() {
       label: "Pending Orders",
       children: (
         <>
-          <PaymentOrderTable />
+          <OrderTable />
         </>
       ),
     },
@@ -28,7 +27,7 @@ export default function Orders() {
       label: "Complete Orders",
       children: (
         <>
-          <PaymentOrderTable />
+          <OrderTable />
         </>
       ),
     },
