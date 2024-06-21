@@ -4,17 +4,27 @@ import { getOrdersApi } from "../../apis/order/getOrders";
 
 interface orderListProp {
   orders: orderItemT[];
+  totalOrder: number;
 }
 
 const initialState: orderListProp = {
   orders: [],
+  totalOrder: 0,
 };
 
 export const fetchOrderListAction = createAsyncThunk(
   "orderList/fetchOrderList",
-  async (param: string) => {
+  async ({
+    param,
+    page,
+    size,
+  }: {
+    param: string;
+    page: number;
+    size: number;
+  }) => {
     try {
-      const data = await getOrdersApi(param);
+      const data = await getOrdersApi({ param, page, size });
       if (data) return data;
     } catch (error: any) {
       return error;
@@ -29,7 +39,9 @@ const orderListSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchOrderListAction.fulfilled, (state, action) => {
       if (!action.payload) state.orders = [];
-      state.orders = action?.payload;
+      const { orders, totalOrder } = action?.payload;
+      state.orders = orders;
+      state.totalOrder = totalOrder;
     });
   },
 });

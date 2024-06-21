@@ -2,6 +2,7 @@ import {
   Button,
   Col,
   Input,
+  PaginationProps,
   Popconfirm,
   Row,
   Space,
@@ -10,15 +11,29 @@ import {
   Typography,
 } from "antd";
 import { orderItemT } from "../../types";
-import { useAppSelector } from "../../store/store";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useEffect, useState } from "react";
+import { fetchOrderListAction } from "../../store/slices/orderListSlice";
+import { useSearchParams } from "react-router-dom";
 
 const { Text } = Typography;
 
 export function OrderTable() {
-  const { orders }: { orders: orderItemT[] } = useAppSelector(
-    (store) => store.orderListSlice
-  );
+  const { orders, totalOrder }: { orders: orderItemT[]; totalOrder: number } =
+    useAppSelector((store) => store.orderListSlice);
+  const dispatch = useAppDispatch();
 
+  // STATE
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [pagination, setPagination] = useState<PaginationProps>({
+    current: 1,
+    pageSize: 5,
+    total: totalOrder,
+    showSizeChanger: true,
+    pageSizeOptions: ["5", "10", "20"],
+  });
+
+  // TABLE COLUMNS
   const columns = [
     {
       title: "Order ID",
@@ -50,7 +65,7 @@ export function OrderTable() {
           {orderList.map((item) => {
             return (
               <Space size="small" wrap key={item._id}>
-                <Tag color={"purple"} style={{ fontWeight: "600" }}>
+                <Tag style={{ fontWeight: "600", marginBottom: "0.6rem" }}>
                   {item.name}
                 </Tag>
               </Space>
@@ -93,12 +108,12 @@ export function OrderTable() {
         <>
           {text === "Placed" ? (
             <Popconfirm
-              title="Verify the order before completion"
+              title="Enter OTP"
               description={<Input placeholder="Enter Code" />}
               okText="Verify"
               cancelText="Cancel"
             >
-              <Button size="middle">
+              <Button size="middle" type="primary">
                 {text == "Placed" ? "Pending" : "Confirmed"}
               </Button>
             </Popconfirm>
@@ -110,9 +125,47 @@ export function OrderTable() {
     },
   ];
 
+  // HANDLE PAGINATION
+  const handlePagination = (pagination: PaginationProps) => {
+    setPagination(pagination);
+  };
+
+  // CALLED GET ORDER API
+  useEffect(() => {
+    const type = searchParams.get("type");
+    if (type)
+      dispatch(
+        fetchOrderListAction({
+          param: type,
+          page: pagination.current as number,
+          size: pagination.pageSize as number,
+        })
+      );
+    console.log(pagination.total);
+  }, [
+    searchParams.get("type"),
+    pagination.current,
+    pagination.pageSize,
+    dispatch,
+  ]);
+
+  // UPDATE PAGINATION TOTAL WHEN TOTAL-ORDER CHANGES
+  useEffect(() => {
+    setPagination((prev) => ({ ...prev, total: totalOrder }));
+  }, [totalOrder]);
+
   return (
     <div>
-      <Table columns={columns} dataSource={orders} rowKey="_id" />
+      <Table
+        columns={columns}
+        dataSource={orders}
+        rowKey="_id"
+        scroll={{ x: 1500, y: 500 }}
+        pagination={pagination}
+        onChange={(pagination) =>
+          handlePagination(pagination as PaginationProps)
+        }
+      />
     </div>
   );
 }

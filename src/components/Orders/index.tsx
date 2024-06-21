@@ -10,7 +10,6 @@ const { Title } = Typography;
 
 export default function Orders() {
   let [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useAppDispatch();
 
   const items: TabsProps["items"] = [
     {
@@ -39,12 +38,6 @@ export default function Orders() {
     },
     [searchParams]
   );
-
-  // CALLED API
-  useEffect(() => {
-    const type = searchParams.get("type");
-    if (type) dispatch(fetchOrderListAction(type));
-  }, [searchParams.get("type")]);
 
   return (
     <div className={Style.order_container}>
