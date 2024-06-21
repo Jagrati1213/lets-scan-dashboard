@@ -85,3 +85,56 @@ export interface VenderStateT {
   } | null;
   isAuthenticated: boolean;
 }
+
+// ORDERS TYPES
+export interface GetOrdersResponseT extends ResponseT {
+  data: [
+    {
+      _id: string;
+      customer: {
+        _id: string;
+        name: string;
+        email: string;
+      };
+      orderList: [
+        {
+          _id: string;
+          menuId: string;
+          name: string;
+          price: number;
+          quantity: number;
+          createdAt: string;
+          updatedAt: string;
+        }
+      ];
+      orderStatus: string;
+      orderToken: string;
+      paymentId: string;
+    }
+  ];
+}
+
+export interface orderItemT {
+  _id: string;
+  customer: {
+    _id: string;
+    name: string;
+    email: string;
+  };
+  orderList: [
+    {
+      _id: string;
+      menuId: string;
+      price: number;
+      quantity: number;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    }
+  ];
+  orderStatus: string;
+  orderToken: string;
+  paymentId: string;
+  note: string;
+  tableNumber: number;
+}
