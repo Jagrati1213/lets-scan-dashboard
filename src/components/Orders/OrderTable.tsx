@@ -19,7 +19,11 @@ import { useSearchParams } from "react-router-dom";
 const { Text } = Typography;
 
 export function OrderTable() {
-  const { orders, totalOrder }: { orders: orderItemT[]; totalOrder: number } =
+  const {
+    orders,
+    totalOrder,
+    loading,
+  }: { orders: orderItemT[]; totalOrder: number; loading: boolean } =
     useAppSelector((store) => store.orderListSlice);
   const dispatch = useAppDispatch();
 
@@ -160,6 +164,7 @@ export function OrderTable() {
         dataSource={orders}
         rowKey="_id"
         scroll={{ x: 1500, y: 500 }}
+        loading={loading}
         pagination={pagination}
         onChange={(pagination) =>
           handlePagination(pagination as PaginationProps)

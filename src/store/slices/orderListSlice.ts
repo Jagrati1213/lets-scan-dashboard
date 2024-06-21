@@ -5,11 +5,13 @@ import { getOrdersApi } from "../../apis/order/getOrders";
 interface orderListProp {
   orders: orderItemT[];
   totalOrder: number;
+  loading: boolean;
 }
 
 const initialState: orderListProp = {
   orders: [],
   totalOrder: 0,
+  loading: false,
 };
 
 export const fetchOrderListAction = createAsyncThunk(
@@ -42,6 +44,14 @@ const orderListSlice = createSlice({
       const { orders, totalOrder } = action?.payload;
       state.orders = orders;
       state.totalOrder = totalOrder;
+      state.loading = false;
+    });
+    builder.addCase(fetchOrderListAction.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(fetchOrderListAction.rejected, (state) => {
+      state.loading = false;
     });
   },
 });
