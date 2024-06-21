@@ -141,7 +141,6 @@ export function OrderTable() {
           size: pagination.pageSize as number,
         })
       );
-    console.log(pagination.total);
   }, [
     searchParams.get("type"),
     pagination.current,
