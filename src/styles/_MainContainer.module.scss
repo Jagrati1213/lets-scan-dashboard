@@ -26,8 +26,9 @@
     }
   }
   :global(.ant-layout-content) {
-    max-height: 100vh;
-    overflow-y: scroll;
+    height: calc(100vh - 74px);
+    // height: 100%;
+    // overflow-y: scroll;
     background: #fff;
     &::-webkit-scrollbar {
       appearance: none;

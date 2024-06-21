@@ -1,0 +1,9 @@
+@import "./modules/mixin";
+@import "./modules/variables";
+
+.order_container {
+  padding: 2rem 2rem 0 2rem;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+}
