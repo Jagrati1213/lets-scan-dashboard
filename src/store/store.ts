@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import menuListSlice from "./slices/menuListSlice";
 import vendorSlice from "./slices/vendorSlice";
 import orderListSlice from "./slices/orderListSlice";
+import transitionSlice from "./slices/transitionSlice";
 
 export const store = configureStore({
   reducer: {
     authSlice: vendorSlice,
     menuListSlice: menuListSlice,
     orderListSlice: orderListSlice,
+    transitionSlice: transitionSlice,
   },
 });
 

@@ -1,28 +1,28 @@
-import { Col, PaginationProps, Row, Table, Typography } from "antd";
+import { Col, PaginationProps, Row, Table, Tag, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { orderItemT } from "../../types";
+import { orderItemT, transitionItemT } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import Style from "../../styles/_Payment.module.scss";
+import { fetchTransitionsAction } from "../../store/slices/transitionSlice";
 
 const { Title, Text } = Typography;
 
 export default function Transitions() {
   const {
-    orders,
-    totalOrder,
+    transitions,
+    totalCount,
     loading,
-  }: { orders: orderItemT[]; totalOrder: number; loading: boolean } =
-    useAppSelector((store) => store.orderListSlice);
+  }: { transitions: transitionItemT[]; totalCount: number; loading: boolean } =
+    useAppSelector((store) => store.transitionSlice);
   const dispatch = useAppDispatch();
 
   // STATE
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pagination, setPagination] = useState<PaginationProps>({
     current: 1,
     pageSize: 5,
-    total: totalOrder,
+    total: totalCount,
     showSizeChanger: true,
     pageSizeOptions: ["5", "10", "20"],
   });
@@ -30,38 +30,35 @@ export default function Transitions() {
   // TABLE COLUMNS
   const columns = [
     {
+      title: "PaymentID",
+      dataIndex: "_id",
+      key: "_id",
+      render: (text: string) => <Text>{text}</Text>,
+    },
+    {
+      title: "Razorpay OrderId",
+      dataIndex: "razorpay_order_id",
+      key: "razorpay_order_id",
+      render: (note: string | undefined) => {
+        return note ? <Text>{note}</Text> : "-";
+      },
+    },
+    {
+      title: "Razorpay PaymentId",
+      dataIndex: "razorpay_payment_id",
+      key: "razorpay_payment_id",
+    },
+    {
       title: "Order ID",
       dataIndex: "_id",
       key: "_id",
       render: (text: string) => <Text>{text}</Text>,
     },
     {
-      title: "Customer Details",
-      dataIndex: "customer",
-      key: "customer",
-      render: (record: orderItemT["customer"]) => (
-        <Row>
-          <Col span={24}>
-            <Text>{record?.name.toUpperCase()}</Text>
-          </Col>
-          <Col span={24}>
-            <Text type="secondary">{record?.email}</Text>
-          </Col>
-        </Row>
-      ),
-    },
-    {
-      title: "Note",
-      dataIndex: "note",
-      key: "note",
-      render: (note: string | undefined) => {
-        return note ? <Text>{note}</Text> : "-";
-      },
-    },
-    {
-      title: "Token",
-      dataIndex: "orderToken",
-      key: "orderToken",
+      title: "Payment Status",
+      dataIndex: "success",
+      key: "success",
+      render: () => <Tag color="green">Success</Tag>,
     },
   ];
 
@@ -73,14 +70,7 @@ export default function Transitions() {
   // CALLED GET ORDER API
   useEffect(() => {
     const type = searchParams.get("type");
-    // if (type)
-    //   dispatch(
-    //     fetchOrderListAction({
-    //       param: type,
-    //       page: pagination.current as number,
-    //       size: pagination.pageSize as number,
-    //     })
-    //   );
+    dispatch(fetchTransitionsAction());
   }, [
     searchParams.get("type"),
     pagination.current,
@@ -90,8 +80,8 @@ export default function Transitions() {
 
   // UPDATE PAGINATION TOTAL WHEN TOTAL-ORDER CHANGES
   useEffect(() => {
-    setPagination((prev) => ({ ...prev, total: totalOrder }));
-  }, [totalOrder]);
+    setPagination((prev) => ({ ...prev, total: totalCount }));
+  }, [totalCount]);
 
   return (
     <div className={Style.payment_container}>
@@ -103,7 +93,7 @@ export default function Transitions() {
           <Table
             className={Style.payment}
             columns={columns}
-            dataSource={orders}
+            dataSource={transitions}
             rowKey="_id"
             scroll={{ x: 1500, y: 500 }}
             loading={loading}
