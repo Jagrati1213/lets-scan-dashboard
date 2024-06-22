@@ -12,7 +12,7 @@ export const getOrdersApi = async ({
   size: number;
 }): Promise<GetOrdersResponseT["data"] | undefined> => {
   try {
-    const paramVal = param === "pending" ? "Placed" : "Success";
+    const paramVal = param === "pending" ? "Pending" : "Complete";
     if (!paramVal) {
       message.error("SORRY, ORDER IS NOT ACCURATE");
       return;
