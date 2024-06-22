@@ -5,7 +5,6 @@ import {
   PaginationProps,
   Popconfirm,
   Row,
-  Space,
   Table,
   Tag,
   Typography,
@@ -15,6 +14,7 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import { useEffect, useState } from "react";
 import { fetchOrderListAction } from "../../store/slices/orderListSlice";
 import { useSearchParams } from "react-router-dom";
+import Style from "../../styles/_OrderTable.module.scss";
 
 const { Text } = Typography;
 
@@ -55,27 +55,9 @@ export function OrderTable() {
             <Text>{name.toUpperCase()}</Text>
           </Col>
           <Col span={24}>
-            <Text type="secondary">{record.customer.email}</Text>
+            <Text type="secondary">{record?.customer?.email}</Text>
           </Col>
         </Row>
-      ),
-    },
-    {
-      title: "Order Items",
-      dataIndex: "orderList",
-      key: "orderList",
-      render: (orderList: orderItemT["orderList"]) => (
-        <>
-          {orderList.map((item) => {
-            return (
-              <Space size="small" wrap key={item._id}>
-                <Tag style={{ fontWeight: "600", marginBottom: "0.6rem" }}>
-                  {item.name}
-                </Tag>
-              </Space>
-            );
-          })}
-        </>
       ),
     },
     {
@@ -110,7 +92,7 @@ export function OrderTable() {
       key: "orderStatus",
       render: (text: string) => (
         <>
-          {text === "Placed" ? (
+          {text === "Pending" ? (
             <Popconfirm
               title="Enter OTP"
               description={<Input placeholder="Enter Code" />}
@@ -118,7 +100,7 @@ export function OrderTable() {
               cancelText="Cancel"
             >
               <Button size="middle" type="primary">
-                {text == "Placed" ? "Pending" : "Confirmed"}
+                {text == "Pending" ? "Pending" : "Complete"}
               </Button>
             </Popconfirm>
           ) : (
@@ -126,6 +108,30 @@ export function OrderTable() {
           )}
         </>
       ),
+    },
+  ];
+
+  // ORDER DETAILS COLUMNS
+  const orderDetailsColumns = [
+    {
+      title: "Order Items",
+      dataIndex: "menuId",
+      key: "menuId",
+      render: (menuId: { name: string; _id: string }) => (
+        <Text>{menuId.name}</Text>
+      ),
+    },
+    {
+      title: "Quantity",
+      dataIndex: "quantity",
+      key: "quantity",
+      render: (text: string) => <Text>{text}</Text>,
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+      render: (text: string) => <Text>{text}</Text>,
     },
   ];
 
@@ -160,11 +166,22 @@ export function OrderTable() {
   return (
     <div>
       <Table
+        className={Style.orderTable}
         columns={columns}
         dataSource={orders}
         rowKey="_id"
         scroll={{ x: 1500, y: 500 }}
         loading={loading}
+        expandable={{
+          expandedRowRender: (record) => (
+            <Table
+              className={Style.orderDetailsTable}
+              columns={orderDetailsColumns}
+              dataSource={record.orderList}
+              pagination={false}
+            />
+          ),
+        }}
         pagination={pagination}
         onChange={(pagination) =>
           handlePagination(pagination as PaginationProps)
