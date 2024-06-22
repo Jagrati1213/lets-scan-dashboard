@@ -36,7 +36,6 @@ export function OrderTable() {
 
   // STATE
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [verifyCode, setVerifyCode] = useState<valueType | null>(0);
   const [pagination, setPagination] = useState<PaginationProps>({
     current: 1,
@@ -158,7 +157,6 @@ export function OrderTable() {
 
   // HANDLE VERIFY
   const handleVerifyOrderToConfirm = async (orderId: string) => {
-    setIsLoading(true);
     try {
       if (!verifyCode) return;
       // CALLED API WITH CODE
@@ -177,10 +175,7 @@ export function OrderTable() {
           })
         );
       }
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
+    } catch (error) {}
   };
 
   // HANDLE PAGINATION
