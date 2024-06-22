@@ -93,6 +93,7 @@ export function OrderTable() {
       title: "Total Amount",
       dataIndex: "totalAmount",
       key: "totalAmount",
+      render: (text: string) => <Text>₹ {text}</Text>,
     },
     {
       title: "Status",
@@ -146,7 +147,7 @@ export function OrderTable() {
       title: "Price",
       dataIndex: "price",
       key: "price",
-      render: (text: string) => <Text>{text}</Text>,
+      render: (text: string) => <Text>₹ {text}</Text>,
     },
   ];
 
