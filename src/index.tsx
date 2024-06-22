@@ -7,6 +7,7 @@ import Orders from "./components/Orders";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import Dashboard from "./components/Dashboard";
+import Transitions from "./components/Transitions";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/orders",
         element: <Orders />,
+      },
+      {
+        path: "/transitions",
+        element: <Transitions />,
       },
       {
         path: "/logout",

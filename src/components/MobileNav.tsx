@@ -1,15 +1,16 @@
-import { Avatar, Button, Flex } from "antd";
-import { MenuProps, message } from "antd";
+import { Button, Flex } from "antd";
+import { message } from "antd";
 import { IoHome } from "react-icons/io5";
 import { MdRestaurantMenu } from "react-icons/md";
 import { FaBoxOpen } from "react-icons/fa6";
 import { RiLogoutCircleFill } from "react-icons/ri";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { MdPayments } from "react-icons/md";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Axios } from "../global";
 import { logoutAction } from "../store/slices/vendorSlice";
-import Style from "../styles/_SiderContainer.module.scss";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../store/store";
+import Style from "../styles/_SiderContainer.module.scss";
 
 export const MobileNav = () => {
   const dispatch = useAppDispatch();
@@ -60,6 +61,14 @@ export const MobileNav = () => {
           type="link"
           onClick={handleChangePage.bind(null, "/orders")}
           className={active.slice(1) === "orders" ? Style.active_btn : ""}
+        />
+      </div>
+      <div>
+        <Button
+          icon={<MdPayments />}
+          type="link"
+          onClick={handleChangePage.bind(null, "/transitions")}
+          className={active.slice(1) === "transitions" ? Style.active_btn : ""}
         />
       </div>
       <div>

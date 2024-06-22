@@ -5,12 +5,12 @@ import { IoHome } from "react-icons/io5";
 import { MdRestaurantMenu } from "react-icons/md";
 import { FaBoxOpen } from "react-icons/fa6";
 import { RiLogoutCircleFill } from "react-icons/ri";
+import { MdPayments } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Style from "../styles/_SiderContainer.module.scss";
 import { Axios } from "../global";
 import { logoutAction } from "../store/slices/vendorSlice";
 import { useAppDispatch } from "../store/store";
-// import { RiQrCodeFill } from "react-icons/ri";
 
 export const SiderContainer = () => {
   // COLLAPSE MENU SIDEBAR
@@ -43,15 +43,15 @@ export const SiderContainer = () => {
       key: "menu",
       icon: <MdRestaurantMenu />,
     },
-    // {
-    //   label: <Link to="/qr-generator">QR Generator</Link>,
-    //   key: "qrgenerator",
-    //   icon: <RiQrCodeFill />,
-    // },
     {
       label: <Link to="/orders?type=pending">Orders</Link>,
       key: "orders",
       icon: <FaBoxOpen />,
+    },
+    {
+      label: <Link to="/transitions">Transitions</Link>,
+      key: "transitions",
+      icon: <MdPayments />,
     },
     {
       label: "Log Out",
