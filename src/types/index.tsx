@@ -124,7 +124,10 @@ export interface orderItemT {
   orderList: [
     {
       _id: string;
-      menuId: string;
+      menuId: {
+        name: string;
+        _id: string;
+      };
       price: number;
       quantity: number;
       name: string;
