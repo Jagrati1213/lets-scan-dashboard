@@ -87,33 +87,6 @@ export interface VenderStateT {
 }
 
 // ORDERS TYPES
-export interface GetOrdersResponseT extends ResponseT {
-  data: [
-    {
-      _id: string;
-      customer: {
-        _id: string;
-        name: string;
-        email: string;
-      };
-      orderList: [
-        {
-          _id: string;
-          menuId: string;
-          name: string;
-          price: number;
-          quantity: number;
-          createdAt: string;
-          updatedAt: string;
-        }
-      ];
-      orderStatus: string;
-      orderToken: string;
-      paymentId: string;
-    }
-  ];
-}
-
 export interface orderItemT {
   _id: string;
   customer: {
@@ -140,61 +113,27 @@ export interface orderItemT {
   paymentId: string;
   note: string;
   tableNumber: number;
+  totalAmount: number;
+}
+
+export interface GetOrdersResponseT extends ResponseT {
+  data: orderItemT[];
 }
 export interface orderItemResponseT extends ResponseT {
   data: {
+    order: orderItemT[];
     _id: string;
-    customer: {
-      _id: string;
-      name: string;
-      email: string;
-    };
-    orderList: [
-      {
-        _id: string;
-        menuId: {
-          name: string;
-          _id: string;
-        };
-        price: number;
-        quantity: number;
-        name: string;
-        createdAt: string;
-        updatedAt: string;
-      }
-    ];
-    orderStatus: string;
-    orderToken: string;
-    paymentId: string;
-    note: string;
-    tableNumber: number;
   };
 }
 
 export interface transitionItemT {
   _id: string;
-  razorpay_order_id: string;
   razorpay_payment_id: string;
-  razorpay_signature: string;
-  orderId: string;
-  orderDetails: {
-    vendorId: string;
-  };
+  totalAmount: number;
 }
 export interface transitionsResponseT extends ResponseT {
   data: {
-    transitions: [
-      {
-        _id: string;
-        razorpay_order_id: string;
-        razorpay_payment_id: string;
-        razorpay_signature: string;
-        orderId: string;
-        orderDetails: {
-          vendorId: string;
-        };
-      }
-    ];
+    transitions: transitionItemT[];
     totalCount: number;
   };
 }

@@ -90,9 +90,9 @@ export function OrderTable() {
       },
     },
     {
-      title: "Payment ID",
-      dataIndex: "paymentId",
-      key: "paymentId",
+      title: "Total Amount",
+      dataIndex: "totalAmount",
+      key: "totalAmount",
     },
     {
       title: "Status",
