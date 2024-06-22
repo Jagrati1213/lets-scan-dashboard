@@ -7,12 +7,7 @@ export const getTransitions = async (): Promise<
 > => {
   try {
     const response = await Axios.get("api/v1/vendor/transitions");
-    const { success, data } = response.data;
-    if (success) {
-      message.success("TRANSITIONS FETCHED SUCCESS FULLY");
-    } else {
-      message.error("CAN'T FETCH TRANSITIONS!!!");
-    }
+    const { data } = response.data;
     return data;
   } catch (error: any) {
     return error;
