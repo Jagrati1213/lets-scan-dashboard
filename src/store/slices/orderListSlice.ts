@@ -37,7 +37,15 @@ export const fetchOrderListAction = createAsyncThunk(
 const orderListSlice = createSlice({
   name: "orderList",
   initialState,
-  reducers: {},
+  reducers: {
+    updateOrderItemAction: (state, action) => {
+      const newData = action?.payload;
+      const index = state.orders.findIndex((item) => item?._id === newData._id);
+      if (index !== -1) {
+        state.orders[index] = newData;
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchOrderListAction.fulfilled, (state, action) => {
       if (!action.payload) state.orders = [];
@@ -56,5 +64,5 @@ const orderListSlice = createSlice({
   },
 });
 
-export const {} = orderListSlice.actions;
+export const { updateOrderItemAction } = orderListSlice.actions;
 export default orderListSlice.reducer;

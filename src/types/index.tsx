@@ -141,3 +141,32 @@ export interface orderItemT {
   note: string;
   tableNumber: number;
 }
+export interface orderItemResponseT extends ResponseT {
+  data: {
+    _id: string;
+    customer: {
+      _id: string;
+      name: string;
+      email: string;
+    };
+    orderList: [
+      {
+        _id: string;
+        menuId: {
+          name: string;
+          _id: string;
+        };
+        price: number;
+        quantity: number;
+        name: string;
+        createdAt: string;
+        updatedAt: string;
+      }
+    ];
+    orderStatus: string;
+    orderToken: string;
+    paymentId: string;
+    note: string;
+    tableNumber: number;
+  };
+}
