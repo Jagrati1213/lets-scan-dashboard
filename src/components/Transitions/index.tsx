@@ -1,12 +1,21 @@
 import { Col, PaginationProps, Row, Table, Tag, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { orderItemT, transitionItemT } from "../../types";
+import { transitionItemT } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import Style from "../../styles/_Payment.module.scss";
 import { fetchTransitionsAction } from "../../store/slices/transitionSlice";
 
 const { Title, Text } = Typography;
+
+// Function to format the date
+const formatDate = (isoDateString: string): string => {
+  const date = new Date(isoDateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${day}/${month}/${year}`;
+};
 
 export default function Transitions() {
   const {
@@ -30,17 +39,11 @@ export default function Transitions() {
   // TABLE COLUMNS
   const columns = [
     {
-      title: "PaymentID",
-      dataIndex: "_id",
-      key: "_id",
-      render: (text: string) => <Text>{text}</Text>,
-    },
-    {
-      title: "Razorpay OrderId",
-      dataIndex: "razorpay_order_id",
-      key: "razorpay_order_id",
-      render: (note: string | undefined) => {
-        return note ? <Text>{note}</Text> : "-";
+      title: "Total Amount",
+      dataIndex: "totalAmount",
+      key: "totalAmount",
+      render: (note: number | undefined) => {
+        return note ? <Text>₹ {note}</Text> : "-";
       },
     },
     {
@@ -49,10 +52,13 @@ export default function Transitions() {
       key: "razorpay_payment_id",
     },
     {
-      title: "Order ID",
-      dataIndex: "_id",
-      key: "_id",
-      render: (text: string) => <Text>{text}</Text>,
+      title: "Date",
+      dataIndex: "payTime",
+      key: "payTime",
+      render: (isoDateString: string) => {
+        const formattedDate = formatDate(isoDateString);
+        return <Text>{formattedDate}</Text>;
+      },
     },
     {
       title: "Payment Status",
