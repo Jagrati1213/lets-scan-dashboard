@@ -117,7 +117,10 @@ export interface orderItemT {
 }
 
 export interface GetOrdersResponseT extends ResponseT {
-  data: orderItemT[];
+  data: {
+    orders: orderItemT[];
+    totalOrder: number;
+  };
 }
 export interface orderItemResponseT extends ResponseT {
   data: {
@@ -129,7 +132,9 @@ export interface orderItemResponseT extends ResponseT {
 export interface transitionItemT {
   _id: string;
   razorpay_payment_id: string;
+  orderId: string;
   totalAmount: number;
+  payTime: string;
 }
 export interface transitionsResponseT extends ResponseT {
   data: {
