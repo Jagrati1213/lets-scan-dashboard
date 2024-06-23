@@ -14,10 +14,13 @@ export default function Dashboard() {
 
   // CHANGE SHOP OPENING
   const handleShopAvailability = async (checked: boolean) => {
-    setShopIsOpen(checked);
     const data = await updateShopAvailability(checked);
-    if (!data) return;
+    if (!data) {
+      setShopIsOpen(true);
+      return;
+    }
     dispatch(setUserDetailsAction(data));
+    setShopIsOpen(checked);
   };
 
   return (
@@ -27,7 +30,7 @@ export default function Dashboard() {
       </Col>
       <Col>
         <Space direction="vertical" align="center">
-          <Text>OPEN YOUR SHOP</Text>
+          <Text>{shopIsOpen ? "CLOSE SHOP" : "OPEN SHOP"}</Text>
           <Switch value={shopIsOpen} onChange={handleShopAvailability} />
         </Space>
       </Col>
