@@ -4,7 +4,10 @@ import { Card, Col, Row, Space, Switch, Typography } from "antd";
 import { useState } from "react";
 import { updateShopAvailability } from "../../apis/user/updateShopAvailability";
 import { setUserDetailsAction } from "../../store/slices/vendorSlice";
-import { FaBoxOpen } from "react-icons/fa";
+import { FaCartArrowDown } from "react-icons/fa";
+import { HiMiniArrowTrendingUp } from "react-icons/hi2";
+import { HiUsers } from "react-icons/hi";
+import { PiBowlFoodFill } from "react-icons/pi";
 import { StatisticCard } from "./StatisticCard";
 import StatisticsGraph from "./StatisticsGraph";
 import Style from "../../styles/_Dashboard.module.scss";
@@ -49,37 +52,37 @@ export default function Dashboard() {
             <Col span={24} sm={12} md={6}>
               <StatisticCard
                 title={"TOTAL ORDERS"}
-                value={44}
+                value={vendor?.totalOrders || 0}
                 precision={0}
-                color="#cf1322"
-                icon={<FaBoxOpen />}
+                color="#49274a"
+                icon={<FaCartArrowDown />}
               />
             </Col>
             <Col span={24} sm={12} md={6}>
               <StatisticCard
-                title={"TOTAL ORDERS"}
-                value={44}
+                title={"TOTAL REVENUE"}
+                value={vendor?.totalRevenue || 0}
                 precision={0}
-                color="#cf1322"
-                icon={<FaBoxOpen />}
+                color="#49274a"
+                icon={<HiMiniArrowTrendingUp />}
               />
             </Col>
             <Col span={24} sm={12} md={6}>
               <StatisticCard
-                title={"TOTAL ORDERS"}
-                value={44}
+                title={"TOTAL CUSTOMER"}
+                value={vendor?.totalCustomers || 0}
                 precision={0}
-                color="#cf1322"
-                icon={<FaBoxOpen />}
+                color="#49274a"
+                icon={<HiUsers />}
               />
             </Col>
             <Col span={24} sm={12} md={6}>
               <StatisticCard
-                title={"TOTAL ORDERS"}
-                value={44}
+                title={"BEST SELLING ITEM"}
+                value={vendor?.bestSell.toLowerCase()}
                 precision={0}
-                color="#cf1322"
-                icon={<FaBoxOpen />}
+                color="#49274a"
+                icon={<PiBowlFoodFill />}
               />
             </Col>
           </Row>
