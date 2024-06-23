@@ -2,7 +2,7 @@ import axios from "axios";
 
 // AXIOS BASE URL
 export const Axios = axios.create({
-  baseURL: "https://lets-scan-server.onrender.com/",
+  baseURL: process.env.REACT_APP_BASE_URL,
   withCredentials: true,
 });
 
