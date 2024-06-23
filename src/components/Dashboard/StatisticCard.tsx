@@ -5,7 +5,7 @@ interface CardPropsT {
   icon: React.ReactNode;
   title: string;
   color: string;
-  value: number;
+  value: number | string | undefined;
   precision: number;
 }
 export function StatisticCard({
