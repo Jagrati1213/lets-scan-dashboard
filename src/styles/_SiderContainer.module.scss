@@ -41,6 +41,11 @@
   }
   @include tablet {
     display: flex;
+    position: fixed;
+    z-index: 11111;
+    bottom: 0;
+    width: 100%;
+    background: white;
   }
 }
 .active_btn {
