@@ -1,10 +1,8 @@
 import { Button, Flex } from "antd";
 import { message } from "antd";
 import { IoHome } from "react-icons/io5";
-import { MdRestaurantMenu } from "react-icons/md";
-import { FaBoxOpen } from "react-icons/fa6";
-import { RiLogoutCircleFill } from "react-icons/ri";
-import { MdPayments } from "react-icons/md";
+import { RiLogoutCircleFill, RiMoneyRupeeCircleFill } from "react-icons/ri";
+import { FaCartArrowDown, FaClipboardList } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Axios } from "../global";
 import { logoutAction } from "../store/slices/vendorSlice";
@@ -49,7 +47,7 @@ export const MobileNav = () => {
       </div>
       <div>
         <Button
-          icon={<MdRestaurantMenu />}
+          icon={<FaClipboardList />}
           type="link"
           onClick={handleChangePage.bind(null, "/menu")}
           className={active.slice(1) === "menu" ? Style.active_btn : ""}
@@ -57,7 +55,7 @@ export const MobileNav = () => {
       </div>
       <div>
         <Button
-          icon={<FaBoxOpen />}
+          icon={<FaCartArrowDown />}
           type="link"
           onClick={handleChangePage.bind(null, "/orders")}
           className={active.slice(1) === "orders" ? Style.active_btn : ""}
@@ -65,7 +63,7 @@ export const MobileNav = () => {
       </div>
       <div>
         <Button
-          icon={<MdPayments />}
+          icon={<RiMoneyRupeeCircleFill />}
           type="link"
           onClick={handleChangePage.bind(null, "/transitions")}
           className={active.slice(1) === "transitions" ? Style.active_btn : ""}

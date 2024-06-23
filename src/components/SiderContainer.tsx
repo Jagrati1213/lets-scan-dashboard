@@ -2,10 +2,10 @@ import { Menu, MenuProps, message } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
 import { IoHome } from "react-icons/io5";
-import { MdRestaurantMenu } from "react-icons/md";
-import { FaBoxOpen } from "react-icons/fa6";
+import { FaClipboardList } from "react-icons/fa";
+import { FaCartArrowDown } from "react-icons/fa";
 import { RiLogoutCircleFill } from "react-icons/ri";
-import { MdPayments } from "react-icons/md";
+import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Style from "../styles/_SiderContainer.module.scss";
 import { Axios } from "../global";
@@ -41,17 +41,17 @@ export const SiderContainer = () => {
     {
       label: <Link to="/menu">Menu List</Link>,
       key: "menu",
-      icon: <MdRestaurantMenu />,
+      icon: <FaClipboardList />,
     },
     {
       label: <Link to="/orders?type=pending">Orders</Link>,
       key: "orders",
-      icon: <FaBoxOpen />,
+      icon: <FaCartArrowDown />,
     },
     {
       label: <Link to="/transitions">Transitions</Link>,
       key: "transitions",
-      icon: <MdPayments />,
+      icon: <RiMoneyRupeeCircleFill />,
     },
     {
       label: "Log Out",
