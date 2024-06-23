@@ -72,6 +72,10 @@ export interface VenderResponseT extends ResponseT {
     email: string;
     restaurant: string;
     isOpen: boolean;
+    totalCustomers: number;
+    totalOrders: number;
+    totalRevenue: number;
+    bestSell: string;
   };
 }
 
@@ -82,6 +86,10 @@ export interface VenderStateT {
     email: string | null;
     restaurant: string | null;
     isOpen: boolean;
+    totalCustomers: number;
+    totalOrders: number;
+    totalRevenue: number;
+    bestSell: string;
   } | null;
   isAuthenticated: boolean;
 }
