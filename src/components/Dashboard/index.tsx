@@ -1,9 +1,12 @@
 import Title from "antd/es/typography/Title";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { Card, Col, Row, Space, Switch, Typography } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateShopAvailability } from "../../apis/user/updateShopAvailability";
-import { setUserDetailsAction } from "../../store/slices/vendorSlice";
+import {
+  fetchUserDetailsAction,
+  setUserDetailsAction,
+} from "../../store/slices/vendorSlice";
 import { FaCartArrowDown } from "react-icons/fa";
 import { HiMiniArrowTrendingUp } from "react-icons/hi2";
 import { HiUsers } from "react-icons/hi";
@@ -15,7 +18,9 @@ import Style from "../../styles/_Dashboard.module.scss";
 const { Text } = Typography;
 
 export default function Dashboard() {
-  const { vendor } = useAppSelector((store) => store.authSlice);
+  const { vendor, isAuthenticated } = useAppSelector(
+    (store) => store.authSlice
+  );
   const dispatch = useAppDispatch();
   const [shopIsOpen, setShopIsOpen] = useState<boolean>(
     vendor?.isOpen || false
@@ -31,6 +36,11 @@ export default function Dashboard() {
     dispatch(setUserDetailsAction(data));
     setShopIsOpen(checked);
   };
+
+  // GET USER DETAILS AT INITIALS
+  useEffect(() => {
+    if (isAuthenticated) dispatch(fetchUserDetailsAction());
+  }, [dispatch, isAuthenticated]);
 
   return (
     <div className={Style.dashboard}>
