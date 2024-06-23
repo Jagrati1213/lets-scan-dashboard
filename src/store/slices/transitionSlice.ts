@@ -16,9 +16,9 @@ const initialState: transitionListProp = {
 
 export const fetchTransitionsAction = createAsyncThunk(
   "transitionList/fetchTransition",
-  async () => {
+  async ({ page, limit }: { page: number; limit: number }) => {
     try {
-      const data = await getTransitions();
+      const data = await getTransitions({ page, limit });
       if (data) return data;
     } catch (error: any) {
       return error;

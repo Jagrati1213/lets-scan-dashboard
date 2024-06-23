@@ -132,7 +132,10 @@ export interface orderItemResponseT extends ResponseT {
 export interface transitionItemT {
   _id: string;
   razorpay_payment_id: string;
-  orderId: string;
+  customerDetails: {
+    name: string;
+    orderId: string;
+  };
   totalAmount: number;
   payTime: string;
 }

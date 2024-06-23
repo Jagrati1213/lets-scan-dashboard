@@ -1,8 +1,7 @@
-import { Col, PaginationProps, Row, Table, Tag, Typography } from "antd";
+import { Col, PaginationProps, Row, Space, Table, Tag, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { transitionItemT } from "../../types";
-import { useSearchParams } from "react-router-dom";
 import Style from "../../styles/_Payment.module.scss";
 import { fetchTransitionsAction } from "../../store/slices/transitionSlice";
 
@@ -27,7 +26,6 @@ export default function Transitions() {
   const dispatch = useAppDispatch();
 
   // STATE
-  const [searchParams, setSearchParams] = useSearchParams();
   const [pagination, setPagination] = useState<PaginationProps>({
     current: 1,
     pageSize: 5,
@@ -38,6 +36,21 @@ export default function Transitions() {
 
   // TABLE COLUMNS
   const columns = [
+    {
+      title: "Customer Details",
+      dataIndex: "customerDetails",
+      key: "customerDetails",
+      render: (customerDetails: transitionItemT["customerDetails"]) => {
+        return customerDetails ? (
+          <Space direction="vertical">
+            <Text> {customerDetails.name.toUpperCase()}</Text>
+            <Text type="secondary"> {customerDetails.orderId}</Text>
+          </Space>
+        ) : (
+          "-"
+        );
+      },
+    },
     {
       title: "Total Amount",
       dataIndex: "totalAmount",
@@ -75,14 +88,13 @@ export default function Transitions() {
 
   // CALLED GET ORDER API
   useEffect(() => {
-    const type = searchParams.get("type");
-    dispatch(fetchTransitionsAction());
-  }, [
-    searchParams.get("type"),
-    pagination.current,
-    pagination.pageSize,
-    dispatch,
-  ]);
+    dispatch(
+      fetchTransitionsAction({
+        page: pagination.current as number,
+        limit: pagination.pageSize as number,
+      })
+    );
+  }, [pagination.current, pagination.pageSize, dispatch]);
 
   // UPDATE PAGINATION TOTAL WHEN TOTAL-ORDER CHANGES
   useEffect(() => {
