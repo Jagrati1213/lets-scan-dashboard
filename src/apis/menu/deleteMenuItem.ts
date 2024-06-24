@@ -7,7 +7,7 @@ export const deleteMenuItemHandler = async ({
   menuId,
 }: {
   menuId: string | null;
-}): Promise<DeleteMenuResponseT["success"]> => {
+}): Promise<DeleteMenuResponseT["success"] | undefined> => {
   try {
     const response = await Axios.delete(`api/v1/menu/delete-menu/${menuId}`);
 
@@ -19,7 +19,7 @@ export const deleteMenuItemHandler = async ({
     }
     return success;
   } catch (error: any) {
-    console.log("ERROR IN MENU ITEM DELETE!");
-    return error;
+    message.error("DELETE MENU FAILED");
+    return;
   }
 };

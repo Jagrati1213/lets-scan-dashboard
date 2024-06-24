@@ -6,7 +6,7 @@ import { orderItemResponseT } from "../../types";
 export const verifyOrderApi = async (
   code: valueType | null,
   orderId: string
-): Promise<orderItemResponseT["data"]> => {
+): Promise<orderItemResponseT["data"] | undefined> => {
   try {
     const response = await Axios.put(
       "api/v1/vendor/order/verify",
@@ -28,6 +28,7 @@ export const verifyOrderApi = async (
     }
     return data;
   } catch (error: any) {
-    return error;
+    message.error("VERIFY ORDER FAILED!");
+    return;
   }
 };

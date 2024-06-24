@@ -2,13 +2,16 @@ import { message } from "antd";
 import { Axios } from "../../global";
 import { VenderResponseT } from "../../types";
 
-export const getUserDetails = async (): Promise<VenderResponseT["data"]> => {
+export const getUserDetails = async (): Promise<
+  VenderResponseT["data"]["vendor"] | undefined
+> => {
   try {
-    const response = await Axios.get<VenderResponseT>("api/v1/vendor");
+    const response = await Axios.get("api/v1/vendor");
     const { data } = response.data;
-    return data;
+    console.log(data.vendor);
+    return data.vendor;
   } catch (error: any) {
-    console.log("ERROR IN FETCH USER DETAILS", error);
-    return error;
+    message.error("GET USER DETAILS FAILED!");
+    return;
   }
 };

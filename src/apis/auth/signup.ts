@@ -7,16 +7,16 @@ export const signUp = async ({
   email,
   password,
   resName,
-}: AuthFieldT): Promise<VenderResponseT> => {
-  const response = await Axios.post("api/v1/vendor/register", {
-    username: username.toLowerCase(),
-    email: email,
-    password: password,
-    restaurant: resName,
-  });
-  const { success, statusText, data } = await response.data;
-
+}: AuthFieldT): Promise<VenderResponseT | undefined> => {
   try {
+    const response = await Axios.post("api/v1/vendor/register", {
+      username: username.toLowerCase(),
+      email: email,
+      password: password,
+      restaurant: resName,
+    });
+    const { success, statusText, data } = await response.data;
+
     if (success) {
       message.success(statusText);
     } else {
@@ -24,7 +24,7 @@ export const signUp = async ({
     }
     return data;
   } catch (error: any) {
-    console.log("ERROR IN REGISTRATION!, ", error);
-    return error;
+    message.error("REGISTRATION FAILED!");
+    return;
   }
 };

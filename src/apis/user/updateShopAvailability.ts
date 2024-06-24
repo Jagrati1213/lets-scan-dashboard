@@ -4,7 +4,7 @@ import { VenderResponseT } from "../../types";
 
 export const updateShopAvailability = async (
   val: boolean
-): Promise<VenderResponseT["data"] | boolean> => {
+): Promise<VenderResponseT["data"] | undefined> => {
   try {
     const response = await Axios.put<VenderResponseT>(
       "api/v1/vendor/open-shop",
@@ -21,7 +21,7 @@ export const updateShopAvailability = async (
     }
     return data;
   } catch (error: any) {
-    console.log("ERROR IN UPDATE SHOP AVAILABILITY", error);
-    return error;
+    message.error("UPDATE SHOP FAILED!");
+    return;
   }
 };

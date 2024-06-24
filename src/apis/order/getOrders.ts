@@ -29,7 +29,7 @@ export const getOrdersApi = async ({
       return data;
     } else message.error(statusText);
   } catch (error: any) {
-    message.error("An error occurred while fetching orders.");
-    return error;
+    message.error("GET ORDERS FAILED!");
+    return;
   }
 };

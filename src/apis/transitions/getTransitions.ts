@@ -21,6 +21,7 @@ export const getTransitions = async ({
       return data;
     } else message.error(statusText);
   } catch (error: any) {
-    return error;
+    message.error("GET TRANSITION FAILED!");
+    return;
   }
 };

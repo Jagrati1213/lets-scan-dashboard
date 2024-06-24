@@ -5,7 +5,7 @@ import { MenuResponseT, MenuUpdateT } from "../../types";
 // UPDATE MENU ITEM
 export const updateMenuItemHandler = async (
   values: MenuUpdateT
-): Promise<MenuResponseT["data"]> => {
+): Promise<MenuResponseT["data"] | undefined> => {
   try {
     const response = await Axios.put("api/v1/menu/update-menu", values, {
       headers: { "Content-Type": "application/json" },
@@ -19,7 +19,7 @@ export const updateMenuItemHandler = async (
     }
     return data;
   } catch (error: any) {
-    console.log("ERROR IN UPDATE MENU,", error);
-    return error;
+    message.error("UPDATE MENU FAILED!");
+    return;
   }
 };
