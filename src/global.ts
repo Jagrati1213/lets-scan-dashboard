@@ -3,8 +3,29 @@ import axios from "axios";
 // AXIOS BASE URL
 export const Axios = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
-  withCredentials: true,
 });
+
+// AXIOS INTERCEPTOR INCLUDE ACCESS & REFRESH TOKEN
+Axios.interceptors.request.use(
+  (config) => {
+    // GET TOKEN
+    const accessToken = localStorage.getItem("token");
+
+    // SET TOKEN
+    if (accessToken) {
+      // @ts-ignore
+      config.headers = {
+        ...config.headers!,
+        authorization: `Bearer ${accessToken}`,
+      };
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 //AXIOS INTERCEPTOR FOR REFRESH TOKEN
 Axios.interceptors.response.use(
@@ -21,9 +42,18 @@ Axios.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const { data } = await Axios.get("api/v1/vendor/refresh-token");
+        const refreshToken = localStorage.getItem("refreshToken");
+        // CALLED REFRESH-LOGIN API
+        const { data } = await Axios.get("api/v1/vendor/refresh-token", {
+          headers: {
+            Authorization: `BEARER ${refreshToken}`,
+          },
+        });
 
-        // RETRY THE ORIGINAL REQUEST
+        // UPDATE THE ACCESS TOKEN
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("refreshToken", data.refreshToken);
+
         return Axios(originalRequest);
       } catch (refreshError) {
         return Promise.reject(refreshError);
@@ -33,4 +63,4 @@ Axios.interceptors.response.use(
   }
 );
 
-export const menuMuseWebsitePath = "https://lets-scan.vercel.app";
+export const letsScanWebsitePath = "https://lets-scan.vercel.app";
