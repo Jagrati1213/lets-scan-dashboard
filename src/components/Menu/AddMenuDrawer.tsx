@@ -9,6 +9,7 @@ import {
   RadioChangeEvent,
   Spin,
   Upload,
+  message,
 } from "antd";
 import React, { useState } from "react";
 import { MenuFormT, DrawerOptionsT } from "../../types";
@@ -70,7 +71,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
         ]);
       }
     } catch (error) {
-      console.error("ERROR IMAGE UPLOAD FAILED:", error);
+      message.error("IMAGE UPLOAD FAILED!");
     } finally {
       setIsImageLoading(false);
     }
@@ -85,7 +86,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
       const createItem = await createMenuItemHandler(values);
       dispatch(addMenuItemAction(createItem));
     } catch (error) {
-      console.log("ERROR MENU ITEM NOT CREATE FAILED");
+      message.error("CREATE MENU ITEM FAILED!");
     } finally {
       // RESET THE DRAWER
       setIsLoading(false);
@@ -98,7 +99,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
   const onFinishFailed: FormProps<MenuFormT>["onFinishFailed"] = (
     errorInfo
   ) => {
-    console.log("Failed:", errorInfo);
+    message.warning("FILL ALL FIELDS!");
   };
 
   return (

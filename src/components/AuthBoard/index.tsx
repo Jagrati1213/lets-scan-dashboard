@@ -30,8 +30,7 @@ export default function AuthBoard() {
         dispatch(setUserDetailsAction(data));
       }
     } catch (error: any) {
-      console.log("ERROR IN AUTH", error);
-      return message.error(error);
+      return message.error("AUTHENTICATION FAILED!");
     } finally {
       setIsLoading(false);
     }
