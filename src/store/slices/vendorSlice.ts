@@ -14,18 +14,17 @@ const initialState: VenderStateT = {
 };
 
 // CREATE ASYNC THUNK FOR USER
-export const fetchUserDetailsAction = createAsyncThunk<VenderResponseT["data"]>(
-  "auth/fetchUserDetails",
-  async () => {
-    try {
-      const data = await getUserDetails();
-      return data;
-    } catch (error: any) {
-      console.log("ERROR IN API OF GET DETAILS, ", error);
-      return error;
-    }
+export const fetchUserDetailsAction = createAsyncThunk<
+  VenderResponseT["data"]["vendor"]
+>("auth/fetchUserDetails", async () => {
+  try {
+    const data = await getUserDetails();
+    return data;
+  } catch (error: any) {
+    message.error("GET VENDOR DETAILS FAILED!, ");
+    return error;
   }
-);
+});
 
 // USER SLICE
 export const userSlice = createSlice({

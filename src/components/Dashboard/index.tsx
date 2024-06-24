@@ -62,7 +62,7 @@ export default function Dashboard() {
             <Col span={24} sm={12} md={6}>
               <StatisticCard
                 title={"TOTAL ORDERS"}
-                value={vendor?.totalOrders || 0}
+                value={vendor?.totalOrders ? vendor?.totalOrders : 0}
                 precision={0}
                 color="#49274a"
                 icon={<FaCartArrowDown />}
@@ -71,7 +71,7 @@ export default function Dashboard() {
             <Col span={24} sm={12} md={6}>
               <StatisticCard
                 title={"TOTAL REVENUE"}
-                value={vendor?.totalRevenue || 0}
+                value={vendor?.totalRevenue ? vendor?.totalRevenue : 0}
                 precision={0}
                 color="#49274a"
                 icon={<HiMiniArrowTrendingUp />}
@@ -80,7 +80,7 @@ export default function Dashboard() {
             <Col span={24} sm={12} md={6}>
               <StatisticCard
                 title={"TOTAL CUSTOMER"}
-                value={vendor?.totalCustomers || 0}
+                value={vendor?.totalCustomers ? vendor?.totalCustomers : 0}
                 precision={0}
                 color="#49274a"
                 icon={<HiUsers />}
@@ -89,7 +89,11 @@ export default function Dashboard() {
             <Col span={24} sm={12} md={6}>
               <StatisticCard
                 title={"BEST SELLING ITEM"}
-                value={vendor?.bestSell.toLowerCase()}
+                value={
+                  vendor?.bestSell
+                    ? vendor?.bestSell.toLowerCase()
+                    : "no best sell item"
+                }
                 precision={0}
                 color="#49274a"
                 icon={<PiBowlFoodFill />}

@@ -67,15 +67,19 @@ export interface AuthFieldT {
 
 export interface VenderResponseT extends ResponseT {
   data: {
-    _id: string;
-    username: string;
-    email: string;
-    restaurant: string;
-    isOpen: boolean;
-    totalCustomers: number;
-    totalOrders: number;
-    totalRevenue: number;
-    bestSell: string;
+    vendor: {
+      _id: string;
+      username: string;
+      email: string;
+      restaurant: string;
+      isOpen: boolean;
+      totalCustomers: number;
+      totalOrders: number;
+      totalRevenue: number;
+      bestSell: string;
+    };
+    accessToken?: string;
+    refreshToken?: string;
   };
 }
 
@@ -86,10 +90,10 @@ export interface VenderStateT {
     email: string | null;
     restaurant: string | null;
     isOpen: boolean;
-    totalCustomers: number;
-    totalOrders: number;
-    totalRevenue: number;
-    bestSell: string;
+    totalCustomers?: number;
+    totalOrders?: number;
+    totalRevenue?: number;
+    bestSell?: string;
   } | null;
   isAuthenticated: boolean;
 }

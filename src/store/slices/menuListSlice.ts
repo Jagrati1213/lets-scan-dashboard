@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { MenuResponseT, MenuItemT } from "../../types";
 import { getMenuList } from "../../apis/menu/getMenuList";
+import { message } from "antd";
 
 interface MenuListProp {
   menulist: MenuItemT[];
@@ -19,7 +20,7 @@ export const fetchMenuListAction = createAsyncThunk<MenuResponseT["data"]>(
       if (!data) return [];
       return data;
     } catch (error: any) {
-      console.log("ERROR IN FETCH MENULIST", error);
+      message.error("GET MENU LIST FAILED!");
       return error;
     }
   }
