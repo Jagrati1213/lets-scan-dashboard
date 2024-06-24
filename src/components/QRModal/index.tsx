@@ -13,7 +13,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import Style from "../../styles/_QrModal.module.scss";
 import { LuCopy } from "react-icons/lu";
 import { useAppSelector } from "../../store/store";
-import { menuMuseWebsitePath } from "../../global";
+import { letsScanWebsitePath } from "../../global";
 
 interface modalProps {
   openQrModal: boolean;
@@ -57,7 +57,7 @@ export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
           <Col>
             <QRCode
               type="svg"
-              value={`${menuMuseWebsitePath}/menu/${vendor?._id}`}
+              value={`${letsScanWebsitePath}/menu/${vendor?._id}`}
             />
           </Col>
         </Row>
@@ -66,7 +66,7 @@ export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
         <Flex gap={"12px"} className={Style.qr_link_box}>
           <Input
             disabled
-            value={`${menuMuseWebsitePath}/menu/${vendor?._id}`}
+            value={`${letsScanWebsitePath}/menu/${vendor?._id}`}
             className={Style.qr_link}
           />
 
@@ -75,7 +75,7 @@ export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
               icon={<LuCopy />}
               onClick={copyQrLinkHandler.bind(
                 null,
-                `${menuMuseWebsitePath}/menu/${vendor?._id}`
+                `${letsScanWebsitePath}/menu/${vendor?._id}`
               )}
             />
           </Tooltip>
