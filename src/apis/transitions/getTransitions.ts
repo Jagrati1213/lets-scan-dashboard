@@ -8,7 +8,7 @@ export const getTransitions = async ({
 }: {
   page: number;
   limit: number;
-}): Promise<transitionsResponseT["data"] | undefined> => {
+}): Promise<transitionsResponseT["data"] | unknown> => {
   try {
     const response = await Axios.get("api/v1/vendor/transitions", {
       params: {
@@ -19,9 +19,11 @@ export const getTransitions = async ({
     const { success, statusText, data } = response.data;
     if (success) {
       return data;
-    } else message.error(statusText);
+    } else throw new Error(statusText);
   } catch (error: any) {
-    message.error("GET TRANSITION FAILED!");
-    return;
+    error.response
+      ? message.error(error.response.data.statusText)
+      : message.error("An error occurred. Please try again.");
+    throw error;
   }
 };
