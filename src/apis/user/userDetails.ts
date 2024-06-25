@@ -8,10 +8,11 @@ export const getUserDetails = async (): Promise<
   try {
     const response = await Axios.get("api/v1/vendor");
     const { data } = response.data;
-    console.log(data.vendor);
     return data.vendor;
   } catch (error: any) {
-    message.error("GET USER DETAILS FAILED!");
-    return;
+    error.response
+      ? message.error(error.response.data.statusText)
+      : message.error("An error occurred. Please try again.");
+    throw error;
   }
 };

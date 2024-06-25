@@ -28,13 +28,17 @@ export default function Dashboard() {
 
   // CHANGE SHOP OPENING
   const handleShopAvailability = async (checked: boolean) => {
-    const data = await updateShopAvailability(checked);
-    if (!data) {
-      setShopIsOpen(true);
-      return;
+    try {
+      const data = await updateShopAvailability(checked);
+      if (!data) {
+        setShopIsOpen(true);
+        return;
+      }
+      dispatch(setUserDetailsAction(data));
+      setShopIsOpen(checked);
+    } catch (error: any) {
+      return null;
     }
-    dispatch(setUserDetailsAction(data));
-    setShopIsOpen(checked);
   };
 
   // GET USER DETAILS AT INITIALS
