@@ -16,12 +16,14 @@ export const signIn = async ({
       message.success(statusText);
       localStorage.setItem("token", data.token);
       localStorage.setItem("refreshToken", data.refreshToken);
+      return data.vendor;
     } else {
-      message.error(statusText);
+      throw new Error(statusText);
     }
-    return data.vendor;
   } catch (error: any) {
-    message.error("LOGIN FAILED!");
-    return;
+    error.response
+      ? message.error(error.response.data.statusText)
+      : message.error("An error occurred. Please try again.");
+    throw error;
   }
 };

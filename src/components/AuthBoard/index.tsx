@@ -26,11 +26,11 @@ export default function AuthBoard() {
         setIsSignUp(false);
       } else {
         const data = await signIn({ username, password });
-        if (!data) return;
+        if (!data) throw new Error();
         dispatch(setUserDetailsAction(data));
       }
     } catch (error: any) {
-      return message.error("AUTHENTICATION FAILED!");
+      return null;
     } finally {
       setIsLoading(false);
     }

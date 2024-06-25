@@ -32,11 +32,13 @@ Axios.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-
+    console.log(originalRequest);
     //CHECK THE EXPIRE TOKEN ERROR
     if (
       error.response &&
       error.response.status === 401 &&
+      originalRequest.url !== "api/v1/vendor/login" &&
+      originalRequest.url !== "api/v1/vendor/refresh-login" &&
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
