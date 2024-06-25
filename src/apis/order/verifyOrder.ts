@@ -24,11 +24,13 @@ export const verifyOrderApi = async (
     if (success) {
       message.success(statusText);
     } else {
-      message.error(statusText);
+      throw new Error(statusText);
     }
     return data;
   } catch (error: any) {
-    message.error("VERIFY ORDER FAILED!");
-    return;
+    error.response
+      ? message.error(error.response.data.statusText)
+      : message.error("An error occurred. Please try again.");
+    throw error;
   }
 };

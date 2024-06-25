@@ -27,9 +27,11 @@ export const getOrdersApi = async ({
     const { success, statusText, data } = response.data;
     if (success) {
       return data;
-    } else message.error(statusText);
+    } else throw new Error(statusText);
   } catch (error: any) {
-    message.error("GET ORDERS FAILED!");
-    return;
+    error.response
+      ? message.error(error.response.data.statusText)
+      : message.error("An error occurred. Please try again.");
+    throw error;
   }
 };
