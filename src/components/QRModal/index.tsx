@@ -81,9 +81,9 @@ export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
           </Tooltip>
         </Flex>
 
-        <Button type="primary" className={Style.print_btn}>
+        {/* <Button type="primary" className={Style.print_btn}>
           Print
-        </Button>
+        </Button> */}
       </Modal>
     </div>
   );

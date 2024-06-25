@@ -176,7 +176,9 @@ export function OrderTable() {
           })
         );
       }
-    } catch (error) {}
+    } catch (error) {
+      return null;
+    }
   };
 
   // HANDLE PAGINATION
