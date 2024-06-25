@@ -48,7 +48,7 @@ export default function EditMenuDrawer({
   };
 
   // UPLOAD FILE
-  const handleUploadImage = async (file: RcFile): Promise<void> => {
+  const handleUploadImage = async (file: RcFile): Promise<void | any> => {
     // CREATE FORM
     const data = new FormData();
     data.append("image", file);
@@ -59,7 +59,7 @@ export default function EditMenuDrawer({
       const URL = await uploadMenuItemImage(data);
       setFile(URL);
     } catch (error) {
-      console.error("ERROR IMAGE UPLOAD FAILED:", error);
+      return null;
     } finally {
       setIsImageLoading(false);
     }

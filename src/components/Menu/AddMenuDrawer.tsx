@@ -49,7 +49,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
   };
 
   // UPLOAD FILE
-  const handleUploadImage = async (file: RcFile): Promise<void> => {
+  const handleUploadImage = async (file: RcFile): Promise<void | any> => {
     // CREATE FORM
     const data = new FormData();
     data.append("image", file);
@@ -71,7 +71,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
         ]);
       }
     } catch (error) {
-      message.error("IMAGE UPLOAD FAILED!");
+      return null;
     } finally {
       setIsImageLoading(false);
     }

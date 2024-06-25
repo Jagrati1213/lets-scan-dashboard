@@ -15,11 +15,13 @@ export const uploadMenuItemImage = async (
     if (success) {
       message.success(statusText);
     } else {
-      message.error(statusText);
+      throw new Error(statusText);
     }
     return data?.url;
   } catch (error: any) {
-    message.error("UPLOAD IMAGE FAILED!");
-    return;
+    error.response
+      ? message.error(error.response.data.statusText)
+      : message.error("An error occurred. Please try again.");
+    throw error;
   }
 };
