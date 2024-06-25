@@ -15,14 +15,14 @@ const initialState: VenderStateT = {
 
 // CREATE ASYNC THUNK FOR USER
 export const fetchUserDetailsAction = createAsyncThunk<
-  VenderResponseT["data"]["vendor"]
+  VenderResponseT["data"]["vendor"] | any
 >("auth/fetchUserDetails", async () => {
   try {
     const data = await getUserDetails();
     return data;
   } catch (error: any) {
     message.error("GET VENDOR DETAILS FAILED!, ");
-    return error;
+    return { vendor: null, isAuthenticated: false };
   }
 });
 
@@ -51,7 +51,7 @@ export const userSlice = createSlice({
       localStorage.setItem("isAuthenticated", "true");
     });
     builder.addCase(fetchUserDetailsAction.rejected, () => {
-      message.error("AUTHENTICATION FAILED, TRY AGAIN!");
+      message.error(" VENDOR DETAILS, CAN'T FETCH");
     });
   },
 });
