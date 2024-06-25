@@ -76,8 +76,7 @@ export default function EditMenuDrawer({
       const data = await updateMenuItemHandler(values);
       dispatch(updateMenuItemAction(data));
     } catch (error) {
-      message.error("UPDATE MENU FAILED!");
-      return error;
+      return null;
     } finally {
       // RESET THE DRAWER
       setIsLoading(false);

@@ -14,12 +14,14 @@ export const createMenuItemHandler = async (
     const { success, statusText, data } = response.data;
     if (success) {
       message.success(statusText);
+      return data;
     } else {
-      message.error(statusText);
+      throw new Error(statusText);
     }
-    return data;
   } catch (error: any) {
-    message.error("CREATE MENU FAILED!");
-    return;
+    error.response
+      ? message.error(error.response.data.statusText)
+      : message.error("An error occurred. Please try again.");
+    throw error;
   }
 };

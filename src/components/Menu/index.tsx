@@ -51,12 +51,16 @@ export default function Menu() {
 
   // DELETE
   const deleteMenuItem = async (id: string | null) => {
-    if (!id) return;
-    const deleted = await deleteMenuItemHandler({
-      menuId: id,
-    });
-    if (deleted) {
-      dispatch(deleteMenuItemAction(id));
+    try {
+      if (!id) return;
+      const deleted = await deleteMenuItemHandler({
+        menuId: id,
+      });
+      if (deleted) {
+        dispatch(deleteMenuItemAction(id));
+      }
+    } catch (error) {
+      return null;
     }
   };
 

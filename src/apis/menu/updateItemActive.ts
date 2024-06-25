@@ -22,12 +22,14 @@ export const changeFoodType = async ({
       data.isActive
         ? message.success("ITEM IS ACTIVE")
         : message.warning("ITEM IS INACTIVE");
+      return data;
     } else {
-      message.error(statusText);
+      throw new Error(statusText);
     }
-    return data;
   } catch (error: any) {
-    message.error("MENU ACTIVE FAILED!");
-    return;
+    error.response
+      ? message.error(error.response.data.statusText)
+      : message.error("An error occurred. Please try again.");
+    throw error;
   }
 };

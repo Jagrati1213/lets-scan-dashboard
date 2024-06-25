@@ -14,12 +14,14 @@ export const deleteMenuItemHandler = async ({
     const { success, statusText } = response.data;
     if (success) {
       message.success(statusText);
+      return success;
     } else {
-      message.error(statusText);
+      throw new Error(statusText);
     }
-    return success;
   } catch (error: any) {
-    message.error("DELETE MENU FAILED");
-    return;
+    error.response
+      ? message.error(error.response.data.statusText)
+      : message.error("An error occurred. Please try again.");
+    throw error;
   }
 };

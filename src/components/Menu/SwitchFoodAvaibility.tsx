@@ -18,23 +18,31 @@ export default function SwitchFoodAvailability({
 
   //   SET ACTIVE TRUE
   const confirm: PopconfirmProps["onConfirm"] = async () => {
-    setActive(true);
-    const data = await changeFoodType({
-      activeVal: true,
-      menuId: menuItemId,
-    });
-    dispatch(updateMenuItemAction(data));
+    try {
+      setActive(true);
+      const data = await changeFoodType({
+        activeVal: true,
+        menuId: menuItemId,
+      });
+      dispatch(updateMenuItemAction(data));
+    } catch (error) {
+      return null;
+    }
   };
 
   // CHANGE FOOD ACTIVE
   const switchFoodActive = async (checked: boolean) => {
-    if (active) {
-      setActive(false);
-      const data = await changeFoodType({
-        activeVal: checked,
-        menuId: menuItemId,
-      });
-      dispatch(updateMenuItemAction(data));
+    try {
+      if (active) {
+        setActive(false);
+        const data = await changeFoodType({
+          activeVal: checked,
+          menuId: menuItemId,
+        });
+        dispatch(updateMenuItemAction(data));
+      }
+    } catch (error) {
+      return null;
     }
   };
 

@@ -86,7 +86,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
       const createItem = await createMenuItemHandler(values);
       dispatch(addMenuItemAction(createItem));
     } catch (error) {
-      message.error("CREATE MENU ITEM FAILED!");
+      return null;
     } finally {
       // RESET THE DRAWER
       setIsLoading(false);
