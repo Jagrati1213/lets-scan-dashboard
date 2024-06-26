@@ -32,7 +32,6 @@ Axios.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    console.log(originalRequest);
     //CHECK THE EXPIRE TOKEN ERROR
     if (
       error.response &&
