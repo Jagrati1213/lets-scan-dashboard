@@ -1,12 +1,9 @@
 import Title from "antd/es/typography/Title";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { Card, Col, Row, Space, Switch, Typography } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { updateShopAvailability } from "../../apis/user/updateShopAvailability";
-import {
-  fetchUserDetailsAction,
-  setUserDetailsAction,
-} from "../../store/slices/vendorSlice";
+import { setUserDetailsAction } from "../../store/slices/vendorSlice";
 import { FaCartArrowDown } from "react-icons/fa";
 import { HiMiniArrowTrendingUp } from "react-icons/hi2";
 import { HiUsers } from "react-icons/hi";
