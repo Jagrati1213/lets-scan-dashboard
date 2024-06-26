@@ -58,6 +58,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(fetchUserDetailsAction.rejected, (state) => {
       state.loading = false;
+      localStorage.setItem("isAuthenticated", "false");
       message.error("ERROR IN VENDOR DETAILS, TRY AGAIN!");
     });
   },
