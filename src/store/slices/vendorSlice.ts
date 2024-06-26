@@ -3,14 +3,11 @@ import { VenderResponseT, VenderStateT } from "../../types";
 import { message } from "antd";
 import { getUserDetails } from "../../apis/user/userDetails";
 
-// SET IN LOCAL STORAGE
-const localStorageIsAuthenticated =
-  localStorage.getItem("isAuthenticated") === "true";
+// SET STATE IN LOCAL
 
 // INITIAL STATE
 const initialState: VenderStateT = {
   vendor: null,
-  isAuthenticated: localStorageIsAuthenticated,
   loading: false,
 };
 
@@ -23,7 +20,7 @@ export const fetchUserDetailsAction = createAsyncThunk<
     return data;
   } catch (error: any) {
     message.error("GET VENDOR DETAILS FAILED!, ");
-    return { vendor: null, isAuthenticated: false };
+    return null;
   }
 });
 
@@ -35,13 +32,9 @@ export const userSlice = createSlice({
     setUserDetailsAction: (state, action) => {
       const newUser = action?.payload;
       state.vendor = newUser;
-      state.isAuthenticated = true;
-      localStorage.setItem("isAuthenticated", "true");
     },
     logoutAction: (state) => {
       state.vendor = null;
-      state.isAuthenticated = false;
-      localStorage.setItem("isAuthenticated", "false");
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("token");
     },
@@ -54,12 +47,9 @@ export const userSlice = createSlice({
       const newUser = action?.payload;
       state.loading = false;
       state.vendor = newUser;
-      localStorage.setItem("isAuthenticated", "true");
     });
     builder.addCase(fetchUserDetailsAction.rejected, (state) => {
-      state.loading = false;
-      localStorage.setItem("isAuthenticated", "false");
-      message.error("ERROR IN VENDOR DETAILS, TRY AGAIN!");
+      state.loading = true;
     });
   },
 });

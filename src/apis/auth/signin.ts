@@ -6,8 +6,6 @@ export const signIn = async ({
   username,
   password,
 }: AuthFieldT): Promise<VenderResponseT | undefined> => {
-  localStorage.setItem("isAuthenticated", "false");
-
   try {
     const response = await Axios.post("api/v1/vendor/login", {
       username: username?.toLowerCase(),

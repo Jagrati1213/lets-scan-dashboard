@@ -9,14 +9,13 @@ import { Spin } from "antd";
 
 function App() {
   const { vendor, loading } = useAppSelector((store) => store.authSlice);
+  const refreshToken = localStorage.getItem("refreshToken");
+  const token = localStorage.getItem("token");
 
   const dispatch = useAppDispatch();
 
   // GET USER DETAILS AT INITIALS
   useEffect(() => {
-    const refreshToken = localStorage.getItem("refreshToken");
-    const token = localStorage.getItem("token");
-
     if (refreshToken && token) dispatch(fetchUserDetailsAction());
     else {
       localStorage.removeItem("refreshToken");

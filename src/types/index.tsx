@@ -98,7 +98,6 @@ export interface VenderStateT {
     totalRevenue?: number;
     bestSell?: string;
   } | null;
-  isAuthenticated: boolean;
   loading: boolean;
 }
 
