@@ -1,11 +1,11 @@
 import { message } from "antd";
 import { Axios } from "../../global";
-import { MenuFormT, MenuResponseT } from "../../types";
+import { MenuFormT, MenuIsActiveResponseT } from "../../types";
 
 // CREATE MENU ITEM
 export const createMenuItemHandler = async (
   values: MenuFormT
-): Promise<MenuResponseT["data"] | undefined> => {
+): Promise<MenuIsActiveResponseT> => {
   try {
     const response = await Axios.post("api/v1/menu/create-menu", values, {
       headers: { "Content-Type": "application/json" },
