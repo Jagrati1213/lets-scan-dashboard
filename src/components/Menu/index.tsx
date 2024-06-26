@@ -7,6 +7,8 @@ import {
   message,
   Typography,
   Avatar,
+  Skeleton,
+  Divider,
 } from "antd";
 import Title from "antd/es/typography/Title";
 import { useEffect, useState } from "react";
@@ -118,86 +120,111 @@ export default function Menu() {
           itemLayout={windowWidth > 991 ? "vertical" : "horizontal"}
           size="large"
           renderItem={(item, _) => (
-            <List.Item
-              key={item?._id}
-              extra={windowWidth > 991 ? <img src={item?.image} /> : null}
-              actions={[
-                <p style={{ fontWeight: "500" }}>&#8377; {item?.price}</p>,
-                <Button
-                  type="link"
-                  shape="circle"
-                  icon={<FaEye size={16} />}
-                  disabled={vendor?.isOpen}
-                  onClick={() => {
-                    setMenuItemId(item?._id);
-                    showDrawer("isMenuViewOpen");
-                  }}
-                />,
-                <Button
-                  type="link"
-                  shape="circle"
-                  icon={<FaEdit size={16} />}
-                  disabled={vendor?.isOpen}
-                  onClick={() => {
-                    setMenuItemId(item?._id);
-                    showDrawer("isMenuEditorOpen");
-                  }}
-                />,
-                <Button
-                  type="link"
-                  danger
-                  shape="circle"
-                  icon={<FaTrash size={16} />}
-                  disabled={vendor?.isOpen}
-                  onClick={() => {
-                    deleteMenuItem(item?._id);
-                  }}
-                />,
-                <SwitchFoodAvailability menuItemId={item._id} />,
-              ]}
-            >
-              <List.Item.Meta
-                avatar={
-                  windowWidth <= 991 && (
-                    <Avatar src={item?.image} shape="square" size={"large"} />
-                  )
-                }
-                title={
-                  <Space>
-                    <Tag
-                      color={item?.isVeg ? "green" : "red"}
-                      className={Style.is_veg_tag}
-                      style={{
-                        borderColor: `${item?.isVeg ? "#0f8a65" : "#e43b4f"}`,
+            <>
+              {loading ? (
+                <div style={{ padding: "2rem" }}>
+                  {Array(3)
+                    .fill(null)
+                    .map((_, key) => {
+                      return (
+                        <div key={key}>
+                          <Skeleton />
+                          <Divider />
+                        </div>
+                      );
+                    })}
+                </div>
+              ) : (
+                <List.Item
+                  key={item?._id}
+                  extra={windowWidth > 991 ? <img src={item?.image} /> : null}
+                  actions={[
+                    <p style={{ fontWeight: "500" }}>&#8377; {item?.price}</p>,
+                    <Button
+                      type="link"
+                      shape="circle"
+                      icon={<FaEye size={16} />}
+                      disabled={vendor?.isOpen}
+                      onClick={() => {
+                        setMenuItemId(item?._id);
+                        showDrawer("isMenuViewOpen");
                       }}
-                    >
-                      <div
-                        style={{
-                          width: "12px",
-                          height: "12px",
-                          background: `${item?.isVeg ? "#0f8a65" : "#e43b4f"}`,
-                          borderRadius: "50%",
+                    />,
+                    <Button
+                      type="link"
+                      shape="circle"
+                      icon={<FaEdit size={16} />}
+                      disabled={vendor?.isOpen}
+                      onClick={() => {
+                        setMenuItemId(item?._id);
+                        showDrawer("isMenuEditorOpen");
+                      }}
+                    />,
+                    <Button
+                      type="link"
+                      danger
+                      shape="circle"
+                      icon={<FaTrash size={16} />}
+                      disabled={vendor?.isOpen}
+                      onClick={() => {
+                        deleteMenuItem(item?._id);
+                      }}
+                    />,
+                    <SwitchFoodAvailability menuItemId={item._id} />,
+                  ]}
+                >
+                  <List.Item.Meta
+                    avatar={
+                      windowWidth <= 991 && (
+                        <Avatar
+                          src={item?.image}
+                          shape="square"
+                          size={"large"}
+                        />
+                      )
+                    }
+                    title={
+                      <Space>
+                        <Tag
+                          color={item?.isVeg ? "green" : "red"}
+                          className={Style.is_veg_tag}
+                          style={{
+                            borderColor: `${
+                              item?.isVeg ? "#0f8a65" : "#e43b4f"
+                            }`,
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "12px",
+                              height: "12px",
+                              background: `${
+                                item?.isVeg ? "#0f8a65" : "#e43b4f"
+                              }`,
+                              borderRadius: "50%",
+                            }}
+                          ></div>
+                        </Tag>
+                        <Text>
+                          {item?.name?.charAt(0).toUpperCase()}
+                          {item?.name?.slice(1)}
+                        </Text>
+                      </Space>
+                    }
+                    description={
+                      <Paragraph
+                        ellipsis={{
+                          rows: 2,
+                          expanded: false,
                         }}
-                      ></div>
-                    </Tag>
-                    <Text>
-                      {item?.name?.charAt(0).toUpperCase()}
-                      {item?.name?.slice(1)}
-                    </Text>
-                  </Space>
-                }
-                description={
-                  <Paragraph
-                    ellipsis={{
-                      rows: 2,
-                      expanded: false,
-                    }}
-                  >
-                    {item?.description}
-                  </Paragraph>
-                }
-              />
-            </List.Item>
+                      >
+                        {item?.description}
+                      </Paragraph>
+                    }
+                  />
+                </List.Item>
+              )}
+            </>
           )}
         />
 

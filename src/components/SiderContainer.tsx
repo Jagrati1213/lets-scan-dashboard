@@ -15,6 +15,7 @@ import { useAppDispatch } from "../store/store";
 export const SiderContainer = () => {
   // COLLAPSE MENU SIDEBAR
   const [collapsed, setCollapsed] = useState(false);
+  const [disable, setDisable] = useState(false);
 
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -22,6 +23,7 @@ export const SiderContainer = () => {
 
   // HANDLE FOR LOG OUT
   const handleLogout = async () => {
+    setDisable(true);
     const response = await Axios.get("api/v1/vendor/logout");
     const { statusText, success } = await response.data;
     if (success) {
@@ -29,6 +31,7 @@ export const SiderContainer = () => {
       message.success(statusText);
       dispatch(logoutAction());
     } else message.error(statusText);
+    setDisable(false);
   };
 
   // SIDE MENU LIST
@@ -58,6 +61,7 @@ export const SiderContainer = () => {
       key: "logout",
       icon: <RiLogoutCircleFill />,
       onClick: handleLogout,
+      disabled: disable,
     },
   ];
 

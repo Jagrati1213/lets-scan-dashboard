@@ -96,6 +96,7 @@ export interface VenderStateT {
     bestSell?: string;
   } | null;
   isAuthenticated: boolean;
+  loading: boolean;
 }
 
 // ORDERS TYPES

@@ -11,6 +11,7 @@ const localStorageIsAuthenticated =
 const initialState: VenderStateT = {
   vendor: null,
   isAuthenticated: localStorageIsAuthenticated,
+  loading: false,
 };
 
 // CREATE ASYNC THUNK FOR USER
@@ -41,17 +42,23 @@ export const userSlice = createSlice({
       state.vendor = null;
       state.isAuthenticated = false;
       localStorage.setItem("isAuthenticated", "false");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchUserDetailsAction.pending, (state) => {
+      state.loading = true;
+    });
     builder.addCase(fetchUserDetailsAction.fulfilled, (state, action) => {
       const newUser = action?.payload;
+      state.loading = false;
       state.vendor = newUser;
-      state.isAuthenticated = true;
       localStorage.setItem("isAuthenticated", "true");
     });
-    builder.addCase(fetchUserDetailsAction.rejected, () => {
-      message.error(" VENDOR DETAILS, CAN'T FETCH");
+    builder.addCase(fetchUserDetailsAction.rejected, (state) => {
+      state.loading = false;
+      message.error("ERROR IN VENDOR DETAILS, TRY AGAIN!");
     });
   },
 });

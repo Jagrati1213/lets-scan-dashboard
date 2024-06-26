@@ -18,16 +18,16 @@ import Style from "../../styles/_Dashboard.module.scss";
 const { Text } = Typography;
 
 export default function Dashboard() {
-  const { vendor, isAuthenticated } = useAppSelector(
-    (store) => store.authSlice
-  );
+  const { vendor } = useAppSelector((store) => store.authSlice);
   const dispatch = useAppDispatch();
   const [shopIsOpen, setShopIsOpen] = useState<boolean>(
     vendor?.isOpen || false
   );
+  const [loading, setLoading] = useState(false);
 
   // CHANGE SHOP OPENING
   const handleShopAvailability = async (checked: boolean) => {
+    setLoading(true);
     try {
       const data = await updateShopAvailability(checked);
       if (!data) {
@@ -38,13 +38,10 @@ export default function Dashboard() {
       setShopIsOpen(checked);
     } catch (error: any) {
       return null;
+    } finally {
+      setLoading(false);
     }
   };
-
-  // GET USER DETAILS AT INITIALS
-  useEffect(() => {
-    if (isAuthenticated) dispatch(fetchUserDetailsAction());
-  }, [dispatch, isAuthenticated]);
 
   return (
     <div className={Style.dashboard}>
@@ -55,7 +52,11 @@ export default function Dashboard() {
         <Col>
           <Space direction="vertical" align="center">
             <Text>{shopIsOpen ? "CLOSE SHOP" : "OPEN SHOP"}</Text>
-            <Switch value={shopIsOpen} onChange={handleShopAvailability} />
+            <Switch
+              value={shopIsOpen}
+              onChange={handleShopAvailability}
+              loading={loading}
+            />
           </Space>
         </Col>
       </Row>
