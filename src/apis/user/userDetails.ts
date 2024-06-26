@@ -10,9 +10,9 @@ export const getUserDetails = async (): Promise<
     const { data } = response.data;
     return data.vendor;
   } catch (error: any) {
-    error.response
-      ? message.error(error.response.data.statusText)
-      : message.error("An error occurred. Please try again.");
+    // error.response
+    //   ? message.error(error.response.data.statusText)
+    //   : message.error("An error occurred. Please try again.");
     throw error;
   }
 };
