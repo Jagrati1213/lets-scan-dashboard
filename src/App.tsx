@@ -8,20 +8,21 @@ import "./App.scss";
 import { Spin } from "antd";
 
 function App() {
-  const { vendor, isAuthenticated, loading } = useAppSelector(
-    (store) => store.authSlice
-  );
+  const { vendor, loading } = useAppSelector((store) => store.authSlice);
 
   const dispatch = useAppDispatch();
 
   // GET USER DETAILS AT INITIALS
   useEffect(() => {
-    if (isAuthenticated) dispatch(fetchUserDetailsAction());
+    const refreshToken = localStorage.getItem("refreshToken");
+    const token = localStorage.getItem("token");
+
+    if (refreshToken && token) dispatch(fetchUserDetailsAction());
     else {
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("token");
     }
-  }, [dispatch, isAuthenticated]);
+  }, [dispatch]);
 
   return (
     <div className="App">
