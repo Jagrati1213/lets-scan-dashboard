@@ -35,6 +35,9 @@ export interface MenuUpdateT extends FormFieldT {
 export interface MenuResponseT extends ResponseT {
   data: MenuItemT[];
 }
+export interface MenuIsActiveResponseT extends ResponseT {
+  data: MenuItemT;
+}
 
 export interface UploadImageResponseT extends ResponseT {
   data: {
