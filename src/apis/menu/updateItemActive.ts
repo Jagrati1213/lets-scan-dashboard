@@ -1,6 +1,6 @@
 import { message } from "antd";
 import { Axios } from "../../global";
-import { VenderResponseT } from "../../types";
+import { MenuIsActiveResponseT } from "../../types";
 
 interface changeFoodActiveProps {
   activeVal: boolean;
@@ -9,7 +9,9 @@ interface changeFoodActiveProps {
 export const changeFoodType = async ({
   activeVal,
   menuId,
-}: changeFoodActiveProps): Promise<VenderResponseT["data"] | undefined> => {
+}: changeFoodActiveProps): Promise<
+  MenuIsActiveResponseT["data"] | undefined
+> => {
   try {
     const response = await Axios.put(
       "api/v1/menu/active",
