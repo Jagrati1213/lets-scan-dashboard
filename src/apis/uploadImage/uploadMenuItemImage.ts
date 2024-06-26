@@ -14,10 +14,10 @@ export const uploadMenuItemImage = async (
     const { success, statusText, data } = response.data;
     if (success) {
       message.success(statusText);
+      return data?.url;
     } else {
       throw new Error(statusText);
     }
-    return data?.url;
   } catch (error: any) {
     error.response
       ? message.error(error.response.data.statusText)
