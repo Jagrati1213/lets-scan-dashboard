@@ -4,6 +4,7 @@ import {
   Input,
   InputNumber,
   InputNumberProps,
+  message,
   PaginationProps,
   Popconfirm,
   Row,
@@ -106,9 +107,9 @@ export function OrderTable() {
               title="Enter OTP"
               description={
                 <InputNumber
-                  size="large"
-                  defaultValue={1}
+                  size="middle"
                   onChange={onVerifyCodeChange}
+                  controls={false}
                 />
               }
               okText="Verify"
@@ -159,7 +160,10 @@ export function OrderTable() {
   // HANDLE VERIFY
   const handleVerifyOrderToConfirm = async (orderId: string) => {
     try {
-      if (!verifyCode) return;
+      if (!verifyCode) {
+        message.error("VERIFY CODE REQUIRED!");
+        return;
+      }
       // CALLED API WITH CODE
       const data = await verifyOrderApi(verifyCode, orderId);
       if (!data) return;
