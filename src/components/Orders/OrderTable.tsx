@@ -216,7 +216,7 @@ export function OrderTable() {
         columns={columns}
         dataSource={orders}
         rowKey="_id"
-        scroll={{ x: 1500, y: 500 }}
+        scroll={{ x: 1500, y: 3000 }}
         loading={loading}
         expandable={{
           expandedRowRender: (record) => (

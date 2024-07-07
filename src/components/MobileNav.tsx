@@ -57,7 +57,7 @@ export const MobileNav = () => {
         <Button
           icon={<FaCartArrowDown />}
           type="link"
-          onClick={handleChangePage.bind(null, "/orders")}
+          onClick={handleChangePage.bind(null, "/orders?type=pending")}
           className={active.slice(1) === "orders" ? Style.active_btn : ""}
         />
       </div>
