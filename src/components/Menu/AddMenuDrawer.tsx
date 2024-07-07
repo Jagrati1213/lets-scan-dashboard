@@ -99,7 +99,7 @@ export default function AddMenuDrawer({ open, setOpen }: AddMenuProps) {
   const onFinishFailed: FormProps<MenuFormT>["onFinishFailed"] = (
     errorInfo
   ) => {
-    message.warning("FILL ALL FIELDS!");
+    message.warning({ content: "FILL ALL FIELDS!", duration: 1 });
   };
 
   return (

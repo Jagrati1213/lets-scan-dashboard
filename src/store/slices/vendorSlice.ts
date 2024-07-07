@@ -19,7 +19,7 @@ export const fetchUserDetailsAction = createAsyncThunk<
     const data = await getUserDetails();
     return data;
   } catch (error: any) {
-    message.error("GET VENDOR DETAILS FAILED!, ");
+    message.error({ content: "GET VENDOR DETAILS FAILED!", duration: 1 });
     return null;
   }
 });

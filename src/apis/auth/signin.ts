@@ -13,7 +13,7 @@ export const signIn = async ({
     });
     const { success, statusText, data } = response.data;
     if (success) {
-      message.success(statusText);
+      message.success({ content: statusText, duration: 1 });
       localStorage.setItem("token", data.token);
       localStorage.setItem("refreshToken", data.refreshToken);
       return data.vendor;
@@ -22,8 +22,14 @@ export const signIn = async ({
     }
   } catch (error: any) {
     error.response
-      ? message.error(error.response.data.statusText)
-      : message.error("An error occurred. Please try again.");
+      ? message.error({
+          content: error.response.data.statusText,
+          duration: 1,
+        })
+      : message.error({
+          content: "An error occurred. Please try again.",
+          duration: 1,
+        });
     throw error;
   }
 };

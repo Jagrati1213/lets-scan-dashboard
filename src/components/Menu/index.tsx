@@ -74,8 +74,12 @@ export default function Menu() {
   // CHECK MENUITEMS IS NOT NULL
   const checkMenuItems = async () => {
     if (menulist.length === 0)
-      return message.error("ADD MENU ITEMS, FOR GENERATE QR");
-    if (!vendor?._id) return message.error("USER NOT FOUNDED!");
+      return message.error({
+        content: "ADD MENU ITEMS, FOR GENERATE QR",
+        duration: 1,
+      });
+    if (!vendor?._id)
+      return message.error({ content: "USER NOT FOUNDED!", duration: 1 });
     setIsQrModalOpen(true);
   };
 

@@ -11,7 +11,7 @@ export const getMenuList = async (): Promise<
     const { data } = response.data;
     return data;
   } catch (error: any) {
-    message.error("GET MENU FAILED!");
+    message.error({ content: "GET MENU FAILED!", duration: 1 });
     return;
   }
 };

@@ -23,9 +23,9 @@ export const MobileNav = () => {
     const { statusText, success } = await response.data;
     if (success) {
       navigate("/");
-      message.success(statusText);
+      message.success({ content: statusText, duration: 1 });
       dispatch(logoutAction());
-    } else message.error(statusText);
+    } else message.error({ content: statusText, duration: 1 });
   };
 
   const handleChangePage = async (name: string) => {

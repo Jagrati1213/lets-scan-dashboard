@@ -22,8 +22,14 @@ export const getTransitions = async ({
     } else throw new Error(statusText);
   } catch (error: any) {
     error.response
-      ? message.error(error.response.data.statusText)
-      : message.error("An error occurred. Please try again.");
+      ? message.error({
+          content: error.response.data.statusText,
+          duration: 1,
+        })
+      : message.error({
+          content: "An error occurred. Please try again.",
+          duration: 1,
+        });
     throw error;
   }
 };

@@ -20,7 +20,7 @@ export const fetchMenuListAction = createAsyncThunk<MenuResponseT["data"]>(
       if (!data) return [];
       return data;
     } catch (error: any) {
-      message.error("GET MENU LIST FAILED!");
+      message.error({ content: "GET MENU LIST FAILED!", duration: 1 });
       return error;
     }
   }

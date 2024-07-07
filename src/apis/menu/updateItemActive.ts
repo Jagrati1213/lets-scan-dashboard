@@ -22,16 +22,22 @@ export const changeFoodType = async ({
     const { success, statusText, data } = response.data;
     if (success) {
       data.isActive
-        ? message.success("ITEM IS ACTIVE")
-        : message.warning("ITEM IS INACTIVE");
+        ? message.success({ content: "ITEM IS ACTIVE", duration: 1 })
+        : message.warning({ content: "ITEM IS INACTIVE", duration: 1 });
       return data;
     } else {
       throw new Error(statusText);
     }
   } catch (error: any) {
     error.response
-      ? message.error(error.response.data.statusText)
-      : message.error("An error occurred. Please try again.");
+      ? message.error({
+          content: error.response.data.statusText,
+          duration: 1,
+        })
+      : message.error({
+          content: "An error occurred. Please try again.",
+          duration: 1,
+        });
     throw error;
   }
 };

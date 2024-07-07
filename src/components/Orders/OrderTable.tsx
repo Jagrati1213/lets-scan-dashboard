@@ -161,7 +161,7 @@ export function OrderTable() {
   const handleVerifyOrderToConfirm = async (orderId: string) => {
     try {
       if (!verifyCode) {
-        message.error("VERIFY CODE REQUIRED!");
+        message.error({ content: "VERIFY CODE REQUIRED!", duration: 1 });
         return;
       }
       // CALLED API WITH CODE

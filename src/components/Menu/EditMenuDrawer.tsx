@@ -88,7 +88,7 @@ export default function EditMenuDrawer({
   const onFinishFailed: FormProps<MenuFormT>["onFinishFailed"] = (
     errorInfo: any
   ) => {
-    message.error(errorInfo);
+    message.error({ content: "FILL ALL FIELDS!", duration: 1 });
   };
 
   // RENDER MENU ITEM
