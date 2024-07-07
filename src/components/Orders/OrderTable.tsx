@@ -39,10 +39,10 @@ export function OrderTable() {
   const [verifyCode, setVerifyCode] = useState<valueType | null>(0);
   const [pagination, setPagination] = useState<PaginationProps>({
     current: 1,
-    pageSize: 5,
+    pageSize: 20,
     total: totalOrder,
     showSizeChanger: true,
-    pageSizeOptions: ["5", "10", "20"],
+    pageSizeOptions: ["10", "20", "40"],
   });
 
   // TABLE COLUMNS

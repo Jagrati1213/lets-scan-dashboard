@@ -28,10 +28,10 @@ export default function Transitions() {
   // STATE
   const [pagination, setPagination] = useState<PaginationProps>({
     current: 1,
-    pageSize: 5,
+    pageSize: 20,
     total: totalCount,
     showSizeChanger: true,
-    pageSizeOptions: ["5", "10", "20"],
+    pageSizeOptions: ["10", "20", "40"],
   });
 
   // TABLE COLUMNS
