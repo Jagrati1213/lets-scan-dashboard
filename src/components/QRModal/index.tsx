@@ -7,14 +7,18 @@ import {
   Modal,
   QRCode,
   Row,
+  Space,
   Tooltip,
+  Typography,
 } from "antd";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 import Style from "../../styles/_QrModal.module.scss";
 import { LuCopy } from "react-icons/lu";
 import { useAppSelector } from "../../store/store";
 import { letsScanWebsitePath } from "../../global";
+import { IReactToPrintProps, useReactToPrint } from "react-to-print";
 
+const { Title, Text } = Typography;
 interface modalProps {
   openQrModal: boolean;
   setOpenQrModal: Dispatch<SetStateAction<boolean>>;
@@ -22,6 +26,7 @@ interface modalProps {
 export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
   const [copyUrl, setCopyUrl] = useState<boolean>(false);
   const { vendor } = useAppSelector((store) => store.authSlice);
+  const componentRef = useRef<HTMLDivElement>(null);
 
   // METHODS
   const copyQrLinkHandler = (url: string) => {
@@ -32,6 +37,14 @@ export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
       setCopyUrl(false);
     }, 3000);
   };
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Lets Scan Menu QR",
+    onAfterPrint: () => {
+      setOpenQrModal(false);
+    },
+  });
 
   return (
     <div>
@@ -54,6 +67,33 @@ export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
               </Col>
             </Row>
           </Col>
+          <Col style={{ display: "none" }}>
+            <Space
+              direction="vertical"
+              align="center"
+              ref={componentRef}
+              style={{
+                width: "100%",
+                height: "100%",
+                padding: "2rem",
+              }}
+              className="printable-area"
+            >
+              <Title level={4} style={{ marginBottom: "0" }}>
+                Scan QR
+              </Title>
+              <Text style={{ fontSize: "1.2rem" }}>
+                Our restaurant {vendor?.restaurant}
+              </Text>
+              <QRCode
+                type="svg"
+                value={`${letsScanWebsitePath}/menu/${vendor?._id}`}
+                size={250}
+              />
+              <p>Visit our menu by scanning this QR code.</p>
+            </Space>
+          </Col>
+
           <Col>
             <QRCode
               type="svg"
@@ -81,9 +121,13 @@ export default function QRModal({ openQrModal, setOpenQrModal }: modalProps) {
           </Tooltip>
         </Flex>
 
-        {/* <Button type="primary" className={Style.print_btn}>
+        <Button
+          type="primary"
+          className={Style.print_btn}
+          onClick={handlePrint}
+        >
           Print
-        </Button> */}
+        </Button>
       </Modal>
     </div>
   );
