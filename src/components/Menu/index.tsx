@@ -116,14 +116,13 @@ export default function Menu() {
         <List
           dataSource={menulist}
           bordered
-          loading={loading}
           itemLayout={windowWidth > 991 ? "vertical" : "horizontal"}
           size="large"
           renderItem={(item, _) => (
             <>
               {loading ? (
                 <div style={{ padding: "2rem" }}>
-                  {Array(3)
+                  {Array(4)
                     .fill(null)
                     .map((_, key) => {
                       return (
