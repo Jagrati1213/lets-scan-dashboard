@@ -53,4 +53,39 @@
   .print_btn {
     width: 100%;
   }
+  /* print.css */
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+
+    .print-container,
+    .print-container * {
+      visibility: visible;
+    }
+
+    .print-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+    }
+
+    .print-container h1 {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .print-container p {
+      font-size: 14px;
+      color: #555;
+    }
+  }
 }
