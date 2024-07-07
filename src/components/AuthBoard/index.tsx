@@ -39,7 +39,7 @@ export default function AuthBoard() {
   const handleGuest = async (): Promise<VenderResponseT["data"] | unknown> => {
     setIsLoading(true);
     try {
-      const data = await signIn({ username: "s", password: "s" });
+      const data = await signIn({ username: "jagrati", password: "s" });
       if (!data) throw new Error();
       dispatch(setUserDetailsAction(data));
     } catch (error: any) {
