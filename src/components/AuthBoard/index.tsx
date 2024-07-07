@@ -1,8 +1,8 @@
-import { Button, Flex, Form, FormProps, Input, message } from "antd";
+import { Button, Divider, Flex, Form, FormProps, Input, message } from "antd";
 import Style from "../../styles/_Authentication.module.scss";
 import Title from "antd/es/typography/Title";
 import { useState } from "react";
-import { AuthFieldT } from "../../types";
+import { AuthFieldT, VenderResponseT } from "../../types";
 import "../../styles/global.scss";
 import { setUserDetailsAction } from "../../store/slices/vendorSlice";
 import { useDispatch } from "react-redux";
@@ -36,6 +36,18 @@ export default function AuthBoard() {
     }
   };
 
+  const handleGuest = async (): Promise<VenderResponseT["data"] | unknown> => {
+    setIsLoading(true);
+    try {
+      const data = await signIn({ username: "s", password: "s" });
+      if (!data) throw new Error();
+      dispatch(setUserDetailsAction(data));
+    } catch (error: any) {
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className={Style.auth_form}>
       <Flex align="center" vertical gap={"20px"}>
@@ -109,6 +121,11 @@ export default function AuthBoard() {
               disabled={isLoading}
             >
               {isSignUp ? "Sign up" : "Sign In"}
+            </Button>
+
+            <Divider children={"or"} />
+            <Button onClick={handleGuest} block>
+              Guest
             </Button>
           </Form.Item>
 
