@@ -47,7 +47,7 @@ Axios.interceptors.response.use(
         // CALLED REFRESH-LOGIN API
         const { data } = await Axios.get("api/v1/vendor/refresh-token", {
           headers: {
-            Authorization: `BEARER ${refreshToken}`,
+            Authorization: `Bearer ${refreshToken}`,
           },
         });
 

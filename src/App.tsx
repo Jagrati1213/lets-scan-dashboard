@@ -21,7 +21,7 @@ function App() {
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("token");
     }
-  }, [dispatch]);
+  }, [dispatch, refreshToken, token]);
 
   return (
     <div className="App">
