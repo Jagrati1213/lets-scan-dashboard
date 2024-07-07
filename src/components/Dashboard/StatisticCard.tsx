@@ -1,6 +1,6 @@
 import { Card, Statistic } from "antd";
 import React from "react";
-
+import Style from "../../styles/_Statistic.module.scss";
 interface CardPropsT {
   icon: React.ReactNode;
   title: string;
@@ -19,6 +19,7 @@ export function StatisticCard({
     <div>
       <Card bordered={false}>
         <Statistic
+          className={Style.staticCard}
           title={title}
           value={value}
           precision={precision}

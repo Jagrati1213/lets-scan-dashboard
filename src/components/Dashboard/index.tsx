@@ -1,4 +1,3 @@
-import Title from "antd/es/typography/Title";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { Card, Col, Row, Space, Switch, Typography } from "antd";
 import { useState } from "react";
@@ -12,7 +11,7 @@ import { StatisticCard } from "./StatisticCard";
 import StatisticsGraph from "./StatisticsGraph";
 import Style from "../../styles/_Dashboard.module.scss";
 
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 export default function Dashboard() {
   const { vendor } = useAppSelector((store) => store.authSlice);
@@ -81,7 +80,7 @@ export default function Dashboard() {
             </Col>
             <Col span={24} sm={12} md={6}>
               <StatisticCard
-                title={"TOTAL CUSTOMER"}
+                title={"UNIQUE CUSTOMER"}
                 value={vendor?.totalCustomers ? vendor?.totalCustomers : 0}
                 precision={0}
                 color="#49274a"
@@ -105,12 +104,12 @@ export default function Dashboard() {
         </Col>
 
         <Col span={24}>
-          <Card title="STATUS">
+          <Card title="STATUS" className={Style.staticContainer}>
             <Row gutter={[16, 30]}>
-              <Col>
+              <Col span={24} md={12}>
                 <StatisticsGraph />
               </Col>
-              <Col>
+              <Col span={24} md={12}>
                 <StatisticsGraph />
               </Col>
             </Row>

@@ -1,0 +1,11 @@
+@import "./modules/variables";
+@import "./modules/mixin";
+
+.staticCard {
+  :global(.ant-statistic-content) {
+    display: flex;
+  }
+  :global(.ant-statistic-content-value) {
+    font-size: 1rem;
+  }
+}
