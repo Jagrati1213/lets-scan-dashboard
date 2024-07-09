@@ -8,7 +8,7 @@
   height: 100%;
   overflow-y: scroll;
   :global(.ant-card) {
-    background-color: rgba(245, 245, 245, 0.485);
+    background-color: white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03),
       0 1px 6px -1px rgba(0, 0, 0, 0.129), 0 2px 4px 0 rgba(149, 145, 145, 0.38);
 
@@ -21,11 +21,6 @@
     font-weight: 600;
   }
   .staticContainer {
-    height: 70vh;
-    overflow: hidden;
-
-    @include tablet {
-      height: 100%;
-    }
+    background-color: white;
   }
 }
