@@ -160,3 +160,13 @@ export interface transitionsResponseT extends ResponseT {
     totalCount: number;
   };
 }
+
+export interface orderGraphResponseT extends ResponseT {
+  data: [
+    {
+      date: string;
+      totalOrders: number;
+      totalAmount: number;
+    }
+  ];
+}
