@@ -1,5 +1,15 @@
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { Card, Col, Row, Space, Switch, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Divider,
+  Row,
+  Space,
+  Switch,
+  Typography,
+} from "antd";
+import { FaExternalLinkAlt } from "react-icons/fa";
 import { useState } from "react";
 import { updateShopAvailability } from "../../apis/user/updateShopAvailability";
 import { setUserDetailsAction } from "../../store/slices/vendorSlice";
@@ -10,6 +20,7 @@ import { PiBowlFoodFill } from "react-icons/pi";
 import { StatisticCard } from "./StatisticCard";
 import StatisticsGraph from "./StatisticsGraph";
 import Style from "../../styles/_Dashboard.module.scss";
+import { letsScanWebsitePath } from "../../global";
 
 const { Text, Title } = Typography;
 
@@ -43,19 +54,34 @@ export default function Dashboard() {
     <div className={Style.dashboard}>
       <Row justify={"space-between"} align={"middle"}>
         <Col>
-          {vendor && <Title level={4}>Welcome, {vendor?.username} </Title>}
+          <Title level={4}>Welcome to Let's Scan </Title>
         </Col>
         <Col>
-          <Space direction="vertical" align="center">
-            <Text>{shopIsOpen ? "CLOSE SHOP" : "OPEN SHOP"}</Text>
-            <Switch
-              value={shopIsOpen}
-              onChange={handleShopAvailability}
-              loading={loading}
-            />
-          </Space>
+          <Row gutter={[20, 20]}>
+            <Col>
+              <Button
+                type="primary"
+                icon={<FaExternalLinkAlt />}
+                href={`${letsScanWebsitePath}/menu/${vendor?._id}`}
+                target="_blank"
+              >
+                View menu
+              </Button>
+            </Col>
+            <Col>
+              <Space direction="vertical" align="center">
+                <Text>{shopIsOpen ? "CLOSE SHOP" : "OPEN SHOP"}</Text>
+                <Switch
+                  value={shopIsOpen}
+                  onChange={handleShopAvailability}
+                  loading={loading}
+                />
+              </Space>
+            </Col>
+          </Row>
         </Col>
       </Row>
+      <Divider />
 
       <Row justify={"start"} align={"middle"} gutter={[16, 20]}>
         <Col span={24}>
@@ -65,7 +91,7 @@ export default function Dashboard() {
                 title={"TOTAL ORDERS"}
                 value={vendor?.totalOrders ? vendor?.totalOrders : 0}
                 precision={0}
-                color="#49274a"
+                color="#94618e"
                 icon={<FaCartArrowDown />}
               />
             </Col>
@@ -74,7 +100,7 @@ export default function Dashboard() {
                 title={"TOTAL REVENUE"}
                 value={vendor?.totalRevenue ? vendor?.totalRevenue : 0}
                 precision={0}
-                color="#49274a"
+                color="#94618e"
                 icon={<HiMiniArrowTrendingUp />}
               />
             </Col>
@@ -83,7 +109,7 @@ export default function Dashboard() {
                 title={"UNIQUE CUSTOMER"}
                 value={vendor?.totalCustomers ? vendor?.totalCustomers : 0}
                 precision={0}
-                color="#49274a"
+                color="#94618e"
                 icon={<HiUsers />}
               />
             </Col>
@@ -96,7 +122,7 @@ export default function Dashboard() {
                     : "no best sell item"
                 }
                 precision={0}
-                color="#49274a"
+                color="#94618e"
                 icon={<PiBowlFoodFill />}
               />
             </Col>
@@ -105,14 +131,7 @@ export default function Dashboard() {
 
         <Col span={24}>
           <Card title="STATUS" className={Style.staticContainer}>
-            <Row gutter={[16, 30]}>
-              <Col span={24} md={12}>
-                <StatisticsGraph />
-              </Col>
-              <Col span={24} md={12}>
-                <StatisticsGraph />
-              </Col>
-            </Row>
+            <StatisticsGraph />
           </Card>
         </Col>
       </Row>
