@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Column } from "@ant-design/plots";
 import { Axios } from "../../global";
 import { orderGraphResponseT } from "../../types/index";
-import { Col, message, Row, Typography } from "antd";
+import { Col, message, Row } from "antd";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +10,6 @@ import {
   Title,
   Tooltip,
   Legend,
-  scales,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
@@ -25,14 +23,27 @@ ChartJS.register(
 );
 
 type OrderData = {
-  date: string;
+  month: number;
   totalOrders: number;
   totalAmount: number;
 };
 
 const StatisticsGraph: React.FC = () => {
   const [data, setData] = useState<OrderData[]>([]);
-
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   useEffect(() => {
     fetchData();
   }, []);
@@ -98,12 +109,20 @@ const StatisticsGraph: React.FC = () => {
     },
   };
 
-  const labels = data.map((d) => d.date);
-  const totalOrders = data.map((d) => d.totalOrders);
-  const noOrdersOnDate = totalOrders.every((value) => value === 0);
+  const labels = months.map((d) => d);
+  const totalOrders = labels.map(
+    (label) =>
+      data.find(({ month }) => month - 1 === months.indexOf(label))
+        ?.totalOrders || 0
+  );
+  const noOrdersOnMonth = totalOrders.every((value) => value === 0);
 
-  const totalAmount = data.map((d) => d.totalAmount);
-  const noRevenueOnDate = totalOrders.every((value) => value === 0);
+  const totalAmount = labels.map(
+    (label) =>
+      data.find(({ month }) => month - 1 === months.indexOf(label))
+        ?.totalAmount || 0
+  );
+  const noRevenueOnMonth = totalAmount.every((value) => value === 0);
 
   const barOrderData = {
     labels,
@@ -132,7 +151,7 @@ const StatisticsGraph: React.FC = () => {
   return (
     <Row gutter={[16, 16]}>
       <Col span={24} md={12}>
-        {noOrdersOnDate && (
+        {noOrdersOnMonth && (
           <div
             style={{
               textAlign: "center",
@@ -142,14 +161,14 @@ const StatisticsGraph: React.FC = () => {
               fontWeight: "600",
             }}
           >
-            "NO ORDERS IN RELEVANT DATES"
+            "NO ORDERS IN RELEVANT MONTHS"
           </div>
         )}
         <Bar options={ordersOptions} data={barOrderData} />
       </Col>
 
       <Col span={24} md={12}>
-        {noRevenueOnDate && (
+        {noRevenueOnMonth && (
           <div
             style={{
               textAlign: "center",
@@ -159,7 +178,7 @@ const StatisticsGraph: React.FC = () => {
               fontWeight: "600",
             }}
           >
-            "NO REVENUE IN RELEVANT DATES"
+            "NO REVENUE IN RELEVANT MONTHS"
           </div>
         )}
         <Bar options={revenueOptions} data={barRevenueData} />

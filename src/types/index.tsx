@@ -164,7 +164,7 @@ export interface transitionsResponseT extends ResponseT {
 export interface orderGraphResponseT extends ResponseT {
   data: [
     {
-      date: string;
+      month: number;
       totalOrders: number;
       totalAmount: number;
     }
