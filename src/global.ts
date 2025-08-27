@@ -3,7 +3,8 @@ import axios from "axios";
 // AXIOS BASE URL
 export const Axios = axios.create({
   // baseURL: process.env.REACT_APP_BASE_URL,
-  baseURL:"https://lets-scan-server.vercel.app/"
+  // baseURL:"https://lets-scan-server.vercel.app/"
+  baseUrl/:"https://lets-scan-server.vercel.app/"
 });
 
 // AXIOS INTERCEPTOR INCLUDE ACCESS & REFRESH TOKEN
